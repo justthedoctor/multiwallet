@@ -197,9 +197,9 @@
 												</div>
 											</div>
 											<br>
-											<div style="text-align:center; width:350px;">
+											<div style="text-align:center; width:500px;">
 												<ul class="nav nav-pills" role="tablist">
-													<li role="presentation" class="active"><a href="javascript:;" id="walletBalance">0.00 BTC</a></li>
+													<li role="presentation" class="active"><a href="javascript:;" id="walletBalance">0</a></li>
 													<li role="presentation"><a href="javascript:;" id="walletShowSpend">Spend</a></li>
 													<li role="presentation"><a id="walletHistory" href="javascript:;" target="_blank">History</a></li>
 													<li role="presentation"><a href="https://localbitcoins.com/?ch=173j" target="_blank">Buy</a></li>
@@ -1363,15 +1363,13 @@
 								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
 								<select class="form-control" id="coinjs_coin">
 									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
-									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;false;false">Bitcoin (testnet)</option>
 									<option value="carboncoin_mainnet" rel="0x2f;0xaf;0x05;0x488b21e;0x488ade4;cryptoid.info_carboncoin;cryptoid.info_carboncoin">Carboncoin (mainnet)</option>
 									<option value="cypherfunk_mainnet" rel="0x1c;0x9c;0x3f;0x488b21e;0x488ade4;cypherfunk_mainnet;cypherfunk_mainnet">Cypherfunk (mainnet)</option>
 									<option value="deviantcoin_mainnet" rel="0x5a;0x89;0xa;0x488b21e;0x488ade4;deviantcoin_mainnet;deviantcoin_mainnet">DeviantCoin (mainnet)</option>
-									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;blockcypher_dogecoin;blockcypher_dogecoin">Dogecoin (mainnet)</option>
-									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;blockcypher_litecoin;blockcypher_litecoin">Litecoin (mainnet)</option>
+									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;chain.so_dogecoin;chain.so_dogecoin">Dogecoin (mainnet)</option>
+									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;chain.so_litecoin;chain.so_litecoin">Litecoin (mainnet)</option>
 									<!-- <option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
 									<option value="pandacoin_mainnet" rel="0x37;0xb7;0x16;0x488b21e;0x488ade4;pandacoin_mainnet;pandacoin_mainnet">Pandacoin (mainnet)</option>
-									<option value="shadowcash_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;false;false">ShadowCash (mainnet)</option>
 									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
 								</select>
 							</div>
@@ -1426,13 +1424,6 @@
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
 									<option value="cypherfunk_mainnet">Cypherfunk</option>
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
-									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
-									<option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>
-									<option value="blockcypher_dogecoin"> Blockcypher.com (Dogecoin)</option>
-									<option value="blockchair_bitcoinmainnet"> Blockchair.com (Bitcoin mainnet)</option>
-									<option value="blockchair_litecoin"> Blockchair.com (Litecoin)</option>
-									<option value="blockchair_dogecoin"> Blockchair.com (Dogecoin)</option>
-									<option value="chain.so_bitcoinmainnet"> Chain.so (Bitcoin mainnet)</option>
 									<option value="chain.so_litecoin"> Chain.so (Litecoin)</option>
 									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>
 									<option value="cryptoid.info_carboncoin"> Cryptoid.info (Carboncoin)</option>
@@ -1454,10 +1445,8 @@
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
 									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
 									<option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>
-									<option value="blockcypher_dogecoin"> Blockcypher.com (Dogecoin)</option>
 									<option value="blockchair_bitcoinmainnet"> Blockchair.com (Bitcoin mainnet)</option>
 									<option value="blockchair_litecoin"> Blockchair.com (Litecoin)</option>
-									<option value="blockchair_dogecoin"> Blockchair.com (Dogecoin)</option>
 									<option value="chain.so_bitcoinmainnet"> Chain.so (Bitcoin mainnet)</option>
 									<option value="chain.so_litecoin"> Chain.so (Litecoin)</option>
 									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>

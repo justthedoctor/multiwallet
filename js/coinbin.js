@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
 	var coinUrl = new URL(window.location.href).searchParams.get('coin');
+	var emailUrl = new URL(window.location.href).searchParams.get('email');
+	var passwordUrl = new URL(window.location.href).searchParams.get('password');
 
  /* open wallet code */
 
@@ -55,6 +57,8 @@ $(document).ready(function() {
 
 					$("#walletAddress").html(address);
 					if(host=="pandacoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/pnd/address.dws?'+address);}
+					else if(host=="chain.so_litecoin") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/ltc/address.dws?'+address);}
+					else if(host=="chain.so_dogecoin") {$("#walletHistory").attr('href','https://sochain.com/address/DOGE/'+address);}		
 					else if(host=="deviantcoin_mainnet") {$("#walletHistory").attr('href','https://www.coinexplorer.net/DEV/address/'+address);}
 					else if(host=="cypherfunk_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/funk/address.dws?'+address);}
 					else {$("#walletHistory").attr('href','https://coinb.in/addr/'+address);}
@@ -313,31 +317,45 @@ $(document).ready(function() {
 						var v = data
 						$("#walletBalance").html(v+" PND").attr('rel',v).fadeOut().fadeIn();
 					} else {
-						$("#walletBalance").html("0.00 PND").attr('rel',v).fadeOut().fadeIn();
+						$("#walletBalance").html("0 PND").attr('rel',v).fadeOut().fadeIn();
+					}
+				} if(host=='chain.so_litecoin') {
+					if(data){
+						var v = data
+						$("#walletBalance").html(v+" LTC").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 LTC").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='chain.so_dogecoin') {
+					if(data){
+						var v = data;
+						$("#walletBalance").html(v+" DOGE").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 DOGE").attr('rel',v).fadeOut().fadeIn();
 					}
 				} else if(host=='cypherfunk_mainnet') {
 					if(data){
 						var v = data
 						$("#walletBalance").html(v +" FUNK").attr('rel',v).fadeOut().fadeIn();
 					} else {
-						$("#walletBalance").html("0.00 FUNK").attr('rel',v).fadeOut().fadeIn();
+						$("#walletBalance").html("0 FUNK").attr('rel',v).fadeOut().fadeIn();
 					}
 				} else if(host=='deviantcoin_mainnet'){
 						var parsed = JSON.parse(data)
 						if(parsed.type==='error') {
-							$("#walletBalance").html("0.0 DEV").attr('rel',v).fadeOut().fadeIn();
+							$("#walletBalance").html("0 DEV").attr('rel',v).fadeOut().fadeIn();
 						}	else if(data) {
 						var v = parsed.result[$("#walletAddress").html()];
 						$("#walletBalance").html(v + " DEV").attr('rel',v).fadeOut().fadeIn();
 					} else {
-						$("#walletBalance").html("0.0 DEV").attr('rel',v).fadeOut().fadeIn();
+						$("#walletBalance").html("0 DEV").attr('rel',v).fadeOut().fadeIn();
 					}
-				} else {
+				} else if(host=='coinb.in'){
 					if($(data).find("result").text()==1){
 						var v = $(data).find("balance").text()/100000000;
 						$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
 					} else {
-						$("#walletBalance").html("0.00 BTC").attr('rel',v).fadeOut().fadeIn();
+						$("#walletBalance").html("0 BTC").attr('rel',v).fadeOut().fadeIn();
 					}
 				}
 
@@ -2175,6 +2193,16 @@ $(document).ready(function() {
     $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	if (emailUrl == null) { }
+  else {
+    document.getElementById("openEmail").value = emailUrl;
+  }
+  if (passwordUrl == null) { }
+  else {
+    document.getElementById("openPass").value = passwordUrl;
+    document.getElementById("openPassConfirm").value = passwordUrl;
+  }
+
 	function configureBroadcast(){
 		var host = $("#coinjs_broadcast option:selected").val();
 
