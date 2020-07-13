@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	var coinUrl = new URL(window.location.href).searchParams.get('coin');
+
  /* open wallet code */
 
 	var explorer_tx = "https://coinb.in/tx/"
@@ -9,6 +11,7 @@ $(document).ready(function() {
 	var wallet_timer = false;
 
 	$("#openBtn").click(function(){
+		var host = $("#coinjs_utxo option:selected").val();
 		var email = $("#openEmail").val().toLowerCase();
 		if(email.match(/[\s\w\d]+@[\s\w\d]+/g)){
 			if($("#openPass").val().length>=10){
@@ -51,7 +54,10 @@ $(document).ready(function() {
 					}
 
 					$("#walletAddress").html(address);
-					$("#walletHistory").attr('href',explorer_addr+address);
+					if(host=="pandacoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/pnd/address.dws?'+address);}
+					else if(host=="deviantcoin_mainnet") {$("#walletHistory").attr('href','https://www.coinexplorer.net/DEV/address/'+address);}
+					else if(host=="cypherfunk_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/funk/address.dws?'+address);}
+					else {$("#walletHistory").attr('href','https://coinb.in/addr/'+address);}
 
 					$("#walletQrCode").html("");
 					var qrcode = new QRCode("walletQrCode");
@@ -311,7 +317,6 @@ $(document).ready(function() {
 					}
 				} else if(host=='cypherfunk_mainnet') {
 					if(data){
-						console.log(v);
 						var v = data
 						$("#walletBalance").html(v +" FUNK").attr('rel',v).fadeOut().fadeIn();
 					} else {
@@ -2149,6 +2154,27 @@ $(document).ready(function() {
 		}
 	});
 
+	if(coinUrl == null) {
+
+	}
+	else if(coinUrl == 'dev') {
+    $("#coinjs_coin").val("deviantcoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("deviantcoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("deviantcoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'funk') {
+    $("#coinjs_coin").val("cypherfunk_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("cypherfunk_mainnet").trigger("change");
+    $("#coinjs_utxo").val("cypherfunk_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'pnd') {
+    $("#coinjs_coin").val("pandacoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("pandacoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
 	function configureBroadcast(){
 		var host = $("#coinjs_broadcast option:selected").val();
 
