@@ -127,6 +127,7 @@ $(document).ready(function() {
 		$("#openBtn").click();
 	});
 
+
 	$("#walletShowKeys").click(function(){
 		$("#walletKeys").removeClass("hidden");
 		$("#walletSpend").removeClass("hidden").addClass("hidden");
@@ -294,17 +295,45 @@ $(document).ready(function() {
 			$(this).parent().fadeOut().remove();
 		});
 	});
-
 	function walletBalance(){
+		var host = $("#coinjs_utxo option:selected").val();
 		if($("#walletLoader").hasClass("hidden")){
 			var tx = coinjs.transaction();
 			$("#walletLoader").removeClass("hidden");
-			coinjs.addressBalance($("#walletAddress").html(),function(data){
-				if($(data).find("result").text()==1){
-					var v = $(data).find("balance").text()/100000000;
-					$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
+
+			coinjs.addressBalance(host, $("#walletAddress").html(),function(data){
+				if(host=='pandacoin_mainnet') {
+					if(data){
+						var v = data
+						$("#walletBalance").html(v+" PND").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0.00 PND").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='cypherfunk_mainnet') {
+					if(data){
+						console.log(v);
+						var v = data
+						$("#walletBalance").html(v +" FUNK").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0.00 FUNK").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='deviantcoin_mainnet'){
+						var parsed = JSON.parse(data)
+						if(parsed.type==='error') {
+							$("#walletBalance").html("0.0 DEV").attr('rel',v).fadeOut().fadeIn();
+						}	else if(data) {
+						var v = parsed.result[$("#walletAddress").html()];
+						$("#walletBalance").html(v + " DEV").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0.0 DEV").attr('rel',v).fadeOut().fadeIn();
+					}
 				} else {
-				$("#walletBalance").html("0.00 BTC").attr('rel',v).fadeOut().fadeIn();
+					if($(data).find("result").text()==1){
+						var v = $(data).find("balance").text()/100000000;
+						$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0.00 BTC").attr('rel',v).fadeOut().fadeIn();
+					}
 				}
 
 				$("#walletLoader").addClass("hidden");
@@ -929,9 +958,11 @@ $(document).ready(function() {
 		} else if(host=='deviantcoin_mainnet'){
 			listUnspentDeviantCoin(redeem);
 		} else if(host=='pandacoin_mainnet'){
-			explorer_balance = 'https://api.cryptodepot.org:8083/chainz/balance/';
 			listUnspentPandacoin(redeem);
+		} else if(host=='cypherfunk_mainnet'){
+			listUnspentcypherfunk(redeem);
 		} else if (host='infinitericks_mainnet'){
+
 		} else {
 			listUnspentDefault(redeem);
 		}
@@ -1108,10 +1139,43 @@ $(document).ready(function() {
 	}
 	/* retrieve unspent data from cryptoid for pandacoin */
 	function listUnspentPandacoin(redeem) {
-		console.log(explorer_balance);
 		$.ajax ({
 			type: "GET",
 			url: "https://api.cryptodepot.org:8083/chainz/listunspent/pnd/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+				//if($(data).find("unspent_outputs").text()==1){
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="'+explorer_addr+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										//var value = ((item.value.text()*1)/100000000).toFixed(8);
+										var confirms = item.confirmations;
+										console.log(confirms)
+										var script = item.script;
+										var addr = item.addr;
+										console.log(addr)
+										console.log(tx_hash, tx_ouput_n, script, value)
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
+	}
+
+	/* retrieve unspent data from cryptoid for pandacoin */
+	function listUnspentcypherfunk(redeem) {
+		$.ajax ({
+			type: "GET",
+			url: "https://api.cryptodepot.org:8083/chainz/listunspent/funk/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1372,6 +1436,38 @@ $(document).ready(function() {
 			}
 		});
 	}
+
+	// broadcast transaction via coinbin (default)
+	function rawSubmitCypherFunk(thisbtn){
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		$.ajax ({
+			type: "POST",
+			url: "https://chainz.cryptoid.info/funk/api.dws?q=pushtx",
+			data: $("#rawTransaction").val(),
+			//dataType : "json",
+			//contentType: "application/json",
+			error: function(obj) {
+				console.log(obj);
+				var obj1 = obj.responseText;
+				var r = ' ';
+				r += (obj1) ? ' '+obj1 : '';
+				r = (r!='') ? r : ' Failed to broadcast'; // build response
+				$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+			},
+			success: function(obj) {
+				console.log(obj);
+				if(obj){
+					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: ' + obj);
+				} else {
+					$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+				}
+			},
+			complete: function(obj, status) {
+				$("#rawTransactionStatus").fadeOut().fadeIn();
+				$(thisbtn).val('Submit').attr('disabled',false);
+			}
+		});
+		}
 
 	// broadcast transaction via cryptoid
 	function rawSubmitcryptoid_Carboncoin(thisbtn) {
@@ -2109,6 +2205,10 @@ $(document).ready(function() {
 		} else if(host=="pandacoin_mainnet"){
 			$("#rawSubmitBtn").click(function(){
 				rawSubmitpandacoin(this);
+			});
+		} else if(host=="cypherfunk_mainnet"){
+			$("#rawSubmitBtn").click(function(){
+				rawSubmitCypherFunk(this);
 			});
 		} else {
 			$("#rawSubmitBtn").click(function(){

@@ -188,7 +188,7 @@
 												<span id="walletAddress"></span>
 
 												<div class="btn-group">
-													<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" id="walletToBtn">SegWit <span class="caret"></span></button>
+													<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" id="walletToBtn">Segwit <span class="caret"></span></button>
 													<ul class="dropdown-menu">
 														<li><a href="javascript:;" id="walletToLegacy">Legacy</a></li>
 														<li><a href="javascript:;" id="walletToSegWit">SegWit</a></li>
@@ -1315,7 +1315,7 @@
 					</div>
 
 					<div class="tab-pane tab-content" id="broadcast">
-						<h2>Broadcast Transaction <small>into the bitcoin network</small></h2>
+						<h2>Broadcast Transaction <small>into the network</small></h2>
 						<a href="#settings" style="float:right;"><span class="glyphicon glyphicon-cog"></span></a>
 						<p>Enter your hex encoded bitcoin transaction</p>
 						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
@@ -1365,10 +1365,11 @@
 									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
 									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;false;false">Bitcoin (testnet)</option>
 									<option value="carboncoin_mainnet" rel="0x2f;0xaf;0x05;0x488b21e;0x488ade4;cryptoid.info_carboncoin;cryptoid.info_carboncoin">Carboncoin (mainnet)</option>
+									<option value="cypherfunk_mainnet" rel="0x1c;0x9c;0x3f;0x488b21e;0x488ade4;cypherfunk_mainnet;cypherfunk_mainnet">Cypherfunk (mainnet)</option>
 									<option value="deviantcoin_mainnet" rel="0x5a;0x89;0xa;0x488b21e;0x488ade4;deviantcoin_mainnet;deviantcoin_mainnet">DeviantCoin (mainnet)</option>
 									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;blockcypher_dogecoin;blockcypher_dogecoin">Dogecoin (mainnet)</option>
 									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;blockcypher_litecoin;blockcypher_litecoin">Litecoin (mainnet)</option>
-									<option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option>
+									<!-- <option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
 									<option value="pandacoin_mainnet" rel="0x37;0xb7;0x16;0x488b21e;0x488ade4;pandacoin_mainnet;pandacoin_mainnet">Pandacoin (mainnet)</option>
 									<option value="shadowcash_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;false;false">ShadowCash (mainnet)</option>
 									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
@@ -1423,6 +1424,7 @@
 								<p class="text-muted">Select the network you wish to broadcast the transaction via</p>
 								<select class="form-control" id="coinjs_broadcast">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="cypherfunk_mainnet">Cypherfunk</option>
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
 									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
 									<option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>
@@ -1448,6 +1450,7 @@
 								<p class="text-muted">Select the network you wish to retreive your unspent inputs from</p>
 								<select class="form-control" id="coinjs_utxo">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="cypherfunk_mainnet">Cypherfunk</option>
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
 									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
 									<option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>

@@ -320,9 +320,16 @@
 	}
 
 	/* retreive the balance from a given address */
-	coinjs.addressBalance = function(explorer_balance, address, callback){
-		console.log(explorer_balance);
-		coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=bal&address='+address+'&r='+Math.random(), callback, "GET");
+	coinjs.addressBalance = function(host, address, callback){
+				if(host=='pandacoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
+				} else if(host=='cypherfunk_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/funk/'+ address +'', callback, "GET");
+				} else if(host=='deviantcoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/dev/'+ address, callback, "GET");
+				} else {
+					coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=bal&address='+address+'&r='+Math.random(), callback, "GET");
+				}
 	}
 
 	/* decompress an compressed public key */
