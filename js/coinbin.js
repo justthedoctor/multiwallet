@@ -56,7 +56,11 @@ $(document).ready(function() {
 					}
 
 					$("#walletAddress").html(address);
+					// History Area
 					if(host=="pandacoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/pnd/address.dws?'+address);}
+					else if(host=='infinitericks_mainnet'){$("#walletHistory").attr('href','http://infiniteblocks.space/address/'+address);}
+					else if(host=='mousecoin_mainnet'){$("#walletHistory").attr('href','http://explorer.mousemn.com/address/'+address);}
+					else if(host=="qtum_mainnet") {$("#walletHistory").attr('href','https://explorer.qtum.org/address/'+address);}
 					else if(host=="blocknet_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/block/address.dws?'+address);}
 					else if(host=="dash_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/dash/address.dws?'+address);}
 					else if(host=="lynx_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/lynx/address.dws?'+address);}
@@ -318,6 +322,7 @@ $(document).ready(function() {
 			$("#walletLoader").removeClass("hidden");
 
 			coinjs.addressBalance(host, $("#walletAddress").html(),function(data){
+				// Balance Area
 				if(host=='pandacoin_mainnet') {
 					if(data){
 						var v = data
@@ -325,7 +330,29 @@ $(document).ready(function() {
 					} else {
 						$("#walletBalance").html("0 PND").attr('rel',v).fadeOut().fadeIn();
 					}
-				} else if(host=='lynx_mainnet') {
+				} else if(host=='infinitericks_mainnet'){
+					if(data){
+						var v = data
+						$("#walletBalance").html(v+" RICK").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 RICK").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='mousecoin_mainnet'){
+					if(data){
+						var v = data
+						$("#walletBalance").html(v+" MOUSE").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 MOUSE").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='qtum_mainnet'){
+                var parsed = JSON.parse(data)
+                if(parsed.type==='error') {
+                  $("#walletBalance").html("0 QTUM").attr('rel',v).fadeOut().fadeIn();
+                }
+                else {
+                $("#walletBalance").html((parsed/100000000).toFixed(8) + " QTUM").attr('rel',v).fadeOut().fadeIn();
+              }
+        } else if(host=='lynx_mainnet') {
 					if(data){
 						var v = data
 						$("#walletBalance").html(v+" LYNX").attr('rel',v).fadeOut().fadeIn();
@@ -996,6 +1023,7 @@ $(document).ready(function() {
         // network name     "ltc"           "litecoin"      "LTC"
         // network name     "doge"          "dogecoin"      "DOGE"
 
+					// List Unspent Area
 		if(host=='chain.so_bitcoinmainnet'){
 			listUnspentChainso(redeem, "BTC");
     } else if(host=='chain.so_litecoin'){
@@ -1006,6 +1034,8 @@ $(document).ready(function() {
 			listUnspentDeviantCoin(redeem);
 		} else if(host=='pandacoin_mainnet'){
 			listUnspentPandacoin(redeem);
+		} else if(host=='qtum_mainnet'){
+			listUnspentqtum(redeem);
 		} else if(host=='dash_mainnet'){
 			listUnspentDash(redeem);
 		} else if(host=='lynx_mainnet'){
@@ -1018,9 +1048,11 @@ $(document).ready(function() {
 			listUnspentcypherfunk(redeem);
 		} else if(host=='viacoin_mainnet'){
 			listUnspentviacoin(redeem);
-    } /* else if (host='infinitericks_mainnet'){
-
-		} */else {
+    } else if (host='infinitericks_mainnet'){
+			listUnspentInfiniteRicks(redeem);
+		} else if(host=='mousecoin_mainnet'){
+			listUnspentMouseMN(redeem);
+		} else {
 			listUnspentDefault(redeem);
 		}
 
@@ -1190,6 +1222,40 @@ $(document).ready(function() {
 			}
 		});
 	}
+	/* retrieve unspent data from InfiniteRicks block explorer */
+	function listUnspentInfiniteRicks(redeem) {
+
+	}
+	function listUnspentMouseMN(redeem) {
+
+	}
+  /* retrieve unspent data from qtum block explorer */
+	function listUnspentqtum(redeem){
+    $.ajax ({
+      type: "GET",
+      url: "https://api.cryptodepot.org:8083/qtum/listunspent/"+redeem.addr+"",
+      dataType: "json",
+      error: function(data) {
+        $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
+      },
+      success: function(data) {
+        if(data && data.length){
+          $("#redeemFromAddress").removeClass('hidden').html(
+            '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://explorer.qtum.org/address/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+            data.slice(0, 100).forEach(function (o) {
+              var script = redeem.isMultisig ? $("#redeemFrom").val() : o.scriptPubKey;
+              addOutput(o.txid, o.vout, script, o.amount);
+            })
+        } else {
+          $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+        }
+      },
+      complete: function(data, status) {
+        $("#redeemFromBtn").html("Load").attr('disabled',false);
+        totalInputAmount();
+      }
+    });
+  }
 
 	/* retrieve unspent data from cryptoid for dash */
 	function listUnspentDash(redeem) {
@@ -1333,14 +1399,6 @@ $(document).ready(function() {
               var script = redeem.isMultisig ? $("#redeemFrom").val() : o.scriptPubKey;
               addOutput(o.txid, o.vout, script, o.amount);
             })
-          //  for(var i in data){
-          //    var o = data[i];
-          //    var tx = o.txid;
-          //    var n = o.vout;
-          //    var script = (redeem.isMultisig==true) ? $("#redeemFrom").val() : o.scriptPubKey;
-          //    var amount = o.amount;
-          //    addOutput(tx, n, script, amount);
-          //  }
         } else {
           $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
         }
@@ -1361,14 +1419,12 @@ $(document).ready(function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
 			},
 			success: function(data) {
-				//if($(data).find("unspent_outputs").text()==1){
 									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/funk/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
 								data.unspent_outputs.forEach(function(item, i) {
 									if (i > 100) return;
 										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
 										var tx_ouput_n = item.tx_ouput_n;
 										var value = item.value /100000000;
-										//var value = ((item.value.text()*1)/100000000).toFixed(8);
 										var confirms = item.confirmations;
 										var script = item.script;
 										var addr = item.addr;
@@ -1551,8 +1607,6 @@ $(document).ready(function() {
 			type: "POST",
 			url: "https://chainz.cryptoid.info/funk/api.dws?q=pushtx",
 			data: $("#rawTransaction").val(),
-			//dataType : "json",
-			//contentType: "application/json",
 			error: function(obj) {
 				var obj1 = obj.responseText;
 				var r = ' ';
@@ -1661,6 +1715,43 @@ $(document).ready(function() {
 						}
 				});
 	}
+	//broadcast transaction via infinitericks Blockchain
+	function rawSubmitinfinitericks(thisbtn) {
+
+	}
+	function rawSubmitMouseMN(thisbtn) {
+
+	}
+	//broadcast transaction via qtum Blockchain
+	function rawSubmitqtum(thisbtn){
+        $(thisbtn).val('Please wait, loading...').attr('disabled',true);
+        txhex = $("#rawTransaction").val().trim();
+        console.log(txhex);
+            $.ajax({
+                type: "GET",
+                url: `https://api.cryptodepot.org:8083/qtum/broadcast/${txhex}`,
+                error: function(data) {
+                    errcode = data.responseText;
+                    var r = ' Failed to Broadcast.'; // this wants a preceding space
+                    $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+                },
+                success: function(data) {
+                  console.log(data.txid);
+                    if(data){
+                        var txid = data.txid;  // is this right?
+                        $("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: <a href="https://explorer.qtum.org/tx/${txid}"> ${txid} </a>`);
+                    } else {
+                        $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+                    }
+                },
+                complete: function (data, status) {
+                                     console.log(data);
+
+                    $("#rawTransactionStatus").fadeOut().fadeIn();
+                    $(thisbtn).val('Submit').attr('disabled',false);
+                }
+            });
+}
 
 	// broadcast transaction via Lynx blockchain
 	function rawSubmitlynx(thisbtn){
@@ -1740,7 +1831,6 @@ function rawSubmitdash(thisbtn){
             $.ajax({
                 type: "GET",
                 url: `https://api.cryptodepot.org:8083/syscoin/broadcast/${txhex}`,
-                //data: $("#rawTransaction").val(),
                 error: function(data) {
                     errcode = data.responseText;
                     var r = ' Failed to Broadcast.'; // this wants a preceding space
@@ -1773,7 +1863,6 @@ function rawSubmitdash(thisbtn){
 	            $.ajax({
 	                type: "GET",
 	                url: `https://api.cryptodepot.org:8083/viacoin/broadcast/${txhex}`,
-	                //data: $("#rawTransaction").val(),
 	                error: function(data) {
 	                    errcode = data.responseText;
 	                    var r = ' Failed to Broadcast.'; // this wants a preceding space
@@ -2257,73 +2346,133 @@ function rawSubmitdash(thisbtn){
 
 	$("#settingsBtn").click(function(){
 		var host = $("#coinjs_broadcast option:selected").val();
-			console.log(host);
+			// Visual Change's
 		if(host=='pandacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/pnd.png";
 			document.getElementById("broadCastTitle").textContent = "Pandacoin";
 			document.getElementById("walletTitle").textContent = "Pandacoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="pandacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/pandacoin" target="_BLANK">Pandacoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='deviantcoin_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/dev.png";
 			document.getElementById("broadCastTitle").textContent = "DeviantCoin";
 			document.getElementById("walletTitle").textContent = "DeviantCoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="deviantcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/deviantcoin" target="_BLANK">Deviantcoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
+		} else if(host=='mousecoin_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/mouse.png";
+			document.getElementById("broadCastTitle").textContent = "MouseMN";
+			document.getElementById("walletTitle").textContent = "MouseMN";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="mouse" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/mouse" target="_BLANK">MouseMN CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+		} else if(host=='infinitericks_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/rick.png";
+			document.getElementById("broadCastTitle").textContent = "Infinite Ricks";
+			document.getElementById("walletTitle").textContent = "Infinite Ricks";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="infinite-ricks" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/infinite-ricks" target="_BLANK">Infinite Ricks CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+		} else if(host=='qtum_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/qtum.png";
+			document.getElementById("broadCastTitle").textContent = "Qtum";
+			document.getElementById("walletTitle").textContent = "Qtum";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="qtum" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/qtum" target="_BLANK">Qtum CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='syscoin_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/sys.png";
 			document.getElementById("broadCastTitle").textContent = "Syscoin";
 			document.getElementById("walletTitle").textContent = "Syscoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="syscoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/syscoin" target="_BLANK">Syscoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='chain.so_dogecoin'){
 			document.getElementById("coinLogo").src = "images/logos/dogecoin.png";
 			document.getElementById("broadCastTitle").textContent = "Dogecoin";
 			document.getElementById("walletTitle").textContent = "Dogecoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="dogecoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/dogecoin" target="_BLANK">Dogecoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='dash_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/dash.png";
 			document.getElementById("broadCastTitle").textContent = "Dash";
 			document.getElementById("walletTitle").textContent = "Dash";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="dash" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/dash" target="_BLANK">Dash CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='blocknet_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/block.png";
 			document.getElementById("broadCastTitle").textContent = "Blocknet";
 			document.getElementById("walletTitle").textContent = "Blocknet";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="blocknet" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/blocknet" target="_BLANK">Blocknet CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='lynx_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/lynx.png";
 			document.getElementById("broadCastTitle").textContent = "Lynx";
 			document.getElementById("walletTitle").textContent = "Lynx";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="lynx" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/lynx" target="_BLANK">Lynx CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='viacoin_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/via.png";
 			document.getElementById("broadCastTitle").textContent = "Viacoin";
 			document.getElementById("walletTitle").textContent = "Viacoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="viacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/viacoin"  target="_BLANK">Viacoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='cypherfunk_mainnet'){
 			document.getElementById("coinLogo").src = "images/logos/funk.png";
 			document.getElementById("broadCastTitle").textContent = "The-Cypherfunks";
 			document.getElementById("walletTitle").textContent = "The-Cypherfunks";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="the-cypherfunks" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/the-cypherfunks"  target="_BLANK">The-Cypherfunks CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else if(host=='chain.so_litecoin'){
 			document.getElementById("coinLogo").src = "images/logos/litecoin.png";
 			document.getElementById("broadCastTitle").textContent = "Litecoin";
 			document.getElementById("walletTitle").textContent = "Litecoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="litecoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/litecoin"  target="_BLANK">Litecoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		} else {
 			document.getElementById("coinLogo").src = "images/logos/btc.png";
 			document.getElementById("broadCastTitle").textContent = "Bitcoin";
 			document.getElementById("walletTitle").textContent = "Bitcoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="bitcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/bitcoin"  target="_BLANK">Bitcoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
 		}
 
 		// log out of openwallet
@@ -2400,7 +2549,7 @@ function rawSubmitdash(thisbtn){
 			$("#settingsCustom").addClass("hidden");
 		}
 	});
-
+		// All Coins Area
 	$("#favoritesSubmitButtonIDHere").click(function() { $("#coinjs_coin").val($("#favoritesFormIDHere input[type='radio']:checked").val()).trigger("change"); $("#settingsBtn").trigger("click"); return false;});
   $("#allcoinsSubmitButtonIDHere").click(function() {
 		if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "dev")) {
@@ -2450,6 +2599,16 @@ function rawSubmitdash(thisbtn){
       $("#coinjs_broadcast").val("pandacoin_mainnet").trigger("change");
       $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
     }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "mouse")) {
+      $("#coinjs_coin").val("mousecoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("mousecoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("mousecoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "rick")) {
+      $("#coinjs_coin").val("infinitericks_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("infinitericks_mainnet").trigger("change");
+      $("#coinjs_utxo").val("infinitericks_mainnet").trigger("change");
+    }
     else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "sys")) {
 			$("#coinjs_coin").val("syscoin_mainnet").trigger("change");
       $("#coinjs_broadcast").val("syscoin_mainnet").trigger("change");
@@ -2460,6 +2619,11 @@ function rawSubmitdash(thisbtn){
       $("#coinjs_broadcast").val("cypherfunk_mainnet").trigger("change");
       $("#coinjs_utxo").val("cypherfunk_mainnet").trigger("change");
     }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "qtum")) {
+      $("#coinjs_coin").val("qtum_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("qtum_mainnet").trigger("change");
+      $("#coinjs_utxo").val("qtum_mainnet").trigger("change");
+    }
 		else {
       $("#modalCoinNotWorking").modal("show");
     }
@@ -2467,7 +2631,7 @@ function rawSubmitdash(thisbtn){
     return false;
   });
 
-
+		// coinUrl Area
 	if(coinUrl == null) {
 
 	}
@@ -2483,6 +2647,12 @@ function rawSubmitdash(thisbtn){
     $("#coinjs_utxo").val("cypherfunk_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	else if(coinUrl == 'qtum') {
+    $("#coinjs_coin").val("qtum_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("qtum_mainnet").trigger("change");
+    $("#coinjs_utxo").val("qtum_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
 	else if(coinUrl == 'sys') {
     $("#coinjs_coin").val("syscoin_mainnet").trigger("change");
     $("#coinjs_broadcast").val("syscoin_mainnet").trigger("change");
@@ -2493,6 +2663,18 @@ function rawSubmitdash(thisbtn){
     $("#coinjs_coin").val("pandacoin_mainnet").trigger("change");
     $("#coinjs_broadcast").val("pandacoin_mainnet").trigger("change");
     $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'mouse') {
+    $("#coinjs_coin").val("mousecoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("mousecoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("mousecoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'rick') {
+    $("#coinjs_coin").val("infinitericks_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("infinitericks_mainnet").trigger("change");
+    $("#coinjs_utxo").val("infinitericks_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
 	else if(coinUrl == 'lynx') {
@@ -2548,7 +2730,7 @@ function rawSubmitdash(thisbtn){
         // network name     "btc"           "bitcoin"       "BTC"
         // network name     "ltc"           "litecoin"      "LTC"
         // network name     "doge"          "dogecoin"      "DOGE"
-
+					// Broadcast Area
 		$("#rawSubmitBtn").unbind("");
 		if(host=="chain.so_bitcoinmainnet"){
 			$("#rawSubmitBtn").click(function(){
@@ -2574,6 +2756,14 @@ function rawSubmitdash(thisbtn){
 			$("#rawSubmitBtn").click(function(){
 				rawSubmitpandacoin(this);
 			});
+		} else if(host=="mousecoin_mainnet"){
+			$("#rawSubmitBtn").click(function(){
+				rawSubmitMouseMN(this);
+			});
+		} else if(host=="qtum_mainnet"){
+			$("#rawSubmitBtn").click(function(){
+				rawSubmitqtum(this);
+			});
 		} else if(host=="lynx_mainnet"){
 			$("#rawSubmitBtn").click(function(){
 				rawSubmitlynx(this);
@@ -2594,7 +2784,12 @@ function rawSubmitdash(thisbtn){
       $("#rawSubmitBtn").click(function(){
         rawSubmitViacoin(this);
       });
-    } else {
+    } else if(host=='infinitericks_mainnet'){
+			$("#rawSubmitBtn").click(function(){
+        rawSubmitinfinitericks(this);
+      });
+
+		} else {
 			$("#rawSubmitBtn").click(function(){
 				rawSubmitDefault(this); // revert to default
 			});

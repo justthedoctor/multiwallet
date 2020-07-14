@@ -19,7 +19,7 @@
 	coinjs.compressed = false;
 
 	/* other vars */
-	coinjs.developer = '3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN'; //bitcoin
+	coinjs.developer = '14KXE7vLEqJicH6bhBebPd9VMi2P8URXna'; //bitcoin
 
 	/* bit(coinb.in) api vars */
 	coinjs.hostname	= ((document.location.hostname.split(".")[(document.location.hostname.split(".")).length-1]) == 'onion') ? '4zpinp6gdkjfplhk.onion' : 'coinb.in';
@@ -321,10 +321,13 @@
 
 	/* retreive the balance from a given address */
 	coinjs.addressBalance = function(host, address, callback){
+		//Balance Area
 				if(host=='pandacoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
 				} else if(host=='syscoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/sys/'+ address +'', callback, "GET");
+				} else if(host=='qtum_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/qtum/balance/'+ address +'', callback, "GET");
 				} else if(host=='dash_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dash/'+ address +'', callback, "GET");
 				} else if(host=='lynx_mainnet') {
@@ -341,7 +344,11 @@
 					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/dev/'+ address, callback, "GET");
 				} else if(host=='chain.so_dogecoin'){
 					coinjs.ajax('http://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
-				}	else {
+				}	else if(host=='infinitericks_mainnet') {
+					coinjs.ajax('http://infiniteblocks.space/ext/getbalance/'+ address, callback, "GET");
+				} else if(host=='mousecoin_mainnet'){
+					coinjs.ajax('http://explorer.mousemn.com/ext/getbalance'+ address, callback, "GET");
+				} else {
 					coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=bal&address='+address+'&r='+Math.random(), callback, "GET");
 				}
 	}

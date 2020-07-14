@@ -53,7 +53,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/coinbin.gif" style="height:25px;margin-top:-5px"></a>
-						<img id="coinLogo" src="images/logos/btc.png" class="coinLogo" alt="Logo for PandaCoin" style="height: 3em; margin-top: 0.5em;">
+						<img id="coinLogo" src="images/logos/btc.png" class="coinLogo" alt="Coin Logo" style="height: 3em; margin-top: 0.5em;">
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
@@ -143,8 +143,9 @@
 						<div class="row">
 							<div class="col-md-12">
 								<h2>Open Wallet <small> browser based <span id="walletTitle">Bitcoin</span> wallet</small></h2>
+								<!-- CoinGecko Marque -->
 								<script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
-								<div id="coin-tick"><coingecko-coin-price-marquee-widget  coin-ids="bitcoin,litecoin,pandacoin,dogecoin,the-cypherfunks,viacoin,syscoin,deviantcoin,blocknet,lynx,dash" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget></div><br>
+								<div id="coin-tick"><coingecko-coin-price-marquee-widget  coin-ids="bitcoin,litecoin,pandacoin,dogecoin,the-cypherfunks,viacoin,syscoin,deviantcoin,blocknet,lynx,dash,qtum,mouse,infinite-ricks" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget></div><br>
 								<div id="openLogin">
 									<form class="form-signin" role="form" action="javascript:;">
 
@@ -607,6 +608,7 @@
 					<div class="tab-pane tab-content" id="newTransaction">
 						<h2>Transaction <small>Create a new transaction</small></h2>
 						<p>Use this page to create a raw transaction</p>
+						<div id="transwarning"></div><br>
 
 						<b>Address, WIF key or Redeem Script</b>:
 						<div class="input-group">
@@ -1259,7 +1261,7 @@
 					<div class="tab-pane tab-content" id="sign">
 						<h2>Sign Transaction <small>once a transaction has been verified</small></h2>
 						<p>Once you have <a href="#verify">verified</a> a transaction you can sign and then <a href="#broadcast">broadcast</a> it into the network.</p>
-
+						<div id="signwarning"></div> <br>
 						<div class="row">
 							<div class="col-md-12">
 								<label for="signPrivateKey">Private key</label>
@@ -1332,6 +1334,7 @@
 						<h2>Broadcast Transaction <small>into the <span id="broadCastTitle">Bitcoin</span> network</small></h2>
 						<a href="#settings" style="float:right;"><span class="glyphicon glyphicon-cog"></span></a>
 						<p>Enter your hex encoded Crypto Currency transaction</p>
+						<div id="broadcastwarning"></div>
 						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
 						<br>
 						<div id="rawTransactionStatus" class="alert hidden">
@@ -1348,12 +1351,14 @@
 
 					<div class="tab-pane tab-content" id="about">
 						<h2>About <small>open source Multi-Wallet</small></h2>
-						<p>Version 1.5</p>
+						<p>Version 2.0</p>
 						<p>Compatible with bitcoin core</p>
-						<p>Github <a href="https://github.com/OutCast3k/coinbin/">https://github.com/OutCast3k/coinbin/</a></p>
-						<p>TOR <a href="http://4zpinp6gdkjfplhk.onion">4zpinp6gdkjfplhk.onion</a></p>
+						<p>Github <a href="https://gitub.com/justthedoctor/coinbinv2">https://gitub.com/justthedoctor/coinbinv2</a></p>
 						<h3>What is Bitcoin?</h3>
 						<p>Bitcoin is a type of digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank. See <a href="http://www.weusecoins.com/" target="_blank">weusecoins.com</a> for more information.</p>
+						<h3>What is Pandacoin?</h3>
+						<p>Pandacoin is a type of digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank. See <a href="https://pandacoin.tech/" target="_blank">https://pandacoin.tech/</a>, <a href="https://digitalpandacoin.org/" target="_blank">https://digitalpandacoin.org/</a> for more information.</p>
+						<p>If you are looking to buy some Pandacoin try <a href="https://pandacoin.tech/showcase/" target="_blank">https://pandacoin.tech/showcase/</a>.</p>
 						<h3>Information</h3>
 						<p>Multi-Wallet is a free and open source project released under the MIT license, originally by <a href="https://bitcointalk.org/index.php?action=profile;u=34834" target="_blank">OutCast3k</a> in 2013. Discussion of the project can be found at <a href="https://bitcointalk.org/index.php?topic=390046" target="_blank">bitcointalk.org</a> during its early testing stages when its primary focus was to develop a proof of concept multisig solution in javascript.</p>
 						<p>Multi-Wallet is run and funded by the generosity of others in terms of <a href="https://github.com/OutCast3k/coinbin/graphs/contributors" target="_blank">development</a> and hosting.</p>
@@ -1363,7 +1368,7 @@
 						<h3>Support</h3>
 						<p>We recommend that you first check our <a href="https://status.coinb.in/" target="_blank">service status</a> page and then <a href="https://blog.coinb.in/" target="_blank">blog</a> page which has multiple <a href="https://blog.coinb.in/guides" target="_blank">guides</a>. However if the problem persists you can contact us by emailing support{at}coinb.in.</p>
 						<h3>Donate</h3>
-						<p>Please donate to <a href="bitcoin:3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN">3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN</a> if you found this project useful or want to see more features!</p>
+						<p>Please donate to <a href="bitcoin:14KXE7vLEqJicH6bhBebPd9VMi2P8URXna">14KXE7vLEqJicH6bhBebPd9VMi2P8URXna</a> if you found this project useful or want to see more features!</p>
 					</div>
 
 					<div class="tab-pane tab-content" id="allcoins">
@@ -1383,13 +1388,13 @@
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aeg"></center><img alt="" src="images/logos/aeg.png" style="height:45px"><br><center>aeg</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="agnt"></center><img alt="" src="images/logos/agnt.png" style="height:45px"><br><center>agnt</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aias"></center><img alt="" src="images/logos/aias.png" style="height:45px"><br><center>aias</center></div>
-												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="alex" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinexplorer_custom;coinexplorer_custom"></center><img alt="" src="images/logos/alex.png" style="height:45px"><br><center>alex</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="alex"></center><img alt="" src="images/logos/alex.png" style="height:45px"><br><center>alex</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="asafe2"></center><img alt="" src="images/logos/allsafe2.webp" style="height:45px"><br><center>allsafe2</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arco"></center><img alt="" src="images/logos/arco.png" style="height:45px"><br><center>arco</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arepa"></center><img alt="" src="images/logos/arepa.png" style="height:45px"><br><center>arepa</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arg"></center><img alt="" src="images/logos/arg.png" style="height:45px"><br><center>arg</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ari"></center><img alt="" src="images/logos/ari.png" style="height:45px"><br><center>ari</center></div>
-												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arrr"></center><img alt="" src="images/logos/arrr.png" style="height:45px"><br><center>arrr</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arrr"></center><img alt="" src="images/logos/arrr.png" style="height:45px"><br><center>arrr</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aur"></center><img alt="" src="images/logos/aur.png" style="height:45px"><br><center>aur</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="avn"></center><img alt="" src="images/logos/avn.png" style="height:45px"><br><center>avn</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="axe"></center><img alt="" src="images/logos/axe.png" style="height:45px"><br><center>axe</center></div>
@@ -1595,6 +1600,7 @@
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mona"></center><img alt="" src="images/logos/mona.png" style="height:45px"><br><center>mona</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="monk"></center><img alt="" src="images/logos/monk.png" style="height:45px"><br><center>monk</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="moon"></center><img alt="" src="images/logos/moon.png" style="height:45px"><br><center>moon</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mouse"></center><img alt="" src="images/logos/mouse.png" style="height:45px"><br><center>mouse</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mrc"></center><img alt="" src="images/logos/mrc.png" style="height:45px"><br><center>mrc</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mrx"></center><img alt="" src="images/logos/mrx.png" style="height:45px"><br><center>mrx</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mscn"></center><img alt="" src="images/logos/mscn.png" style="height:45px"><br><center>mscn</center></div>
@@ -1667,8 +1673,9 @@
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rby"></center><img alt="" src="images/logos/rby.png" style="height:45px"><br><center>rby</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rdd"></center><img alt="" src="images/logos/rdd.png" style="height:45px"><br><center>rdd</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ric"></center><img alt="" src="images/logos/ric.png" style="height:45px"><br><center>ric</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rick"></center><img alt="" src="images/logos/rick.png" style="height:45px"><br><center>rick</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rpd"></center><img alt="" src="images/logos/rpd.png" style="height:45px"><br><center>rpd</center></div>
-												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xrp"></center><img alt="" src="images/logos/xrp.png" style="height:45px"><br><center>xrp</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xrp"></center><img alt="" src="images/logos/xrp.png" style="height:45px"><br><center>xrp</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rpc"></center><img alt="" src="images/logos/rpc.png" style="height:45px"><br><center>rpc</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rstr"></center><img alt="" src="images/logos/rstr.png" style="height:45px"><br><center>rstr</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rupx"></center><img alt="" src="images/logos/rupx.png" style="height:45px"><br><center>rupx</center></div>
@@ -1776,7 +1783,7 @@
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xwc"></center><img alt="" src="images/logos/xwc.png" style="height:45px"><br><center>xwc</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xzc"></center><img alt="" src="images/logos/xzc.png" style="height:45px"><br><center>xzc</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zcl"></center><img alt="" src="images/logos/zcl.png" style="height:45px"><br><center>zcl</center></div>
-												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zec"></center><img alt="" src="images/logos/zec.png" style="height:45px"><br><center>zec</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zec"></center><img alt="" src="images/logos/zec.png" style="height:45px"><br><center>zec</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zer"></center><img alt="" src="images/logos/zer.png" style="height:45px"><br><center>zer</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zeit"></center><img alt="" src="images/logos/zeit.png" style="height:45px"><br><center>zeit</center></div>
 												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zet"></center><img alt="" src="images/logos/zet.png" style="height:45px"><br><center>zet</center></div>
@@ -1796,6 +1803,7 @@
 								<b>Network</b>: <br>
 								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
 								<select class="form-control" id="coinjs_coin">
+									<!-- Settings Menu -->
 									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
 									<option value="blocknet_mainnet" rel="0x1a;0x9a;0x6;0xee80286a;0xee8031e8;blocknet_mainnet;blocknet_mainnet">Blocknet (mainnet)</option>
 									<option value="cypherfunk_mainnet" rel="0x1c;0x9c;0x3f;0x488b21e;0x488ade4;cypherfunk_mainnet;cypherfunk_mainnet">Cypherfunk (mainnet)</option>
@@ -1804,8 +1812,10 @@
 									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;chain.so_dogecoin;chain.so_dogecoin">Dogecoin (mainnet)</option>
 									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;chain.so_litecoin;chain.so_litecoin">Litecoin (mainnet)</option>
 									<option value="lynx_mainnet" rel="0x2d;0xad;0x32;0xee80286a;0xee8031e8;lynx_mainnet;lynx_mainnet">Lynx (mainnet)</option>
-									<!-- <option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
+									<option value="mousecoin_mainnet" rel="0x32;0x99;0x55;0xee80286a;0xee8031e8;mousecoin_mainnet;mousecoin_mainnet">Mousecoin (mainnet)</option>
+									<option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option>
 									<option value="pandacoin_mainnet" rel="0x37;0xb7;0x16;0x488b21e;0x488ade4;pandacoin_mainnet;pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="qtum_mainnet" rel="0x3a;0x80;0x32;0xee80286a;0xee8031e8;qtum_mainnet;qtum_mainnet">Qtum (mainnet)</option>
 									<option value="syscoin_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;syscoin_mainnet;syscoin_mainnet">Syscoin (mainnet)</option>
 									<option value="viacoin_mainnet" rel="0x47;0xc7;0x21;0xee80286a;0xee8031e8;viacoin_mainnet;viacoin_mainnet">Viacoin (mainnet)</option>
 									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
@@ -1867,8 +1877,10 @@
 									<option value="chain.so_dogecoin">Dogecoin (mainnet)</option>
 									<option value="chain.so_litecoin">Litecoin (mainnet)</option>
 									<option value="lynx_mainnet">Lynx (mainnet)</option>
-									<!-- <option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
+									<option value="mousecoin_mainnet">Mousecoin (mainnet)</option>
+									<option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option>
 									<option value="pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="qtum_mainnet">Qtum (mainnet)</option>
 									<option value="syscoin_mainnet">Syscoin (mainnet)</option>
 									<option value="viacoin_mainnet">Viacoin (mainnet)</option>
 								</select>
@@ -1890,8 +1902,10 @@
 									<option value="chain.so_dogecoin">Dogecoin (mainnet)</option>
 									<option value="chain.so_litecoin">Litecoin (mainnet)</option>
 									<option value="lynx_mainnet">Lynx (mainnet)</option>
-									<!-- <option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
+									<option value="mousecoin_mainnet">Mousecoin (mainnet)</option>
+									<option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option>
 									<option value="pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="qtum_mainnet">Qtum (mainnet)</option>
 									<option value="syscoin_mainnet">Syscoin (mainnet)</option>
 									<option value="viacoin_mainnet">Viacoin (mainnet)</option>
 								</select>
@@ -1917,7 +1931,7 @@
 
 		<div id="footer">
 			<div class="container text-right">
-	        		<p class="text-muted">Version 1.5</p>
+	        		<p class="text-muted">Version 2.0</p>
 			</div>
 		</div>
 
