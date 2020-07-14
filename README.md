@@ -5,7 +5,7 @@ A Open Source Browser Based Multi-Coin Wallet. Version 2.0 beta by JustTheDoctor
 
 Live version available at http://api.cryptodepot.org/multiwallet/
 
-Github URL: https://github.com/justthedoctor/coinbinv2
+Github URL: https://github.com/justthedoctor/multiwallet
 
 Coinb.in supports a number of key features such as:
 
