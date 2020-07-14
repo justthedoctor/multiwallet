@@ -1,17 +1,17 @@
-coinbin
+multiwallet
 =======
 
-A Open Source Browser Based Bitcoin Wallet. Version 1.5 beta by OutCast3k
+A Open Source Browser Based Multi-Coin Wallet. Version 2.0 beta by JustTheDoctor
 
-Live version available at http://coinb.in/ or http://4zpinp6gdkjfplhk.onion
+Live version available at http://api.cryptodepot.org/multiwallet/
 
-Github URL: https://github.com/OutCast3k/coinbin/
+Github URL: https://github.com/justthedoctor/coinbinv2
 
-Coinb.in supports a number of key features such as: 
+Coinb.in supports a number of key features such as:
 
 - Offline Compressed & uncompressed Address creation.
 - Offline Multisignature Address creation.
-- "In browser" Key (re)generation. 
+- "In browser" Key (re)generation.
 - Send and receive payments.
 - Ability to decode transactions, redeem scripts and more offline.
 - Build custom transactions offline.
@@ -30,6 +30,6 @@ Coinb.in supports a number of key features such as:
 - Replace by fee (RBF) Support
 - Segwit Support
 - Bech32 address support
-- Fee calculator - https://coinb.in/#fees
+- Bitcoin Fee calculator - http://api.cryptodepot.org/multiwallet/#fees
 
-Donate to 3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN to see more development!
+Donate to 14KXE7vLEqJicH6bhBebPd9VMi2P8URXna to see more development!
