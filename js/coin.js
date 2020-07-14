@@ -325,6 +325,10 @@
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
 				} else if(host=='syscoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/sys/'+ address +'', callback, "GET");
+				} else if(host=='dash_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dash/'+ address +'', callback, "GET");
+				} else if(host=='lynx_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/lynx/'+ address +'', callback, "GET");
 				} else if(host=='blocknet_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/block/'+ address +'', callback, "GET");
 				} else if(host=='chain.so_litecoin') {
