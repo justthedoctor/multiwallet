@@ -323,8 +323,14 @@
 	coinjs.addressBalance = function(host, address, callback){
 				if(host=='pandacoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
+				} else if(host=='syscoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/sys/'+ address +'', callback, "GET");
+				} else if(host=='blocknet_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/block/'+ address +'', callback, "GET");
 				} else if(host=='chain.so_litecoin') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/ltc/'+ address +'', callback, "GET");
+				} else if(host=='viacoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/viacoin/balance/'+ address +'', callback, "GET");
 				} else if(host=='cypherfunk_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/funk/'+ address +'', callback, "GET");
 				} else if(host=='deviantcoin_mainnet') {

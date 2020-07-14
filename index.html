@@ -89,7 +89,7 @@
 					<div class="tab-pane tab-content active" id="home">
 						<div class="row">
 							<div class="col-md-12">
-								<h2>Coinb.in <small>Welcome to the Blockchain</small></h2>
+								<h2>Multi-Wallet <small>Welcome to the Blockchain</small></h2>
 							</div>
 						</div>
 
@@ -139,7 +139,9 @@
 					<div class="tab-pane tab-content" id="wallet">
 						<div class="row">
 							<div class="col-md-12">
-								<h2>Open Wallet <small> browser based Crypto Currency wallet</small></h2>
+								<h2>Open Wallet <small> browser based Crypto Currency wallet</small></h2><br>
+								<script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+								<div id="coin-tick"><coingecko-coin-price-marquee-widget  coin-ids="bitcoin,litecoin,pandacoin,dogecoin,the-cypherfunks,viacoin,syscoin,deviantcoin,blocknet" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget></div><br>
 								<div id="openLogin">
 									<form class="form-signin" role="form" action="javascript:;">
 
@@ -159,8 +161,8 @@
 											<div class="hidden optionsAdvanced">
 												<label>Segregated Witness Address</label>
 												<p class="checkbox">
-													<label><input type="checkbox" id="walletSegwit" class="checkbox-inline" checked> Use a segwit address instead of a regular address. <span class="text-muted"><i>(recommended)</i></span></label></label> <br>
-													<label><input type="radio" id="walletSegwitp2sh" class="walletSegwitType" name="walletSegWitType" value="p2sh" checked> p2sh address</label> <br>
+													<label><input type="radio" id="walletSegwit" class="checkbox-inline"> Use a segwit address instead of a regular address. <span class="text-muted"><i>(recommended)</i></span></label></label> <br>
+													<label><input type="radio" id="walletSegwitp2sh" class="walletSegwitType" name="walletSegWitType" value="p2sh"> p2sh address</label> <br>
 													<label><input type="radio" id="walletSegwitBech32" class="walletSegwitType" name="walletSegWitType" value="bech32"> bech32 address</label>
 												</p>
 
@@ -188,7 +190,7 @@
 												<span id="walletAddress"></span>
 
 												<div class="btn-group">
-													<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" id="walletToBtn">Segwit <span class="caret"></span></button>
+													<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" id="walletToBtn">Legacy <span class="caret"></span></button>
 													<ul class="dropdown-menu">
 														<li><a href="javascript:;" id="walletToLegacy">Legacy</a></li>
 														<li><a href="javascript:;" id="walletToSegWit">SegWit</a></li>
@@ -1333,7 +1335,7 @@
 					</div>
 
 					<div class="tab-pane tab-content" id="about">
-						<h2>About <small>open source Crypto Currency wallet</small></h2>
+						<h2>About <small>open source Multi-Wallet</small></h2>
 						<p>Version 1.5</p>
 						<p>Compatible with bitcoin core</p>
 						<p>Github <a href="https://github.com/OutCast3k/coinbin/">https://github.com/OutCast3k/coinbin/</a></p>
@@ -1341,11 +1343,11 @@
 						<h3>What is Bitcoin?</h3>
 						<p>Bitcoin is a type of digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank. See <a href="http://www.weusecoins.com/" target="_blank">weusecoins.com</a> for more information.</p>
 						<h3>Information</h3>
-						<p>Coinb.in is a free and open source project released under the MIT license, originally by <a href="https://bitcointalk.org/index.php?action=profile;u=34834" target="_blank">OutCast3k</a> in 2013. Discussion of the project can be found at <a href="https://bitcointalk.org/index.php?topic=390046" target="_blank">bitcointalk.org</a> during its early testing stages when its primary focus was to develop a proof of concept multisig solution in javascript.</p>
-						<p>Coinb.in is run and funded by the generosity of others in terms of <a href="https://github.com/OutCast3k/coinbin/graphs/contributors" target="_blank">development</a> and hosting.</p>
-						<p>Coinb.in is kindly hosted by <a href="https://www.bitvps.com/" target="_blank">BitVPS.com</a>.</p>
+						<p>Multi-Wallet is a free and open source project released under the MIT license, originally by <a href="https://bitcointalk.org/index.php?action=profile;u=34834" target="_blank">OutCast3k</a> in 2013. Discussion of the project can be found at <a href="https://bitcointalk.org/index.php?topic=390046" target="_blank">bitcointalk.org</a> during its early testing stages when its primary focus was to develop a proof of concept multisig solution in javascript.</p>
+						<p>Multi-Wallet is run and funded by the generosity of others in terms of <a href="https://github.com/OutCast3k/coinbin/graphs/contributors" target="_blank">development</a> and hosting.</p>
+						<p>Multi-Wallet is kindly hosted by <a href="https://www.bitvps.com/" target="_blank">BitVPS.com</a>.</p>
 						<h3>Privacy</h3>
-						<p>Coinb.in believes strongly in privacy, not only do we support the use of TOR, the site does not collect and store IP or transaction data via our servers nor do we store your Crypto Currency private key. We do route traffic via cloudflare using an SSL certificate.</p>
+						<p>Multi-Wallet believes strongly in privacy, not only do we support the use of TOR, the site does not collect and store IP or transaction data via our servers nor do we store your Crypto Currency private key. We do route traffic via cloudflare using an SSL certificate.</p>
 						<h3>Support</h3>
 						<p>We recommend that you first check our <a href="https://status.coinb.in/" target="_blank">service status</a> page and then <a href="https://blog.coinb.in/" target="_blank">blog</a> page which has multiple <a href="https://blog.coinb.in/guides" target="_blank">guides</a>. However if the problem persists you can contact us by emailing support{at}coinb.in.</p>
 						<h3>Donate</h3>
@@ -1353,8 +1355,8 @@
 					</div>
 
 					<div class="tab-pane tab-content" id="settings">
-						<h2>Settings <small> making coinb.in even better!</small></h2>
-						<p>These simple settings below make coinb.in one of the most decentralized wallets in the world.</p>
+						<h2>Settings <small> making Multi-Wallet even better!</small></h2>
+						<p>These simple settings below make Multi-Wallet one of the most decentralized wallets in the world.</p>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -1362,12 +1364,15 @@
 								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
 								<select class="form-control" id="coinjs_coin">
 									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
+									<option value="blocknet_mainnet" rel="0x1a;0x9a;0x6;0xee80286a;0xee8031e8;blocknet_mainnet;blocknet_mainnet">Blocknet (mainnet)</option>
 									<option value="cypherfunk_mainnet" rel="0x1c;0x9c;0x3f;0x488b21e;0x488ade4;cypherfunk_mainnet;cypherfunk_mainnet">Cypherfunk (mainnet)</option>
 									<option value="deviantcoin_mainnet" rel="0x5a;0x89;0xa;0x488b21e;0x488ade4;deviantcoin_mainnet;deviantcoin_mainnet">DeviantCoin (mainnet)</option>
 									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;chain.so_dogecoin;chain.so_dogecoin">Dogecoin (mainnet)</option>
 									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;chain.so_litecoin;chain.so_litecoin">Litecoin (mainnet)</option>
 									<!-- <option value="infinitericks_mainnet" rel="0x00;0xd5;0x55;0xee80286a;0xee8031e8;infinitericks_mainnet;infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
 									<option value="pandacoin_mainnet" rel="0x37;0xb7;0x16;0x488b21e;0x488ade4;pandacoin_mainnet;pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="syscoin_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;syscoin_mainnet;syscoin_mainnet">Syscoin (mainnet)</option>
+									<option value="viacoin_mainnet" rel="0x47;0xc7;0x21;0xee80286a;0xee8031e8;viacoin_mainnet;viacoin_mainnet">Viacoin (mainnet)</option>
 									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
 								</select>
 							</div>
@@ -1409,7 +1414,7 @@
 
 							<br>
 
-							<div class="alert alert-info"> <span class="glyphicon glyphicon-info-sign"></span> You will not be able to automatically broadcast or retreive your unspent outputs from coinb.in when using this setting and will need to use your desktop client instead, however everything else such as creating key pairs, addresses, transaction generation and signing will continue to function normally.</div>
+							<div class="alert alert-info"> <span class="glyphicon glyphicon-info-sign"></span> You will not be able to automatically broadcast or retreive your unspent outputs from Multi-Wallet when using this setting and will need to use your desktop client instead, however everything else such as creating key pairs, addresses, transaction generation and signing will continue to function normally.</div>
 						</div>
 
 						<hr>
@@ -1420,12 +1425,15 @@
 								<p class="text-muted">Select the network you wish to broadcast the transaction via</p>
 								<select class="form-control" id="coinjs_broadcast">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="blocknet_mainnet">Blocknet (mainnet)</option>
 									<option value="cypherfunk_mainnet">Cypherfunk</option>
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
 									<option value="chain.so_litecoin"> Chain.so (Litecoin)</option>
 									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>
-									<option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option>
+									<!-- <option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
 									<option value="pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="syscoin_mainnet">Syscoin (mainnet)</option>
+									<option value="viacoin_mainnet">Viacoin (mainnet)</option>
 								</select>
 							</div>
 						</div>
@@ -1438,13 +1446,16 @@
 								<p class="text-muted">Select the network you wish to retreive your unspent inputs from</p>
 								<select class="form-control" id="coinjs_utxo">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="blocknet_mainnet">Blocknet (mainnet)</option>
 									<option value="cypherfunk_mainnet">Cypherfunk</option>
 									<option value="deviantcoin_mainnet">DeviantCoin</option>
 									<option value="chain.so_bitcoinmainnet"> Chain.so (Bitcoin mainnet)</option>
 									<option value="chain.so_litecoin"> Chain.so (Litecoin)</option>
 									<option value="chain.so_dogecoin"> Chain.so (Dogecoin)</option>
-									<option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option>
+									<!-- <option value="infinitericks_mainnet">InfiniteRicks (mainnet)</option> -->
 									<option value="pandacoin_mainnet">Pandacoin (mainnet)</option>
+									<option value="syscoin_mainnet">Syscoin (mainnet)</option>
+									<option value="viacoin_mainnet">Viacoin (mainnet)</option>
 								</select>
 							</div>
 						</div>
