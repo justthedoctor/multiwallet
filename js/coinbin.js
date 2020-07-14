@@ -2256,6 +2256,75 @@ function rawSubmitdash(thisbtn){
 	$("#coinjs_hdprv").val('0x'+(coinjs.hdkey.prv).toString(16));
 
 	$("#settingsBtn").click(function(){
+		var host = $("#coinjs_broadcast option:selected").val();
+			console.log(host);
+		if(host=='pandacoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/pnd.png";
+			document.getElementById("broadCastTitle").textContent = "Pandacoin";
+			document.getElementById("walletTitle").textContent = "Pandacoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="pandacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/pandacoin" target="_BLANK">Pandacoin CoinGecko Info</a></center>`;
+		} else if(host=='deviantcoin_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/dev.png";
+			document.getElementById("broadCastTitle").textContent = "DeviantCoin";
+			document.getElementById("walletTitle").textContent = "DeviantCoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="deviantcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/deviantcoin" target="_BLANK">Deviantcoin CoinGecko Info</a></center>`;
+		} else if(host=='syscoin_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/sys.png";
+			document.getElementById("broadCastTitle").textContent = "Syscoin";
+			document.getElementById("walletTitle").textContent = "Syscoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="syscoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/syscoin" target="_BLANK">Syscoin CoinGecko Info</a></center>`;
+		} else if(host=='chain.so_dogecoin'){
+			document.getElementById("coinLogo").src = "images/logos/dogecoin.png";
+			document.getElementById("broadCastTitle").textContent = "Dogecoin";
+			document.getElementById("walletTitle").textContent = "Dogecoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="dogecoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/dogecoin" target="_BLANK">Dogecoin CoinGecko Info</a></center>`;
+		} else if(host=='dash_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/dash.png";
+			document.getElementById("broadCastTitle").textContent = "Dash";
+			document.getElementById("walletTitle").textContent = "Dash";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="dash" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/dash" target="_BLANK">Dash CoinGecko Info</a></center>`;
+		} else if(host=='blocknet_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/block.png";
+			document.getElementById("broadCastTitle").textContent = "Blocknet";
+			document.getElementById("walletTitle").textContent = "Blocknet";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="blocknet" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/blocknet" target="_BLANK">Blocknet CoinGecko Info</a></center>`;
+		} else if(host=='lynx_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/lynx.png";
+			document.getElementById("broadCastTitle").textContent = "Lynx";
+			document.getElementById("walletTitle").textContent = "Lynx";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="lynx" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/lynx" target="_BLANK">Lynx CoinGecko Info</a></center>`;
+		} else if(host=='viacoin_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/via.png";
+			document.getElementById("broadCastTitle").textContent = "Viacoin";
+			document.getElementById("walletTitle").textContent = "Viacoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="viacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/viacoin"  target="_BLANK">Viacoin CoinGecko Info</a></center>`;
+		} else if(host=='cypherfunk_mainnet'){
+			document.getElementById("coinLogo").src = "images/logos/funk.png";
+			document.getElementById("broadCastTitle").textContent = "The-Cypherfunks";
+			document.getElementById("walletTitle").textContent = "The-Cypherfunks";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="the-cypherfunks" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/the-cypherfunks"  target="_BLANK">The-Cypherfunks CoinGecko Info</a></center>`;
+		} else if(host=='chain.so_litecoin'){
+			document.getElementById("coinLogo").src = "images/logos/litecoin.png";
+			document.getElementById("broadCastTitle").textContent = "Litecoin";
+			document.getElementById("walletTitle").textContent = "Litecoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="litecoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/litecoin"  target="_BLANK">Litecoin CoinGecko Info</a></center>`;
+		} else {
+			document.getElementById("coinLogo").src = "images/logos/btc.png";
+			document.getElementById("broadCastTitle").textContent = "Bitcoin";
+			document.getElementById("walletTitle").textContent = "Bitcoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="bitcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/bitcoin"  target="_BLANK">Bitcoin CoinGecko Info</a></center>`;
+		}
 
 		// log out of openwallet
 		$("#walletLogout").click();
@@ -2331,6 +2400,73 @@ function rawSubmitdash(thisbtn){
 			$("#settingsCustom").addClass("hidden");
 		}
 	});
+
+	$("#favoritesSubmitButtonIDHere").click(function() { $("#coinjs_coin").val($("#favoritesFormIDHere input[type='radio']:checked").val()).trigger("change"); $("#settingsBtn").trigger("click"); return false;});
+  $("#allcoinsSubmitButtonIDHere").click(function() {
+		if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "dev")) {
+      $("#coinjs_coin").val("deviantcoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("deviantcoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("deviantcoin_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "block")) {
+      $("#coinjs_coin").val("blocknet_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("blocknet_mainnet").trigger("change");
+      $("#coinjs_utxo").val("blocknet_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "lynx")) {
+      $("#coinjs_coin").val("lynx_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("lynx_mainnet").trigger("change");
+      $("#coinjs_utxo").val("lynx_mainnet").trigger("change");
+      customCoinTicker = "lynx"
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val()) == "ltc") {
+      $("#coinjs_coin").val("litecoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("chain.so_litecoin").trigger("change");
+      $("#coinjs_utxo").val("chain.so_litecoin").trigger("change");
+      var customCoinTicker = "ltc";
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "doge")) {
+			$("#coinjs_coin").val("dogecoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("chain.so_dogecoin").trigger("change");
+      $("#coinjs_utxo").val("chain.so_dogecoin").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "btc")) {
+			$("#coinjs_coin").val("bitcoin_mainnet").trigger("change");
+			$("#coinjs_broadcast").val("coinb.in").trigger("change");
+			$("#coinjs_utxo").val("coinb.in").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "dash")) {
+			$("#coinjs_coin").val("dash_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("dash_mainnet").trigger("change");
+      $("#coinjs_utxo").val("dash_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "via")) {
+			$("#coinjs_coin").val("viacoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("viacoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("viacoin_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "pnd")) {
+      $("#coinjs_coin").val("pandacoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("pandacoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "sys")) {
+			$("#coinjs_coin").val("syscoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("syscoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("cryptoid.syscoin_mainnet").trigger("change");
+    }
+    else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "funk")) {
+      $("#coinjs_coin").val("cypherfunk_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("cypherfunk_mainnet").trigger("change");
+      $("#coinjs_utxo").val("cypherfunk_mainnet").trigger("change");
+    }
+		else {
+      $("#modalCoinNotWorking").modal("show");
+    }
+    $("#settingsBtn").trigger("click");
+    return false;
+  });
+
 
 	if(coinUrl == null) {
 
@@ -2726,4 +2862,13 @@ function rawSubmitdash(thisbtn){
 		return true;
 	};
 
+	var clipboard = new ClipboardJS('.btn');
+
+  clipboard.on('success', function(e) {
+      console.log(e);
+  });
+
+  clipboard.on('error', function(e) {
+      console.log(e);
+  });
 });

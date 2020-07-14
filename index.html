@@ -53,6 +53,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/coinbin.gif" style="height:25px;margin-top:-5px"></a>
+						<img id="coinLogo" src="images/logos/btc.png" class="coinLogo" alt="Logo for PandaCoin" style="height: 3em; margin-top: 0.5em;">
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
@@ -72,6 +73,7 @@
 							<li><a href="#sign" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Sign</a></li>
 							<li><a href="#broadcast" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Broadcast</a></li>
 							<li><a href="#wallet" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Wallet</a></li>
+							<li><a href="#allcoins" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Allcoins</a></li>
 							<li><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-info-sign"></span> Settings</a></li>
 							<li><a href="#about" data-toggle="tab"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
 
@@ -140,7 +142,7 @@
 					<div class="tab-pane tab-content" id="wallet">
 						<div class="row">
 							<div class="col-md-12">
-								<h2>Open Wallet <small> browser based Crypto Currency wallet</small></h2><br>
+								<h2>Open Wallet <small> browser based <span id="walletTitle">Bitcoin</span> wallet</small></h2>
 								<script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
 								<div id="coin-tick"><coingecko-coin-price-marquee-widget  coin-ids="bitcoin,litecoin,pandacoin,dogecoin,the-cypherfunks,viacoin,syscoin,deviantcoin,blocknet,lynx,dash" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget></div><br>
 								<div id="openLogin">
@@ -175,7 +177,8 @@
 										</div>
 
 										<div id="openLoginStatus" class="alert alert-danger hidden"></div>
-										<button id="openBtn" class="btn btn-primary" type="submit">Submit</button>
+										<center><button id="openBtn" class="btn btn-primary" type="submit">Submit</button></center>
+										<br><br>
 									</form>
 								</div>
 
@@ -189,6 +192,7 @@
 											<div>
 												<span id="walletLoader" class="hidden"><img src="images/loader.gif"></span>
 												<span id="walletAddress"></span>
+												<button class="addressKey btn btn-default" data-clipboard-action="copy" data-clipboard-target="#walletAddress"><img src="images/clippy.png" width="13px" height="13px"></button>
 
 												<div class="btn-group">
 													<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" id="walletToBtn">Legacy <span class="caret"></span></button>
@@ -208,7 +212,7 @@
 													<!-- <li role="presentation"><a href="https://localbitcoins.com/?ch=173j" target="_blank">Buy</a></li>-->
 													<li role="presentation"><a href="javascript:;" id="walletShowKeys">Keys</a></li>
 												</ul>
-
+												<div id="coingeckoinfo"><center><a href="https://www.coingecko.com/en/coins/bitcoin">Bitcoin CoinGecko Info</a></center></div>
 												<br>
 
 												<div id="walletKeys" class="hidden">
@@ -222,11 +226,11 @@
 
 													<label>Private key</label>
 													<div class="input-group">
-														<input class="form-control privkey" id="keycopy" type="password" readonly>
+														<input class="form-control privkey" id="privcopy" type="password" readonly>
 
 														<span class="input-group-btn">
 															<button class="showKey btn btn-default" type="button">Show</button>
-															<button class="copyKey btn btn-default" data-clipboard-target="#keycopy">Copy</button>
+															<button class="copyKey btn btn-default" data-clipboard-action="copy" data-clipboard-target="#privcopy"><img src="images/clippy.png" width="13px" height="13px"></button>
 														</span>
 													</div>
 
@@ -284,6 +288,8 @@
 								</div>
 							</div>
 						</div>
+						<script src="https://widgets.coingecko.com/coingecko-coin-market-ticker-list-widget.js"></script>
+						<div id="market-ticker"><coingecko-coin-market-ticker-list-widget  coin-id="bitcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget></div>
 					</div>
 
 					<div class="tab-pane tab-content" id="newAddress">
@@ -760,10 +766,12 @@
 						<div id="transactionCreate" class="alert alert-success hidden">
 							<label>Transaction</label>
 							<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode" style="float:right;"><span class="glyphicon glyphicon-qrcode"></span></button>
+							<button class="addressKey btn btn-default" data-clipboard-action="copy" data-clipboard-target="#newtransaction" style="float:right;"><img src="images/clippy.png" width="13px" height="13px"></button>
+
 
 							<p>The transaction below has been generated and encoded. It can be broadcasted once it has been signed.</p>
 							<br>
-			                                <textarea class="form-control" style="height:150px" readonly></textarea>
+			                                <textarea class="form-control" style="height:150px" id="newtransaction" readonly></textarea>
 
 							<p class="text-muted">Size: <span class="txSize">0</span> <i>bytes</i></p>
 						</div>
@@ -1198,7 +1206,7 @@
 							<div class="row">
 								<div class="col-md-8">
 									<b>Path</b><br>
-									<select class="form-control" id="hdpathtype"">
+									<select class="form-control" id="hdpathtype">
 										<option value="simple">Simple: m/i</option>
 										<option value="custom">Custom</option>
 									</select>
@@ -1307,9 +1315,11 @@
 						<div class="alert alert-success hidden" id="signedData">
 							<label>Signed transaction</label>
 							<button class="qrcodeBtn btn btn-default" type="button" data-toggle="modal" data-target="#modalQrcode" style="float:right;"><span class="glyphicon glyphicon-qrcode"></span></button>
+							<button class="copyKey btn btn-default" data-clipboard-action="copy" data-clipboard-target="#signedtransaction" style="float: right"><img src="images/clippy.png" width="13px" height="13px"></button>
+
 							<p>The above transaction has been signed:</p>
 
-                        				<textarea class="form-control script" style="height:160px" readonly></textarea>
+                        				<textarea class="form-control script" id="signedtransaction" style="height:160px" readonly></textarea>
 
 							<p class="text-muted">Size: <span class="txSize">0</span> <i>bytes</i></p>
 						</div>
@@ -1319,7 +1329,7 @@
 					</div>
 
 					<div class="tab-pane tab-content" id="broadcast">
-						<h2>Broadcast Transaction <small>into the network</small></h2>
+						<h2>Broadcast Transaction <small>into the <span id="broadCastTitle">Bitcoin</span> network</small></h2>
 						<a href="#settings" style="float:right;"><span class="glyphicon glyphicon-cog"></span></a>
 						<p>Enter your hex encoded Crypto Currency transaction</p>
 						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
@@ -1356,6 +1366,427 @@
 						<p>Please donate to <a href="bitcoin:3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN">3K1oFZMks41C7qDYBsr72SYjapLqDuSYuN</a> if you found this project useful or want to see more features!</p>
 					</div>
 
+					<div class="tab-pane tab-content" id="allcoins">
+											<form id="allcoinsFormIDHere"><center>
+											<div class="tab-content" style="align-content: auto;">
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="1337"></center><img alt="" src="images/logos/1337.png" style="height:45px"><br><center>1337</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="1x2"></center><img alt="" src="images/logos/1x2.png" style="height:45px"><br><center>1x2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="2x2"></center><img alt="" src="images/logos/2x2.png" style="height:45px"><br><center>2x2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="2give"></center><img alt="" src="images/logos/2give.png" style="height:45px"><br><center>2give</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="404"></center><img alt="" src="images/logos/404.jpg" style="height:45px"><br><center>404</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="42"></center><img alt="" src="images/logos/42.png" style="height:45px"><br><center>42</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="abbc"></center><img alt="" src="images/logos/abbc.png" style="height:45px"><br><center>abbc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ac"></center><img alt="" src="images/logos/ac.png" style="height:45px"><br><center>ac</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="acm"></center><img alt="" src="images/logos/acm.png" style="height:45px"><br><center>acm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="adc"></center><img alt="" src="images/logos/adc.png" style="height:45px"><br><center>adc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ade"></center><img alt="" src="images/logos/ade.png" style="height:45px"><br><center>ade</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aeg"></center><img alt="" src="images/logos/aeg.png" style="height:45px"><br><center>aeg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="agnt"></center><img alt="" src="images/logos/agnt.png" style="height:45px"><br><center>agnt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aias"></center><img alt="" src="images/logos/aias.png" style="height:45px"><br><center>aias</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="alex" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinexplorer_custom;coinexplorer_custom"></center><img alt="" src="images/logos/alex.png" style="height:45px"><br><center>alex</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="asafe2"></center><img alt="" src="images/logos/allsafe2.webp" style="height:45px"><br><center>allsafe2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arco"></center><img alt="" src="images/logos/arco.png" style="height:45px"><br><center>arco</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arepa"></center><img alt="" src="images/logos/arepa.png" style="height:45px"><br><center>arepa</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arg"></center><img alt="" src="images/logos/arg.png" style="height:45px"><br><center>arg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ari"></center><img alt="" src="images/logos/ari.png" style="height:45px"><br><center>ari</center></div>
+												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="arrr"></center><img alt="" src="images/logos/arrr.png" style="height:45px"><br><center>arrr</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aur"></center><img alt="" src="images/logos/aur.png" style="height:45px"><br><center>aur</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="avn"></center><img alt="" src="images/logos/avn.png" style="height:45px"><br><center>avn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="axe"></center><img alt="" src="images/logos/axe.png" style="height:45px"><br><center>axe</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="aya"></center><img alt="" src="images/logos/aya.png" style="height:45px"><br><center>aya</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="b3"></center><img alt="" src="images/logos/b3.png" style="height:45px"><br><center>b3</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bay"></center><img alt="" src="images/logos/bay.png" style="height:45px"><br><center>bay</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bbp"></center><img alt="" src="images/logos/bbp.png" style="height:45px"><br><center>bbp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bbk"></center><img alt="" src="images/logos/bbk.png" style="height:45px"><br><center>bbk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bca"></center><img alt="" src="images/logos/bca.png" style="height:45px"><br><center>bca</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bcd"></center><img alt="" src="images/logos/bcd.png" style="height:45px"><br><center>bcd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bbtc"></center><img alt="" src="images/logos/bbtc.png" style="height:45px"><br><center>bbtc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bccx"></center><img alt="" src="images/logos/bccx.png" style="height:45px"><br><center>bccx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bcf"></center><img alt="" src="images/logos/bcf.png" style="height:45px"><br><center>bcf</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bch"></center><img alt="" src="images/logos/bch.png" style="height:45px"><br><center>bch</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bcz"></center><img alt="" src="images/logos/bcz.png" style="height:45px"><br><center>bcz</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bdc"></center><img alt="" src="images/logos/bdc.png" style="height:45px"><br><center>bdc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bean"></center><img alt="" src="images/logos/bean.png" style="height:45px"><br><center>bean</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="beet"></center><img alt="" src="images/logos/beet.png" style="height:45px"><br><center>beet</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bell"></center><img alt="" src="images/logos/bell.png" style="height:45px"><br><center>bell</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="biid"></center><img alt="" src="images/logos/biid.png" style="height:45px"><br><center>biid</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bio"></center><img alt="" src="images/logos/bio.png" style="height:45px"><br><center>bio</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bis"></center><img alt="" src="images/logos/bis.png" style="height:45px"><br><center>bis</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bitg"></center><img alt="" src="images/logos/bitg.png" style="height:45px"><br><center>bitg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bits"></center><img alt="" src="images/logos/swift.png" style="height:45px"><br><center>bits</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="blc"></center><img alt="" src="images/logos/blc.png" style="height:45px"><br><center>blc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="blitz"></center><img alt="" src="images/logos/blitz.png" style="height:45px"><br><center>blitz</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="blk"></center><img alt="" src="images/logos/blk.png" style="height:45px"><br><center>blk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="block"></center><img alt="" src="images/logos/block.png" style="height:45px"><br><center>block</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="blu"></center><img alt="" src="images/logos/blu.png" style="height:45px"><br><center>blu</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bnb"></center><img alt="" src="images/logos/bnb.png" style="height:45px"><br><center>bnb</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bnd"></center><img alt="" src="images/logos/bnd.png" style="height:45px"><br><center>bnd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bnode"></center><img alt="" src="images/logos/bnode.png" style="height:45px"><br><center>bnode</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="boat"></center><img alt="" src="images/logos/boat.png" style="height:45px"><br><center>boat</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="boli"></center><img alt="" src="images/logos/boli.png" style="height:45px"><br><center>boli</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bost"></center><img alt="" src="images/logos/bost.png" style="height:45px"><br><center>bost</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="brix"></center><img alt="" src="images/logos/brix.png" style="height:45px"><br><center>brix</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bro"></center><img alt="" src="images/logos/bro.png" style="height:45px"><br><center>bro</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bsd"></center><img alt="" src="images/logos/bsd.png" style="height:45px"><br><center>bsd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bst"></center><img alt="" src="images/logos/bst.png" style="height:45px"><br><center>bst</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bsv"></center><img alt="" src="images/logos/bsv.png" style="height:45px"><br><center>bsv</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bsx"></center><img alt="" src="images/logos/bsx.png" style="height:45px"><br><center>bsx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btc"></center><img alt="" src="images/logos/btc.png" style="height:45px"><br><center>btc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btcz"></center><img alt="" src="images/logos/btcz.png" style="height:45px"><br><center>btcz</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btc2"></center><img alt="" src="images/logos/btc2.png" style="height:45px"><br><center>btc2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btcd"></center><img alt="" src="images/logos/btcd.png" style="height:45px"><br><center>btcd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btcs"></center><img alt="" src="images/logos/btcs.png" style="height:45px"><br><center>btcs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btdx"></center><img alt="" src="images/logos/btdx.png" style="height:45px"><br><center>btdx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btg"></center><img alt="" src="images/logos/btg.png" style="height:45px"><br><center>btg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="btx"></center><img alt="" src="images/logos/btx.png" style="height:45px"><br><center>btx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="buk2"></center><img alt="" src="images/logos/buk2.png" style="height:45px"><br><center>buk2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bun"></center><img alt="" src="images/logos/bun.png" style="height:45px"><br><center>bun</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bynd"></center><img alt="" src="images/logos/bynd.png" style="height:45px"><br><center>bynd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="byt"></center><img alt="" src="images/logos/byt.png" style="height:45px"><br><center>byt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bzl"></center><img alt="" src="images/logos/bzl.png" style="height:45px"><br><center>bzl</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="bzx"></center><img alt="" src="images/logos/bzx.png" style="height:45px"><br><center>bzx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cache"></center><img alt="" src="images/logos/cache.png" style="height:45px"><br><center>cache</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cann"></center><img alt="" src="images/logos/cann.png" style="height:45px"><br><center>cann</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="caps"></center><img alt="" src="images/logos/caps.png" style="height:45px"><br><center>caps</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cbx"></center><img alt="" src="images/logos/cbx.png" style="height:45px"><br><center>cbx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ccn"></center><img alt="" src="images/logos/ccn.png" style="height:45px"><br><center>ccn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cdn"></center><img alt="" src="images/logos/cdn.png" style="height:45px"><br><center>cdn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cvcc"></center><img alt="" src="images/logos/cvcc.png" style="height:45px"><br><center>cvcc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cdzc"></center><img alt="" src="images/logos/cdzc.png" style="height:45px"><br><center>cdzc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="chbt"></center><img alt="" src="images/logos/chbt.png" style="height:45px"><br><center>chbt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cheese"></center><img alt="" src="images/logos/cheese.png" style="height:45px"><br><center>cheese</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cir"></center><img alt="" src="images/logos/cir.jpg" style="height:45px"><br><center>cir</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="civ"></center><img alt="" src="images/logos/civ.png" style="height:45px"><br><center>civ</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cj"></center><img alt="" src="images/logos/cj.png" style="height:45px"><br><center>cj</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="clam"></center><img alt="" src="images/logos/clam.png" style="height:45px"><br><center>clam</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cloak"></center><img alt="" src="images/logos/cloak.png" style="height:45px"><br><center>cloak</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cmm"></center><img alt="" src="images/logos/cmm.png" style="height:45px"><br><center>cmm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cno"></center><img alt="" src="images/logos/cno.png" style="height:45px"><br><center>cno</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cnx"></center><img alt="" src="images/logos/cnx.png" style="height:45px"><br><center>cnx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="colx"></center><img alt="" src="images/logos/colx.png" style="height:45px"><br><center>colx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="corg"></center><img alt="" src="images/logos/corg.png" style="height:45px"><br><center>corg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="corn"></center><img alt="" src="images/logos/corn.png" style="height:45px"><br><center>corn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cpc"></center><img alt="" src="images/logos/cpc.png" style="height:45px"><br><center>cpc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="crave"></center><img alt="" src="images/logos/crave.png" style="height:45px"><br><center>crave</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="crw"></center><img alt="" src="images/logos/crw.png" style="height:45px"><br><center>crw</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cspn"></center><img alt="" src="images/logos/cspn.png" style="height:45px"><br><center>cspn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="crypt"></center><img alt="" src="images/logos/crypt.png" style="height:45px"><br><center>crypt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="cure"></center><img alt="" src="images/logos/cure.png" style="height:45px"><br><center>cure</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dal"></center><img alt="" src="images/logos/dal.png" style="height:45px"><br><center>dal</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="daps"></center><img alt="" src="images/logos/daps.png" style="height:45px"><br><center>daps</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dash"></center><img alt="" src="images/logos/dash.png" style="height:45px"><br><center>dash</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dc"></center><img alt="" src="images/logos/dc.png" style="height:45px"><br><center>dc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dem"></center><img alt="" src="images/logos/dem.png" style="height:45px"><br><center>dem</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dev"></center><img alt="" src="images/logos/dev.png" style="height:45px"><br><center>dev</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dgb"></center><img alt="" src="images/logos/dgb.png" style="height:45px"><br><center>dgb</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dgc"></center><img alt="" src="images/logos/dgc.png" style="height:45px"><br><center>dgc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dime"></center><img alt="" src="images/logos/dime.png" style="height:45px"><br><center>dime</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="divi"></center><img alt="" src="images/logos/divi.png" style="height:45px"><br><center>divi</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dmb"></center><img alt="" src="images/logos/dmb.png" style="height:45px"><br><center>dmb</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dmd"></center><img alt="" src="images/logos/dmd.png" style="height:45px"><br><center>dmd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="doge"></center><img alt="" src="images/logos/dogecoin.png" style="height:45px"><br><center>dogecoin</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="donu"></center><img alt="" src="images/logos/donu.png" style="height:45px"><br><center>donu</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dope"></center><img alt="" src="images/logos/dope.png" style="height:45px"><br><center>dope</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="d"></center><img alt="" src="images/logos/d.png" style="height:45px"><br><center>d</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="drz"></center><img alt="" src="images/logos/drz.png" style="height:45px"><br><center>drz</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dtc"></center><img alt="" src="images/logos/dtc.png" style="height:45px"><br><center>dtc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dvc"></center><img alt="" src="images/logos/dvc.png" style="height:45px"><br><center>dvc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dvt"></center><img alt="" src="images/logos/dvt.png" style="height:45px"><br><center>dvt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="dyn"></center><img alt="" src="images/logos/dyn.png" style="height:45px"><br><center>dyn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="eac"></center><img alt="" src="images/logos/eac.png" style="height:45px"><br><center>eac</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ebst"></center><img alt="" src="images/logos/ebst.png" style="height:45px"><br><center>ebst</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ecc"></center><img alt="" src="images/logos/ecc.png" style="height:45px"><br><center>ecc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ec"></center><img alt="" src="images/logos/ec.png" style="height:45px"><br><center>ec</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="eca"></center><img alt="" src="images/logos/eca.png" style="height:45px"><br><center>eca</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="eddie"></center><img alt="" src="images/logos/eddie.png" style="height:45px"><br><center>eddie</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="efl"></center><img alt="" src="images/logos/efl.png" style="height:45px"><br><center>efl</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="egc"></center><img alt="" src="images/logos/egc.png" style="height:45px"><br><center>egc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="elt"></center><img alt="" src="images/logos/elt.png" style="height:45px"><br><center>elt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="emc"></center><img alt="" src="images/logos/emercoin.webp" style="height:45px"><br><center>emc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="emc2"></center><img alt="" src="images/logos/emc2.png" style="height:45px"><br><center>emc2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="emd"></center><img alt="" src="images/logos/emd.png" style="height:45px"><br><center>emd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="enrg"></center><img alt="" src="images/logos/enrg.png" style="height:45px"><br><center>enrg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ent"></center><img alt="" src="images/logos/ent.png" style="height:45px"><br><center>ent</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="eny"></center><img alt="" src="images/logos/eny.png" style="height:45px"><br><center>eny</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="eqt"></center><img alt="" src="images/logos/eqt.png" style="height:45px"><br><center>eqt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="erc"></center><img alt="" src="images/logos/erc.png" style="height:45px"><br><center>erc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="erk"></center><img alt="" src="images/logos/erk.png" style="height:45px"><br><center>erk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="esp"></center><img alt="" src="images/logos/esp.png" style="height:45px"><br><center>esp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="excl"></center><img alt="" src="images/logos/excl.png" style="height:45px"><br><center>excl</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="exo"></center><img alt="" src="images/logos/exo.png" style="height:45px"><br><center>exo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ext"></center><img alt="" src="images/logos/ext.png" style="height:45px"><br><center>ext</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="fair"></center><img alt="" src="images/logos/fair.png" style="height:45px"><br><center>fair</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="fjc"></center><img alt="" src="images/logos/fjc.png" style="height:45px"><br><center>fjc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="flo"></center><img alt="" src="images/logos/flo.png" style="height:45px"><br><center>flo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="flt"></center><img alt="" src="images/logos/flt.png" style="height:45px"><br><center>flt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ftc"></center><img alt="" src="images/logos/ftc.png" style="height:45px"><br><center>ftc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="funk"></center><img alt="" src="images/logos/funk.png" style="height:45px"><br><center>funk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gali"></center><img alt="" src="images/logos/gali.png" style="height:45px"><br><center>gali</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gap"></center><img alt="" src="images/logos/gap.png" style="height:45px"><br><center>gap</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gbx"></center><img alt="" src="images/logos/gbx.png" style="height:45px"><br><center>gbx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gcc"></center><img alt="" src="images/logos/gcc.png" style="height:45px"><br><center>gcc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gcr"></center><img alt="" src="images/logos/gcr.png" style="height:45px"><br><center>gcr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="genx"></center><img alt="" src="images/logos/genx.png" style="height:45px"><br><center>genx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="glc"></center><img alt="" src="images/logos/glc.png" style="height:45px"><br><center>glc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="glt"></center><img alt="" src="images/logos/glt.png" style="height:45px"><br><center>glt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gpl2"></center><img alt="" src="images/logos/gpl2.png" style="height:45px"><br><center>gpl2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="grc"></center><img alt="" src="images/logos/grc.png" style="height:45px"><br><center>grc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="grn"></center><img alt="" src="images/logos/grn.png" style="height:45px"><br><center>grn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="grs"></center><img alt="" src="images/logos/grs.png" style="height:45px"><br><center>grs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="grwi"></center><img alt="" src="images/logos/grwi.png" style="height:45px"><br><center>grwi</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gun"></center><img alt="" src="images/logos/gun.png" style="height:45px"><br><center>gun</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="gxx"></center><img alt="" src="images/logos/gxx.png" style="height:45px"><br><center>gxx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="hbn"></center><img alt="" src="images/logos/hbn.png" style="height:45px"><br><center>hbn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="hpc"></center><img alt="" src="images/logos/hpc.png" style="height:45px"><br><center>hpc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="html"></center><img alt="" src="images/logos/html.png" style="height:45px"><br><center>html</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="html5"></center><img alt="" src="images/logos/html5.png" style="height:45px"><br><center>html5</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="hwi"></center><img alt="" src="images/logos/hwi.png" style="height:45px"><br><center>hwi</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="hush"></center><img alt="" src="images/logos/hush.png" style="height:45px"><br><center>hush</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="hyp"></center><img alt="" src="images/logos/hyp.png" style="height:45px"><br><center>hyp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="i0c"></center><img alt="" src="images/logos/i0c.png" style="height:45px"><br><center>i0c</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="icn"></center><img alt="" src="images/logos/icn.png" style="height:45px"><br><center>icn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ic"></center><img alt="" src="images/logos/ic.png" style="height:45px"><br><center>ic</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ifc"></center><img alt="" src="images/logos/ifc.png" style="height:45px"><br><center>ifc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="iflt"></center><img alt="" src="images/logos/iflt.png" style="height:45px"><br><center>iflt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ilc"></center><img alt="" src="images/logos/ilc.png" style="height:45px"><br><center>ilc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="img"></center><img alt="" src="images/logos/img.png" style="height:45px"><br><center>img</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="imx"></center><img alt="" src="images/logos/imx.png" style="height:45px"><br><center>imx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="info"></center><img alt="" src="images/logos/info.png" style="height:45px"><br><center>info</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="infx"></center><img alt="" src="images/logos/infx.png" style="height:45px"><br><center>infx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="insn"></center><img alt="" src="images/logos/insn.png" style="height:45px"><br><center>insn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ioc"></center><img alt="" src="images/logos/ioc.png" style="height:45px"><br><center>ioc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ion"></center><img alt="" src="images/logos/ion.png" style="height:45px"><br><center>ion</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="iop"></center><img alt="" src="images/logos/iop.png" style="height:45px"><br><center>iop</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ixc"></center><img alt="" src="images/logos/ixc.png" style="height:45px"><br><center>ixc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="jbs"></center><img alt="" src="images/logos/jbs.png" style="height:45px"><br><center>jbs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="jmc"></center><img alt="" src="images/logos/jmc.png" style="height:45px"><br><center>jmc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="j"></center><img alt="" src="images/logos/j.png" style="height:45px"><br><center>j</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ked"></center><img alt="" src="images/logos/ked.png" style="height:45px"><br><center>ked</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="klks"></center><img alt="" src="images/logos/klks.png" style="height:45px"><br><center>klks</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="kmd"></center><img alt="" src="images/logos/kmd.png" style="height:45px"><br><center>kmd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="kng"></center><img alt="" src="images/logos/kng.png" style="height:45px"><br><center>kng</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="kobo"></center><img alt="" src="images/logos/kobo.png" style="height:45px"><br><center>kobo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="kore"></center><img alt="" src="images/logos/kore.png" style="height:45px"><br><center>kore</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="kum"></center><img alt="" src="images/logos/kum.png" style="height:45px"><br><center>kum</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lana"></center><img alt="" src="images/logos/lana.png" style="height:45px"><br><center>lana</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lbtc"></center><img alt="" src="images/logos/lbtc.png" style="height:45px"><br><center>lbtc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lcc"></center><img alt="" src="images/logos/lcc.png" style="height:45px"><br><center>lcc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ldoge"></center><img alt="" src="images/logos/ldoge.png" style="height:45px"><br><center>ldoge</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="linx"></center><img alt="" src="images/logos/linx.png" style="height:45px"><br><center>linx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lit"></center><img alt="" src="images/logos/lit.png" style="height:45px"><br><center>lit</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lobs"></center><img alt="" src="images/logos/lobs.png" style="height:45px"><br><center>lobs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lpc"></center><img alt="" src="images/logos/lpc.png" style="height:45px"><br><center>lpc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ltc"></center><img alt="" src="images/logos/ltc.png" style="height:45px"><br><center>ltc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="luna"></center><img alt="" src="images/logos/luna.png" style="height:45px"><br><center>luna</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lux"></center><img alt="" src="images/logos/lux.png" style="height:45px"><br><center>lux</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lynx"></center><img alt="" src="images/logos/lynx.png" style="height:45px"><br><center>lynx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="lyra"></center><img alt="" src="images/logos/lyra.png" style="height:45px"><br><center>lyra</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="manna"></center><img alt="" src="images/logos/manna.png" style="height:45px"><br><center>manna</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="marks"></center><img alt="" src="images/logos/marks.png" style="height:45px"><br><center>marks</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mbc"></center><img alt="" src="images/logos/mbc.png" style="height:45px"><br><center>mbc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mec"></center><img alt="" src="images/logos/mec.png" style="height:45px"><br><center>mec</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="meme"></center><img alt="" src="images/logos/pepe.png" style="height:45px"><br><center>meme</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mfc"></center><img alt="" src="images/logos/mfc.png" style="height:45px"><br><center>mfc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mgd"></center><img alt="" src="images/logos/mgd.png" style="height:45px"><br><center>mgd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mic"></center><img alt="" src="images/logos/mic.png" style="height:45px"><br><center>mic</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mint"></center><img alt="" src="images/logos/mint.png" style="height:45px"><br><center>mint</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mnc"></center><img alt="" src="images/logos/mnc.png" style="height:45px"><br><center>mnc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="moin"></center><img alt="" src="images/logos/moin.png" style="height:45px"><br><center>moin</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mona"></center><img alt="" src="images/logos/mona.png" style="height:45px"><br><center>mona</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="monk"></center><img alt="" src="images/logos/monk.png" style="height:45px"><br><center>monk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="moon"></center><img alt="" src="images/logos/moon.png" style="height:45px"><br><center>moon</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mrc"></center><img alt="" src="images/logos/mrc.png" style="height:45px"><br><center>mrc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mrx"></center><img alt="" src="images/logos/mrx.png" style="height:45px"><br><center>mrx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mscn"></center><img alt="" src="images/logos/mscn.png" style="height:45px"><br><center>mscn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mst"></center><img alt="" src="images/logos/mst.png" style="height:45px"><br><center>mst</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mue"></center><img alt="" src="images/logos/mue.png" style="height:45px"><br><center>mue</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="mzc"></center><img alt="" src="images/logos/mzc.png" style="height:45px"><br><center>mzc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="n8v"></center><img alt="" src="images/logos/n8v.png" style="height:45px"><br><center>n8v</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nacho"></center><img alt="" src="images/logos/nacho.png" style="height:45px"><br><center>nacho</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nav"></center><img alt="" src="images/logos/nav.png" style="height:45px"><br><center>nav</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nbt"></center><img alt="" src="images/logos/nbt.png" style="height:45px"><br><center>nbt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="neos"></center><img alt="" src="images/logos/neos.png" style="height:45px"><br><center>neos</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="netko"></center><img alt="" src="images/logos/netko.png" style="height:45px"><br><center>netko</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="net"></center><img alt="" src="images/logos/net.png" style="height:45px"><br><center>net</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="neva"></center><img alt="" src="images/logos/neva.png" style="height:45px"><br><center>neva</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nix"></center><img alt="" src="images/logos/nix.png" style="height:45px"><br><center>nix</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nka"></center><img alt="" src="images/logos/nka.png" style="height:45px"><br><center>nka</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nlc2"></center><img alt="" src="images/logos/nlc2.png" style="height:45px"><br><center>nlc2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nlg"></center><img alt="" src="images/logos/nlg.png" style="height:45px"><br><center>nlg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nmc"></center><img alt="" src="images/logos/nmc.png" style="height:45px"><br><center>nmc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nobl"></center><img alt="" src="images/logos/nobl.png" style="height:45px"><br><center>nobl</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nor"></center><img alt="" src="images/logos/nor.png" style="height:45px"><br><center>nor</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nort"></center><img alt="" src="images/logos/nort.png" style="height:45px"><br><center>nort</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="note"></center><img alt="" src="images/logos/note.png" style="height:45px"><br><center>note</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="npc"></center><img alt="" src="images/logos/npc.png" style="height:45px"><br><center>npc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nro"></center><img alt="" src="images/logos/nro.png" style="height:45px"><br><center>nro</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nsd"></center><img alt="" src="images/logos/nsd.png" style="height:45px"><br><center>nsd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nsr"></center><img alt="" src="images/logos/nsr.png" style="height:45px"><br><center>nsr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ntrn"></center><img alt="" src="images/logos/ntrn.png" style="height:45px"><br><center>ntrn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nvc"></center><img alt="" src="images/logos/nvc.png" style="height:45px"><br><center>nvc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nxs"></center><img alt="" src="images/logos/nxs.png" style="height:45px"><br><center>nxs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nxt"></center><img alt="" src="images/logos/nxt.png" style="height:45px"><br><center>nxt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="nye"></center><img alt="" src="images/logos/nye.png" style="height:45px"><br><center>nye</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="odn"></center><img alt="" src="images/logos/odn.png" style="height:45px"><br><center>odn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ok"></center><img alt="" src="images/logos/ok.png" style="height:45px"><br><center>ok</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="omni"></center><img alt="" src="images/logos/omni.png" style="height:45px"><br><center>omni</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="onion"></center><img alt="" src="images/logos/onion.png" style="height:45px"><br><center>onion</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="orb"></center><img alt="" src="images/logos/orb.png" style="height:45px"><br><center>orb</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="oto"></center><img alt="" src="images/logos/oto.png" style="height:45px"><br><center>oto</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="owc"></center><img alt="" src="images/logos/owc.png" style="height:45px"><br><center>owc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ozc"></center><img alt="" src="images/logos/ozc.png" style="height:45px"><br><center>ozc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pac"></center><img alt="" src="images/logos/pac.png" style="height:45px"><br><center>pac</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pak"></center><img alt="" src="images/logos/pak.png" style="height:45px"><br><center>pak</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pai"></center><img alt="" src="images/logos/pai.png" style="height:45px"><br><center>pai</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="part"></center><img alt="" src="images/logos/part.png" style="height:45px"><br><center>part</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pgn"></center><img alt="" src="images/logos/pgn.png" style="height:45px"><br><center>pgn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pcn"></center><img alt="" src="images/logos/pcn.png" style="height:45px"><br><center>pcn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pho"></center><img alt="" src="images/logos/pho.png" style="height:45px"><br><center>pho</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="phr"></center><img alt="" src="images/logos/phr.png" style="height:45px"><br><center>phr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="piggy"></center><img alt="" src="images/logos/piggy.png" style="height:45px"><br><center>piggy</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pink"></center><img alt="" src="images/logos/pink.png" style="height:45px"><br><center>pink</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pivx"></center><img alt="" src="images/logos/pivx.png" style="height:45px"><br><center>pivx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pkb"></center><img alt="" src="images/logos/pkb.png" style="height:45px"><br><center>pkb</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="plc"></center><img alt="" src="images/logos/plc.png" style="height:45px"><br><center>plc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pnd"></center><img alt="" src="images/logos/pnd.png" style="height:45px"><br><center>pnd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="polis"></center><img alt="" src="images/logos/polis.png" style="height:45px"><br><center>pilos</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pos"></center><img alt="" src="images/logos/pos.png" style="height:45px"><br><center>pos</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pot"></center><img alt="" src="images/logos/pot.png" style="height:45px"><br><center>pot</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ppc"></center><img alt="" src="images/logos/ppc.png" style="height:45px"><br><center>ppc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ptc"></center><img alt="" src="images/logos/ptc.png" style="height:45px"><br><center>ptc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="pura"></center><img alt="" src="images/logos/pura.png" style="height:45px"><br><center>pura</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="put"></center><img alt="" src="images/logos/put.png" style="height:45px"><br><center>put</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="qac"></center><img alt="" src="images/logos/qac.png" style="height:45px"><br><center>qac</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="qbt"></center><img alt="" src="images/logos/qbt.png" style="height:45px"><br><center>qbt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xqr"></center><img alt="" src="images/logos/qredit.png" style="height:45px"><br><center>qredit</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="qrk"></center><img alt="" src="images/logos/qrk.png" style="height:45px"><br><center>qrk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="qtum"></center><img alt="" src="images/logos/qtum.png" style="height:45px"><br><center>qtum</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="qub"></center><img alt="" src="images/logos/qub.png" style="height:45px"><br><center>qub</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rads"></center><img alt="" src="images/logos/rads.png" style="height:45px"><br><center>rads</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rbt"></center><img alt="" src="images/logos/rbt.png" style="height:45px"><br><center>rbt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rby"></center><img alt="" src="images/logos/rby.png" style="height:45px"><br><center>rby</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rdd"></center><img alt="" src="images/logos/rdd.png" style="height:45px"><br><center>rdd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ric"></center><img alt="" src="images/logos/ric.png" style="height:45px"><br><center>ric</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rpd"></center><img alt="" src="images/logos/rpd.png" style="height:45px"><br><center>rpd</center></div>
+												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xrp"></center><img alt="" src="images/logos/xrp.png" style="height:45px"><br><center>xrp</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rpc"></center><img alt="" src="images/logos/rpc.png" style="height:45px"><br><center>rpc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rstr"></center><img alt="" src="images/logos/rstr.png" style="height:45px"><br><center>rstr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rupx"></center><img alt="" src="images/logos/rupx.png" style="height:45px"><br><center>rupx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="rvn"></center><img alt="" src="images/logos/rvn.png" style="height:45px"><br><center>rvn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="safe"></center><img alt="" src="images/logos/safe.png" style="height:45px"><br><center>safe</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scap"></center><img alt="" src="images/logos/scap.png" style="height:45px"><br><center>scap</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scifi"></center><img alt="" src="images/logos/scifi.png" style="height:45px"><br><center>scifi</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scc"></center><img alt="scc" src="images/logos/scc.png" style="height:45px"><br><center>scc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scol"></center><img alt="" src="images/logos/scol.png" style="height:45px"><br><center>scol</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scribe"></center><img alt="" src="images/logos/scribe.png" style="height:45px"><br><center>scribe</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="scriv"></center><img alt="" src="images/logos/scriv.png" style="height:45px"><br><center>scriv</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sdc"></center><img alt="" src="images/logos/shadowcash.png" style="height:45px"><br><center>sdc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sha"></center><img alt="" src="images/logos/sha.png" style="height:45px"><br><center>sha</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="shnd"></center><img alt="" src="images/logos/shnd.png" style="height:45px"><br><center>shnd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sib"></center><img alt="" src="images/logos/sib.png" style="height:45px"><br><center>sib</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="skc"></center><img alt="" src="images/logos/skc.png" style="height:45px"><br><center>skc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="slg"></center><img alt="" src="images/logos/slg.png" style="height:45px"><br><center>slg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="slm"></center><img alt="" src="images/logos/slm.png" style="height:45px"><br><center>slm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="slr"></center><img alt="" src="images/logos/slr.png" style="height:45px"><br><center>slr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sls"></center><img alt="" src="images/logos/sls.png" style="height:45px"><br><center>sls</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="slx"></center><img alt="" src="images/logos/slx.png" style="height:45px"><br><center>slx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="smart"></center><img alt="" src="images/logos/smart.png" style="height:45px"><br><center>smart</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="smly"></center><img alt="" src="images/logos/smly.png" style="height:45px"><br><center>smly</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sphr"></center><img alt="" src="images/logos/sphr.png" style="height:45px"><br><center>sphr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sphx"></center><img alt="" src="images/logos/sphx.png" style="height:45px"><br><center>sphx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="spn"></center><img alt="" src="images/logos/spn.png" style="height:45px"><br><center>spn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sprts"></center><img alt="" src="images/logos/sprts.png" style="height:45px"><br><center>sprts</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="start"></center><img alt="" src="images/logos/start.png" style="height:45px"><br><center>start</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="stk"></center><img alt="" src="images/logos/stk.png" style="height:45px"><br><center>stk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="strat"></center><img alt="" src="images/logos/strat.png" style="height:45px"><br><center>strat</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="super"></center><img alt="" src="images/logos/super.png" style="height:45px"><br><center>super</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="swift"></center><img alt="" src="images/logos/swiftcash.png" style="height:45px"><br><center>Swift</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="swing"></center><img alt="" src="images/logos/swing.png" style="height:45px"><br><center>swing</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sxc"></center><img alt="" src="images/logos/sxc.png" style="height:45px"><br><center>sxc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="sys"></center><img alt="" src="images/logos/sys.png" style="height:45px"><br><center>sys</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="taj"></center><img alt="" src="images/logos/taj.png" style="height:45px"><br><center>taj</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="talk"></center><img alt="" src="images/logos/talk.png" style="height:45px"><br><center>talk</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tao"></center><img alt="" src="images/logos/tao.png" style="height:45px"><br><center>tao</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="telos"></center><img alt="" src="images/logos/telos.png" style="height:45px"><br><center>telos</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tes"></center><img alt="" src="images/logos/tes.png" style="height:45px"><br><center>tes</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="toa"></center><img alt="" src="images/logos/toa.png" style="height:45px"><br><center>toa</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tips"></center><img alt="" src="images/logos/tips.png" style="height:45px"><br><center>tips</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tpay"></center><img alt="" src="images/logos/tpay.png" style="height:45px"><br><center>tpay</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tpwr"></center><img alt="" src="images/logos/tpwr.png" style="height:45px"><br><center>tpwr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="trbo"></center><img alt="" src="images/logos/trbo.png" style="height:45px"><br><center>trbo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="trc"></center><img alt="" src="images/logos/trc.png" style="height:45px"><br><center>trc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="troll"></center><img alt="" src="images/logos/troll.png" style="height:45px"><br><center>troll</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="trtt"></center><img alt="" src="images/logos/trtt.png" style="height:45px"><br><center>trtt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="trump"></center><img alt="" src="images/logos/trump.png" style="height:45px"><br><center>trump</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ttn"></center><img alt="" src="images/logos/ttn.png" style="height:45px"><br><center>ttn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="twins"></center><img alt="" src="images/logos/twins.png" style="height:45px"><br><center>twins</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tx"></center><img alt="" src="images/logos/tx.png" style="height:45px"><br><center>tx</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="tzc"></center><img alt="" src="images/logos/tzc.png" style="height:45px"><br><center>tzc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ufo"></center><img alt="" src="images/logos/ufo.png" style="height:45px"><br><center>ufo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ugd"></center><img alt="" src="images/logos/ugd.png" style="height:45px"><br><center>ugd</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="umo"></center><img alt="" src="images/logos/umo.png" style="height:45px"><br><center>umo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="uno"></center><img alt="" src="images/logos/uno.png" style="height:45px"><br><center>uno</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="ut"></center><img alt="" src="images/logos/ut.png" style="height:45px"><br><center>ut</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="utip"></center><img alt="" src="images/logos/utip.png" style="height:45px"><br><center>utip</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="varius"></center><img alt="" src="images/logos/varius.png" style="height:45px"><br><center>varius</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vcn"></center><img alt="" src="images/logos/vcn.png" style="height:45px"><br><center>vcn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="veil"></center><img alt="" src="images/logos/veil.png" style="height:45px"><br><center>veil</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vestx2"></center><img alt="" src="images/logos/vestx2.png" style="height:45px"><br><center>vestx2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vgs"></center><img alt="" src="images/logos/vgs.png" style="height:45px"><br><center>vgs</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="via"></center><img alt="" src="images/logos/via.png" style="height:45px"><br><center>via</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vips"></center><img alt="" src="images/logos/vips.png" style="height:45px"><br><center>vips</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vitae"></center><img alt="" src="images/logos/vitae.png" style="height:45px"><br><center>vitae</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vites"></center><img alt="" src="images/logos/vites.png" style="height:45px"><br><center>vites</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vls"></center><img alt="" src="images/logos/vls.png" style="height:45px"><br><center>vls</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vpn"></center><img alt="" src="images/logos/vpn.png" style="height:45px"><br><center>vpn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vrc"></center><img alt="" src="images/logos/vrc.png" style="height:45px"><br><center>vrc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vrm"></center><img alt="" src="images/logos/vrm.png" style="height:45px"><br><center>vrm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vtc"></center><img alt="" src="images/logos/vtc.png" style="height:45px"><br><center>vtc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="vulc"></center><img alt="" src="images/logos/vulcano.webp" style="height:45px"><br><center>vulc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="wc"></center><img alt="" src="images/logos/wc.png" style="height:45px"><br><center>wc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="wdc"></center><img alt="" src="images/logos/wdc.png" style="height:45px"><br><center>wdc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="wex"></center><img alt="" src="images/logos/wex.png" style="height:45px"><br><center>wex</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="wgr"></center><img alt="" src="images/logos/wgr.png" style="height:45px"><br><center>wgr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="x0z"></center><img alt="" src="images/logos/x0z.png" style="height:45px"><br><center>x0z</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xbc"></center><img alt="" src="images/logos/xbc.png" style="height:45px"><br><center>xbc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xbrt"></center><img alt="" src="images/logos/xbrt.jpg" style="height:45px"><br><center>xbrt</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xch"></center><img alt="" src="images/logos/xch.png" style="height:45px"><br><center>xch</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xc"></center><img alt="" src="images/logos/xc.png" style="height:45px"><br><center>xc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xcp"></center><img alt="" src="images/logos/xcp.png" style="height:45px"><br><center>xcp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xde2"></center><img alt="" src="images/logos/xde2.png" style="height:45px"><br><center>xde2</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xhi"></center><img alt="" src="images/logos/xhi.png" style="height:45px"><br><center>xhi</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xjo"></center><img alt="" src="images/logos/xjo.png" style="height:45px"><br><center>xjo</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xlm"></center><img alt="" src="images/logos/xlm.png" style="height:45px"><br><center>xlm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xlq"></center><img alt="" src="images/logos/xlq.png" style="height:45px"><br><center>xlq</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xlr"></center><img alt="" src="images/logos/xlr.png" style="height:45px"><br><center>xlr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xmg"></center><img alt="" src="images/logos/xmg.png" style="height:45px"><br><center>xmg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xmr"></center><img alt="" src="images/logos/xmr.png" style="height:45px"><br><center>xmr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xmy"></center><img alt="" src="images/logos/xmy.png" style="height:45px"><br><center>xmy</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xpm"></center><img alt="" src="images/logos/xpm.png" style="height:45px"><br><center>xpm</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xp"></center><img alt="" src="images/logos/xp.png" style="height:45px"><br><center>xp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xpc"></center><img alt="" src="images/logos/xpc.png" style="height:45px"><br><center>xpc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xqr"></center><img alt="" src="images/logos/xqr.png" style="height:45px"><br><center>xqr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xspec"></center><img alt="" src="images/logos/xspec.png" style="height:45px"><br><center>xspec</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xsn"></center><img alt="" src="images/logos/xsn.png" style="height:45px"><br><center>xsn</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xst"></center><img alt="" src="images/logos/xst.png" style="height:45px"><br><center>xst</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xtp"></center><img alt="" src="images/logos/xtp.png" style="height:45px"><br><center>xtp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xtz"></center><img alt="" src="images/logos/xtz.png" style="height:45px"><br><center>xtz</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xvg"></center><img alt="" src="images/logos/xvg.png" style="height:45px"><br><center>xvg</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xvp"></center><img alt="" src="images/logos/xvp.png" style="height:45px"><br><center>xvp</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xwc"></center><img alt="" src="images/logos/xwc.png" style="height:45px"><br><center>xwc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="xzc"></center><img alt="" src="images/logos/xzc.png" style="height:45px"><br><center>xzc</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zcl"></center><img alt="" src="images/logos/zcl.png" style="height:45px"><br><center>zcl</center></div>
+												<!-- <div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zec"></center><img alt="" src="images/logos/zec.png" style="height:45px"><br><center>zec</center></div> -->
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zer"></center><img alt="" src="images/logos/zer.png" style="height:45px"><br><center>zer</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zeit"></center><img alt="" src="images/logos/zeit.png" style="height:45px"><br><center>zeit</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zet"></center><img alt="" src="images/logos/zet.png" style="height:45px"><br><center>zet</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zln"></center><img alt="" src="images/logos/zln.png" style="height:45px"><br><center>zln</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zoom"></center><img alt="" src="images/logos/zoom.png" style="height:45px"><br><center>zoom</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zcr"></center><img alt="" src="images/logos/zcr.webp" style="height:45px"><br><center>zcr</center></div>
+												<div style="float: left; margin-bottom: 20px; margin-right: 10px;"><center><input type="radio" name="setting" value="zrc"></center><img alt="" src="images/logos/zrc.png" style="height:45px"><br><center>zrc</center></div>
+												<div style="clear: both"><input type="submit" class="btn btn-primary" id="allcoinsSubmitButtonIDHere"></form></div>
+											</div></center>
+										</div>
 					<div class="tab-pane tab-content" id="settings">
 						<h2>Settings <small> making Multi-Wallet even better!</small></h2>
 						<p>These simple settings below make Multi-Wallet one of the most decentralized wallets in the world.</p>
@@ -1639,6 +2070,27 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-dismiss="modal" id="warningFeeClose">OK, I've got it!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- warning (fee) modal -->
+
+	<!-- warning (fee) modal -->
+	<div class="modal fade" id="modalCoinNotWorking" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><b>Coin Notification</b></h4>
+				</div>
+
+				<div class="modal-body">
+					This coin has yet to be implemented, Please check back at another time.
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="warningCoinclose">OK, I've got it!</button>
 				</div>
 			</div>
 		</div>
