@@ -10,9 +10,9 @@
 	var coinjs = window.coinjs = function () { };
 
 	/* public vars */
-	coinjs.pub = 0x00;
-	coinjs.priv = 0x80;
-	coinjs.multisig = 0x05;
+	coinjs.pub = 0x37;
+	coinjs.priv = 0xb7;
+	coinjs.multisig = 0x16;
 	coinjs.hdkey = {'prv':0x0488ade4, 'pub':0x0488b21e};
 	coinjs.bech32 = {'charset':'qpzry9x8gf2tvdw0s3jn54khce6mua7l', 'version':0, 'hrp':'bc'};
 
@@ -324,11 +324,41 @@
 		//Balance Area
 				if(host=='pandacoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
+				} else if(host=='aquariuscoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arco/'+ address +'', callback, "GET");
+				} else if(host=='zeitcoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/zeit/'+ address +'', callback, "GET");
+				} else if(host=='arepacoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arepa/'+ address +'', callback, "GET");
 				} else if(host=='syscoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/sys/'+ address +'', callback, "GET");
+				} else if(host=='aiascoin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/aias/'+ address +'', callback, "GET");
+				} else if(host=='42coin_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/42/'+ address +'', callback, "GET");
+				} else if(host=='1x2coin_mainnet') {
+					coinjs.ajax(''+ address +'', callback, "GET");
+				} else if(host=='abbc_mainnet') {
+					coinjs.ajax(''+ address +'', callback, "GET");
+				} else if(host=='asiacoin_mainnet') {
+					coinjs.ajax(''+ address +'', callback, "GET");
+				} else if(host=='aegeus_mainnet') {
+					coinjs.ajax(''+ address +'', callback, "GET");
+				} else if(host=='actinium_mainnet') {
+					coinjs.ajax('https://api.chainmapper.com/acm/getbalance/'+ address +'', callback, "GET");
+				} else if(host=='2x2_mainnet') {
+					coinjs.ajax('http://2x2block.space/ext/getbalance/'+ address +'', callback, "GET");
+				} else if(host=='404_mainnet') {
+					coinjs.ajax('http://404block.net/ext/getbalance/'+ address +'', callback, "GET");
+				} else if(host=='2give_mainnet') {
+					coinjs.ajax(''+ address +'', callback, "GET");
+				} else if(host=='elite_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/1337/'+ address +'', callback, "GET");
 				} else if(host=='qtum_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/qtum/balance/'+ address +'', callback, "GET");
-				} else if(host=='dash_mainnet') {
+				} else if(host=='digibyte_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dgb/'+ address +'', callback, "GET");
+				}	else if(host=='dash_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dash/'+ address +'', callback, "GET");
 				} else if(host=='lynx_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/lynx/'+ address +'', callback, "GET");
@@ -342,6 +372,8 @@
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/funk/'+ address +'', callback, "GET");
 				} else if(host=='deviantcoin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/dev/'+ address, callback, "GET");
+				} else if(host=='alexandrite_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/alex/'+ address, callback, "GET");
 				} else if(host=='chain.so_dogecoin'){
 					coinjs.ajax('http://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
 				}	else if(host=='infinitericks_mainnet') {
@@ -499,7 +531,7 @@
 		// Line 21 and 22 specify digest hash and privkey for the first 2 test vectors.
 		// Line 96-117 tells expected result.
 
-		var tx = coinjs.transaction();
+		var tx = coinjs.transaction(host);
 
 		var test_vectors = [
 			{
@@ -1006,8 +1038,7 @@
 	/* start of transaction functions */
 
 	/* create a new transaction object */
-	coinjs.transaction = function() {
-
+	coinjs.transaction = function(host) {
 		var r = {};
 		r.version = 1;
 		r.lock_time = 0;
@@ -1093,7 +1124,7 @@
 
 		/* list unspent transactions */
 		r.listUnspent = function(address, callback) {
-			coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
+				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
 		}
 
 		/* add unspent to transaction */
