@@ -1126,20 +1126,58 @@
 
 		/* list unspent transactions */
 		r.listUnspent = function(address, callback) {
+			// Spend List Unspent
 			if(host=='pandacoin_mainnet') {
 				coinjs.ajax('https://api.cryptodepot.org:8083/chainz/listunspent/pnd/'+address, callback, "GET");
-				console.log('coinjs unspent: ' + host);
 			} else {
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
-				console.log(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random());
 			}
 		}
 
 		/* add unspent to transaction */
 		r.addUnspent = function(address, callback, script, segwit, sequence){
+			// Spend Add Unspent
 			if(host=='pandacoin_mainnet') {
-				console.log('coinjs addunspent: ' + host);
-			}
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else {
 			var self = this;
 			this.listUnspent(address, function(data){
 				var s = coinjs.script();
@@ -1187,6 +1225,7 @@
 				return callback(x);
 			});
 		}
+		}
 
 		/* add unspent and sign */
 		r.addUnspentAndSign = function(wif, callback){
@@ -1201,7 +1240,8 @@
 		/* broadcast a transaction */
 		r.broadcast = function(callback, txhex){
 			if(host=='pandacoin_mainnet') {
-				console.log('coinjs broadcast: ' + host);
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://server1.cryptodepot.org:3001/api/sendrawtransaction?hex='+tx, callback, "GET");
 			} else {
 				var tx = txhex || this.serialize();
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction&rawtx='+tx+'&r='+Math.random(), callback, "GET");

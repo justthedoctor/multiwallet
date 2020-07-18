@@ -97,7 +97,12 @@ $(document).ready(function() {
 
 					$("#walletQrCode").html("");
 					var qrcode = new QRCode("walletQrCode");
-					qrcode.makeCode("bitcoin:"+address);
+					// QRCode Change
+					if(host=='pandacoin_mainnet') {
+						qrcode.makeCode("pandacoin:"+address);
+					} else {
+						qrcode.makeCode("bitcoin:"+address);
+					}
 
 
 					$("#walletKeys .privkey").val(wif);
@@ -134,7 +139,12 @@ $(document).ready(function() {
 
 		$("#walletQrCode").html("");
 		var qrcode = new QRCode("walletQrCode");
-		qrcode.makeCode("bitcoin:");
+		// QRCode Change
+		if(host=='pandacoin') {
+			qrcode.makeCode("pandacoin:");
+		} else {
+			qrcode.makeCode("bitcoin:");
+		}
 
 		$("#walletKeys .privkey").val("");
 		$("#walletKeys .pubkey").val("");
@@ -240,14 +250,28 @@ $(document).ready(function() {
 				// and finally broadcast!
 
 				tx2.broadcast(function(data) {
-					if($(data).find("result").text()=="1") {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://coinb.in/tx/'+$(data).find("txid").text()+'" target="_blank">'+$(data).find("txid").text()+'</a>');
-					} else {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
-						$("#walletSendFailTransaction").removeClass('hidden');
-						$("#walletSendFailTransaction textarea").val(signed);
-						thisbtn.attr('disabled',false);
-					}
+					// Spend Broadcast
+					if(host=='pandacoin_mainnet') {
+            if(data){
+              console.log(data);
+              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/pnd/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+            } else {
+              console.log(data);
+              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+              $("#walletSendFailTransaction").removeClass('hidden');
+              $("#walletSendFailTransaction textarea").val(signed);
+              thisbtn.attr('disabled',false);
+          }
+          } else {
+              if($(data).find("result").text()=="1"){
+                $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://coinb.in/tx/'+$(data).find("txid").text()+'" target="_blank">'+$(data).find("txid").text()+'</a>');
+              } else {
+                $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+    						$("#walletSendFailTransaction").removeClass('hidden');
+    						$("#walletSendFailTransaction textarea").val(signed);
+    						thisbtn.attr('disabled',false);
+  					}
+          }
 
 					// update wallet balance
 					walletBalance();
@@ -2850,7 +2874,12 @@ function rawSubmitdash(thisbtn) {
 			}
 		} else {
 			var qrcode = new QRCode("qrcode");
-			qrstr = "bitcoin:"+$('.address',thisbtn).val();
+			// QRCode Change
+			if(host=='pandacoin') {
+				qrstr = "pandacoin:"+$('.address',thisbtn).val();
+			} else {
+				qrstr = "bitcoin:"+$('.address',thisbtn).val();
+			}
 		}
 
 		if(qrstr) {
