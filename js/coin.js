@@ -336,6 +336,8 @@
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/aias/'+ address +'', callback, "GET");
 				} else if(host=='42coin_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/42/'+ address +'', callback, "GET");
+				} else if(host=='argentum_mainnet') {
+					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arg/'+ address +'', callback, "GET");
 				} else if(host=='1x2coin_mainnet') {
 					coinjs.ajax(''+ address +'', callback, "GET");
 				} else if(host=='abbc_mainnet') {
@@ -374,7 +376,7 @@
 					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/dev/'+ address, callback, "GET");
 				} else if(host=='alexandrite_mainnet') {
 					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/alex/'+ address, callback, "GET");
-				} else if(host=='chain.so_dogecoin'){
+				} else if(host=='dogecoin_mainnet'){
 					coinjs.ajax('http://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
 				}	else if(host=='infinitericks_mainnet') {
 					coinjs.ajax('http://infiniteblocks.space/ext/getbalance/'+ address, callback, "GET");
@@ -1124,11 +1126,20 @@
 
 		/* list unspent transactions */
 		r.listUnspent = function(address, callback) {
+			if(host=='pandacoin_mainnet') {
+				coinjs.ajax('https://api.cryptodepot.org:8083/chainz/listunspent/pnd/'+address, callback, "GET");
+				console.log('coinjs unspent: ' + host);
+			} else {
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
+				console.log(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random());
+			}
 		}
 
 		/* add unspent to transaction */
 		r.addUnspent = function(address, callback, script, segwit, sequence){
+			if(host=='pandacoin_mainnet') {
+				console.log('coinjs addunspent: ' + host);
+			}
 			var self = this;
 			this.listUnspent(address, function(data){
 				var s = coinjs.script();
@@ -1189,8 +1200,12 @@
 
 		/* broadcast a transaction */
 		r.broadcast = function(callback, txhex){
-			var tx = txhex || this.serialize();
-			coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction&rawtx='+tx+'&r='+Math.random(), callback, "GET");
+			if(host=='pandacoin_mainnet') {
+				console.log('coinjs broadcast: ' + host);
+			} else {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction&rawtx='+tx+'&r='+Math.random(), callback, "GET");
+			}
 		}
 
 		/* generate the transaction hash to sign from a transaction input */
