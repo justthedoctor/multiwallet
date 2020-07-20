@@ -4,10 +4,14 @@
 
  http://github.com/OutCast3k/coinjs or http://coinb.in/coinjs
 */
+$(document).ready(function() {
+		var host = $("#coinjs_broadcast option:selected").val();
 
 (function () {
 
 	var coinjs = window.coinjs = function () { };
+
+	var multiWalletApiDomain = 'api.cryptodepot.org'
 
 	/* public vars */
 	coinjs.pub = 0x37;
@@ -19,7 +23,22 @@
 	coinjs.compressed = false;
 
 	/* other vars */
-	coinjs.developer = '14KXE7vLEqJicH6bhBebPd9VMi2P8URXna'; //bitcoin
+	if(host=='pandacoin_mainnet') {
+		coinjs.developer = 'PAFt6XomhAJe2QGQcrRfvnkarkCUQ9De7T'; //pandacoin Donation
+	} else if(host=='aiascoin_mainnet') {
+		coinjs.developer = "AHSab4GYyPUbrXodqRmUQn3QibxHiGFTFC"; //AIAScoin Donation
+	} else if(host=='digibyte_mainnet') {
+		coinjs.developer = "D6ooUpMZweijaZnF1N6hoewv88kteqJ2Py"; // Digibyte Donation
+	} else if(host=='blocknet_mainnet') {
+		coinjs.developer = "BVTPYPAR6vsEJqDtugmRs9rmc7j7negyFF"; // Blocknet Donation
+	} else if(host=='lynx_mainnet') {
+		coinjs.developer = "K8srFSptbMfsr4sYNf6V5Y2iZhd3J9KJw5"; // Lynx Donation
+	} else if(host=='dash_mainnet') {
+		coinjs.developer = "XcMYmp4pbx33CWCE8fRN7RU75LcHL3aHY7"; // Lynx Donation
+	} else if(host=='coinb.in') {
+		coinjs.developer = '12fhwZQveEpT3ZbeGn79FtnKF12bPWn2Js'; //bitcoin Donation
+	}
+
 
 	/* bit(coinb.in) api vars */
 	coinjs.hostname	= ((document.location.hostname.split(".")[(document.location.hostname.split(".")).length-1]) == 'onion') ? '4zpinp6gdkjfplhk.onion' : 'coinb.in';
@@ -323,65 +342,65 @@
 	coinjs.addressBalance = function(host, address, callback){
 		//Balance Area
 				if(host=='pandacoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/pnd/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/pnd/'+ address, callback, "GET");
 				} else if(host=='aquariuscoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arco/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/arco/'+ address, callback, "GET");
 				} else if(host=='zeitcoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/zeit/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/zeit/'+ address, callback, "GET");
 				} else if(host=='arepacoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arepa/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/arepa/'+ address, callback, "GET");
 				} else if(host=='syscoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/sys/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/sys/'+ address, callback, "GET");
 				} else if(host=='aiascoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/aias/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/aias/'+ address, callback, "GET");
 				} else if(host=='42coin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/42/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/42/'+ address, callback, "GET");
 				} else if(host=='argentum_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/arg/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/arg/'+ address, callback, "GET");
 				} else if(host=='1x2coin_mainnet') {
-					coinjs.ajax(''+ address +'', callback, "GET");
+					coinjs.ajax(''+ address, callback, "GET");
 				} else if(host=='abbc_mainnet') {
-					coinjs.ajax(''+ address +'', callback, "GET");
+					coinjs.ajax(''+ address, callback, "GET");
 				} else if(host=='asiacoin_mainnet') {
-					coinjs.ajax(''+ address +'', callback, "GET");
+					coinjs.ajax(''+ address, callback, "GET");
 				} else if(host=='aegeus_mainnet') {
-					coinjs.ajax(''+ address +'', callback, "GET");
+					coinjs.ajax(''+ address, callback, "GET");
 				} else if(host=='actinium_mainnet') {
-					coinjs.ajax('https://api.chainmapper.com/acm/getbalance/'+ address +'', callback, "GET");
+					coinjs.ajax('https://api.chainmapper.com/acm/getbalance/'+ address, callback, "GET");
 				} else if(host=='2x2_mainnet') {
-					coinjs.ajax('http://2x2block.space/ext/getbalance/'+ address +'', callback, "GET");
+					coinjs.ajax('http://2x2block.space/ext/getbalance/'+ address, callback, "GET");
 				} else if(host=='404_mainnet') {
-					coinjs.ajax('http://404block.net/ext/getbalance/'+ address +'', callback, "GET");
+					coinjs.ajax('http://404block.net/ext/getbalance/'+ address, callback, "GET");
 				} else if(host=='2give_mainnet') {
-					coinjs.ajax(''+ address +'', callback, "GET");
+					coinjs.ajax(''+ address, callback, "GET");
 				} else if(host=='elite_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/1337/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/1337/'+ address, callback, "GET");
 				} else if(host=='qtum_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/qtum/balance/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/qtum/balance/'+ address, callback, "GET");
 				} else if(host=='digibyte_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dgb/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/dgb/'+ address, callback, "GET");
 				}	else if(host=='dash_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/dash/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/dash/'+ address, callback, "GET");
 				} else if(host=='lynx_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/lynx/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/lynx/'+ address, callback, "GET");
 				} else if(host=='blocknet_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/block/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/block/'+ address, callback, "GET");
 				} else if(host=='chain.so_litecoin') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/ltc/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/ltc/'+ address, callback, "GET");
 				} else if(host=='viacoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/viacoin/balance/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/viacoin/balance/'+ address, callback, "GET");
 				} else if(host=='cypherfunk_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/chainz/balance/funk/'+ address +'', callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/funk/'+ address, callback, "GET");
 				} else if(host=='deviantcoin_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/dev/'+ address, callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/coinexplorer/balance/dev/'+ address, callback, "GET");
 				} else if(host=='alexandrite_mainnet') {
-					coinjs.ajax('https://api.cryptodepot.org:8083/coinexplorer/balance/alex/'+ address, callback, "GET");
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/coinexplorer/balance/alex/'+ address, callback, "GET");
 				} else if(host=='dogecoin_mainnet'){
 					coinjs.ajax('http://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
-				}	else if(host=='infinitericks_mainnet') {
-					coinjs.ajax('http://infiniteblocks.space/ext/getbalance/'+ address, callback, "GET");
+				}	else if(host=='infiniterick_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/ricks/balance/'+ address, callback, "GET");
 				} else if(host=='mousecoin_mainnet'){
-					coinjs.ajax('http://explorer.mousemn.com/ext/getbalance'+ address, callback, "GET");
+					coinjs.ajax('http://explorer.mousemn.com/ext/getbalance/'+ address, callback, "GET");
 				} else {
 					coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=bal&address='+address+'&r='+Math.random(), callback, "GET");
 				}
@@ -1128,7 +1147,17 @@
 		r.listUnspent = function(address, callback) {
 			// Spend List Unspent
 			if(host=='pandacoin_mainnet') {
-				coinjs.ajax('https://api.cryptodepot.org:8083/chainz/listunspent/pnd/'+address, callback, "GET");
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/pnd/'+address, callback, "GET");
+			} else if(host=='aiascoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/aias/'+address, callback, "GET");
+			} else if(host=='lynx_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/lynx/'+address, callback, "GET");
+			} else if(host=='dash_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/dash/'+address, callback, "GET");
+			} else if(host=='blocknet_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/block/'+address, callback, "GET");
+			} else if(host=='digibyte_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/dgb/'+address, callback, "GET");
 			} else {
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
 			}
@@ -1138,6 +1167,206 @@
 		r.addUnspent = function(address, callback, script, segwit, sequence){
 			// Spend Add Unspent
 			if(host=='pandacoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='digibyte_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='blocknet_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='lynx_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='dash_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='aiascoin_mainnet') {
 				var self = this;
 			this.listUnspent(address, function(data){
 				var s = coinjs.script();
@@ -1241,7 +1470,22 @@
 		r.broadcast = function(callback, txhex){
 			if(host=='pandacoin_mainnet') {
 				var tx = txhex || this.serialize();
-				coinjs.ajax('https://server1.cryptodepot.org:3001/api/sendrawtransaction?hex='+tx, callback, "GET");
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/pnd/broadcast/'+tx, callback, "GET");
+			} else if(host=='blocknet_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/blocknet/broadcast/'+tx, callback, "GET");
+			} else if(host=='lynx_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/lynx/broadcast/'+tx, callback, "GET");
+			} else if(host=='dash_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/dash/broadcast/'+tx, callback, "GET");
+			} else if(host=='aiascoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/aiascoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='digibyte_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/digibyte/broadcast/'+tx, callback, "GET");
 			} else {
 				var tx = txhex || this.serialize();
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction&rawtx='+tx+'&r='+Math.random(), callback, "GET");
@@ -2160,3 +2404,4 @@
 	}
 
 })();
+});

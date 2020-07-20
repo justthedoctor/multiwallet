@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
 	var host = $("#coinjs_broadcast option:selected").val();
-	console.log(host);
 	var coinUrl = new URL(window.location.href).searchParams.get('coin');
 	var emailUrl = new URL(window.location.href).searchParams.get('email');
 	var passwordUrl = new URL(window.location.href).searchParams.get('password');
@@ -11,6 +10,7 @@ $(document).ready(function() {
 	var explorer_tx = "https://coinb.in/tx/"
 	var explorer_addr = "https://coinb.in/addr/"
 	var explorer_block = "https://coinb.in/block/"
+	var multiWalletApiDomain = 'api.cryptodepot.org'
 
 	var wallet_timer = false;
 
@@ -251,20 +251,67 @@ $(document).ready(function() {
 
 				tx2.broadcast(function(data) {
 					// Spend Broadcast
+					var host = $("#coinjs_utxo option:selected").val();
 					if(host=='pandacoin_mainnet') {
-            if(data){
-              console.log(data);
-              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/pnd/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+            if(data) {
+							$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/pnd/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+							$("#walletSendSuccessfulTransaction").removeClass('hidden');
+							$("#walletSendSuccessfulTransaction textarea").val(signed);
             } else {
-              console.log(data);
               $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
               $("#walletSendFailTransaction").removeClass('hidden');
               $("#walletSendFailTransaction textarea").val(signed);
               thisbtn.attr('disabled',false);
           }
-          } else {
-              if($(data).find("result").text()=="1"){
+				} else if(host=='dash_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/dash/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} if(host=='lynx_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/lynx/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='blocknet_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/block/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='aiascoin_mainnet') {
+            if(data) {
+							$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/aias/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+							$("#walletSendSuccessfulTransaction").removeClass('hidden');
+							$("#walletSendSuccessfulTransaction textarea").val(signed);
+            } else {
+              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+              $("#walletSendFailTransaction").removeClass('hidden');
+              $("#walletSendFailTransaction textarea").val(signed);
+              thisbtn.attr('disabled',false);
+          }
+				} else if(host=='coinb.in') {
+              if($(data).find("result").text()=="1") {
                 $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://coinb.in/tx/'+$(data).find("txid").text()+'" target="_blank">'+$(data).find("txid").text()+'</a>');
+								$("#walletSendSuccessfulTransaction").removeClass('hidden');
+								$("#walletSendSuccessfulTransaction textarea").val(signed);
               } else {
                 $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
     						$("#walletSendFailTransaction").removeClass('hidden');
@@ -498,7 +545,7 @@ $(document).ready(function() {
 					}
 				} else if(host=='infiniterick_mainnet') {
 					if(data) {
-						var v = data
+						var v = data;
 						$("#walletBalance").html(v+" RICK").attr('rel',v).fadeOut().fadeIn();
 					} else {
 						$("#walletBalance").html("0 RICK").attr('rel',v).fadeOut().fadeIn();
@@ -1241,7 +1288,7 @@ $(document).ready(function() {
 		} else if(host=='audiocoin_mainnet') {
 			listUnspentAudioCoin(redeem);
 		} else if(host=='coinb.in') {
-			listUnspentDefault(redeem);
+			listUnspentChainso(redeem, "BTC");
 		}	else if(host=='blocknet_mainnet') {
 			listUnspentBlocknet(redeem);
 		} else if(host=='cypherfunk_mainnet') {
@@ -1395,7 +1442,7 @@ $(document).ready(function() {
 	function listUnspentPandacoin(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/pnd/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/pnd/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1454,7 +1501,7 @@ $(document).ready(function() {
 	function listUnspentAiasCoin(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/aias/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/aias/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1482,7 +1529,7 @@ $(document).ready(function() {
 	function listUnspentAlexandrite(redeem) {
 				$.ajax ({
 						type: "GET",
-						url: `https://cryptodepot.org:8083/cetest/listunspent/alex/${redeem.addr}`,
+						url: `https://`+ multiWalletApiDomain +`/coinexplorer/listunspent/alex/${redeem.addr}`,
 						dataType: "json",
 						error: function(data) {
 								$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1525,7 +1572,7 @@ $(document).ready(function() {
 	function listUnspentAquariusCoin(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/arco/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/arco/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1553,7 +1600,7 @@ $(document).ready(function() {
 	function listUnspentArepaCoin(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/arepa/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/arepa/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1591,6 +1638,7 @@ $(document).ready(function() {
 	}
 		/* Bitcoin function to retreive unspent outputs*/
 	function listUnspentDefault(redeem) {
+		console.log('default');
 		var tx = coinjs.transaction($("#coinjs_utxo option:selected").val());
 		tx.listUnspent(redeem.addr, function(data) {
 			if(redeem.addr) {
@@ -1613,13 +1661,11 @@ $(document).ready(function() {
 		});
 	}
 
-
-
 	/* retrieve unspent data from cryptoid for pandacoin */
 	function listUnspentBlocknet(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/block/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/block/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1648,7 +1694,7 @@ $(document).ready(function() {
 	function listUnspentcypherfunk(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/funk/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/funk/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1677,7 +1723,7 @@ $(document).ready(function() {
 	function listUnspentDash(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/dash/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/dash/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1706,7 +1752,7 @@ $(document).ready(function() {
 	function listUnspentDeviantCoin(redeem) {
 				$.ajax ({
 						type: "GET",
-						url: `https://cryptodepot.org:8083/cetest/listunspent/dev/${redeem.addr}`,
+						url: `https://`+ multiWalletApiDomain +`/coinexplorer/listunspent/dev/${redeem.addr}`,
 						dataType: "json",
 						error: function(data) {
 								$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1750,7 +1796,7 @@ $(document).ready(function() {
 	function listUnspentDigiByte(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/dgb/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/dgb/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1779,7 +1825,7 @@ $(document).ready(function() {
 	function listUnspentChainso(redeem, network) {
 		$.ajax ({
 			type: "GET",
-			url: "https://chain.so/api/v2/get_tx_unspent/"+network+"/"+redeem.addr,
+			url: "https://chain.so/api/v2/get_tx_unspent/"+network+"/"+redeem.addr, // fix me
 			dataType: "json",
 			error: function(data) {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1812,7 +1858,7 @@ $(document).ready(function() {
 	function listUnspentElite(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/1337/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/1337/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1841,7 +1887,7 @@ $(document).ready(function() {
 	function listUnspentLynx(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/lynx/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/lynx/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1879,7 +1925,7 @@ $(document).ready(function() {
 	function listUnspentqtum(redeem) {
     $.ajax ({
       type: "GET",
-      url: "https://api.cryptodepot.org:8083/qtum/listunspent/"+redeem.addr+"",
+      url: "https://"+ multiWalletApiDomain +"/qtum/listunspent/"+redeem.addr+"",
       dataType: "json",
       error: function(data) {
         $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1907,7 +1953,7 @@ $(document).ready(function() {
 	function listUnspentsyscoin(redeem) {
 		$.ajax ({
 			type: "GET",
-			url: "https://api.cryptodepot.org:8083/chainz/listunspent/sys/"+ redeem.addr,
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/sys/"+ redeem.addr,
 			dataType: "json",
 			error: function() {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -1933,14 +1979,38 @@ $(document).ready(function() {
 	}
 
 	function listUnspentuTip(redeem) {
-
+		$.ajax ({
+			type: "GET",
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/utip/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/lynx/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										var confirms = item.confirmations;
+										var script = item.script;
+										var addr = item.addr;
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
 	}
 
 	 /* retrieve unspent data from viacoin explorer */
 	function listUnspentviacoin(redeem) {
     $.ajax ({
       type: "GET",
-      url: "https://api.cryptodepot.org:8083/viacoin/listunspent/"+redeem.addr+"",
+      url: "https://"+ multiWalletApiDomain +"/viacoin/listunspent/"+redeem.addr+"",
       dataType: "json",
       error: function(data) {
         $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1967,7 +2037,7 @@ $(document).ready(function() {
 function listUnspentZeitCoin(redeem) {
 	$.ajax ({
 		type: "GET",
-		url: "https://api.cryptodepot.org:8083/chainz/listunspent/zeit/"+ redeem.addr,
+		url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/zeit/"+ redeem.addr,
 		dataType: "json",
 		error: function() {
 			$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
@@ -2056,7 +2126,7 @@ function listUnspentZeitCoin(redeem) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
-			url: coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction',
+			url: coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction', // fix me
 			data: {'rawtx':$("#rawTransaction").val()},
 			dataType: "xml",
 			error: function(data) {
@@ -2080,9 +2150,39 @@ function listUnspentZeitCoin(redeem) {
 	// broadcast transaction via DigiByte Network
 	function rawSubmitDigiByte(thisbtn) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/digibyte/broadcast/${txhex}`,
+						data: $("#rawTransaction").val(),
+						error: function(data) {
+							if(data.responseText ==="There was an error. Check your console.") {
+							errcode = data.responseText;
+							var r = ' Failed to Broadcast.'; // this wants a preceding space
+							$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						} else {
+							var txid = data.responseText;
+								$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: ${txid} <br> <a href="https://chainz.cryptoid.info/dgb/tx.dws?${txid}" target="_BLANK"> View on Block Explorer </a>`);
+						}
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data;  // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: ${txid} <br> <a href="https://chainz.cryptoid.info/dgb/tx.dws?${txid}" target="_BLANK"> View on Block Explorer </a>`);
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+		/*
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
-			url: "https://digiexplorer.info/api/tx/send",
+			url: "https://digiexplorer.info/api/tx/send", // fixme
       data: JSON.stringify({ "rawtx": $("#rawTransaction").val() }),
 			dataType : "json",
 			contentType: "application/json",
@@ -2104,7 +2204,7 @@ function listUnspentZeitCoin(redeem) {
 				$("#rawTransactionStatus").fadeOut().fadeIn();
 				$(thisbtn).val('Submit').attr('disabled',false);
 			}
-		});
+		}); */
 	}
 
 	// broadcast transaction via Cypherfunk Network (default)
@@ -2112,7 +2212,7 @@ function listUnspentZeitCoin(redeem) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
-			url: "https://chainz.cryptoid.info/funk/api.dws?q=pushtx",
+			url: "https://chainz.cryptoid.info/funk/api.dws?q=pushtx", // fix me Api Created
 			data: $("#rawTransaction").val(),
 			error: function(obj) {
 				var obj1 = obj.responseText;
@@ -2141,7 +2241,7 @@ function listUnspentZeitCoin(redeem) {
         txhex = $("#rawTransaction").val().trim();
             $.ajax({
                 type: "GET",
-                url: `https://api.cryptodepot.org:8083/blocknet/broadcast/${txhex}`,
+                url: `https://`+ multiWalletApiDomain +`/block/broadcast/${txhex}`,
                 data: $("#rawTransaction").val(),
                 error: function(data) {
                   if(data.responseText ==="There was an error. Check your console.") {
@@ -2173,7 +2273,7 @@ function listUnspentZeitCoin(redeem) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
-			url: "https://chain.so/api/v2/send_tx/"+network+"/",
+			url: "https://chain.so/api/v2/send_tx/"+network+"/", // Fix me
 			data: {"tx_hex":$("#rawTransaction").val()},
 			dataType: "json",
 			error: function(data) {
@@ -2183,7 +2283,7 @@ function listUnspentZeitCoin(redeem) {
 				r = (r!='') ? r : ' Failed to broadcast'; // build response
 				$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
 			},
-                        success: function(data) {
+      success: function(data) {
 				if(data.status && data.data.txid) {
 					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + data.data.txid + '<br> <a href="https://chain.so/tx/'+network+'/' + data.data.txid + '" target="_blank">View on Blockchain Explorer</a>');
 				} else {
@@ -2203,7 +2303,7 @@ function listUnspentZeitCoin(redeem) {
 		txhex = $("#rawTransaction").val().trim();
 				$.ajax({
 						type: "GET",
-						url: `https://server1.cryptodepot.org:3001/api/sendrawtransaction?hex=${txhex}`,
+						url: `https://`+ multiWalletApiDomain +`/pandacoin/sendrawtransaction?hex=${txhex}`,
 						error: function(data) {
 								var r = ' Failed to Broadcast.'; // this wants a preceding space
 								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
@@ -2233,17 +2333,15 @@ function listUnspentZeitCoin(redeem) {
 	function rawSubmitqtum(thisbtn) {
         $(thisbtn).val('Please wait, loading...').attr('disabled',true);
         txhex = $("#rawTransaction").val().trim();
-        console.log(txhex);
             $.ajax({
                 type: "GET",
-                url: `https://api.cryptodepot.org:8083/qtum/broadcast/${txhex}`,
+                url: `https://`+ multiWalletApiDomain +`/qtum/broadcast/${txhex}`,
                 error: function(data) {
                     errcode = data.responseText;
                     var r = ' Failed to Broadcast.'; // this wants a preceding space
                     $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
                 },
                 success: function(data) {
-                  console.log(data.txid);
                     if(data) {
                         var txid = data.txid;  // is this right?
                         $("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: <a href="https://explorer.qtum.org/tx/${txid}"> ${txid} </a>`);
@@ -2252,8 +2350,6 @@ function listUnspentZeitCoin(redeem) {
                     }
                 },
                 complete: function (data, status) {
-                                     console.log(data);
-
                     $("#rawTransactionStatus").fadeOut().fadeIn();
                     $(thisbtn).val('Submit').attr('disabled',false);
                 }
@@ -2264,10 +2360,9 @@ function listUnspentZeitCoin(redeem) {
 	function rawSubmitlynx(thisbtn) {
         $(thisbtn).val('Please wait, loading...').attr('disabled',true);
         txhex = $("#rawTransaction").val().trim();
-        console.log(txhex);
             $.ajax({
                 type: "GET",
-                url: `https://api.cryptodepot.org:8083/lynx/broadcast/${txhex}`,
+                url: `https://`+ multiWalletApiDomain +`/lynx/broadcast/${txhex}`,
                 data: $("#rawTransaction").val(),
                 error: function(data) {
                   if(data.responseText ==="There was an error. Check your console.") {
@@ -2288,8 +2383,6 @@ function listUnspentZeitCoin(redeem) {
                     }
                 },
                 complete: function (data, status) {
-                                     console.log(data);
-
                     $("#rawTransactionStatus").fadeOut().fadeIn();
                     $(thisbtn).val('Submit').attr('disabled',false);
                 }
@@ -2300,10 +2393,9 @@ function listUnspentZeitCoin(redeem) {
 function rawSubmitdash(thisbtn) {
 			$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 			txhex = $("#rawTransaction").val().trim();
-			console.log(txhex);
 					$.ajax({
 							type: "GET",
-							url: `https://api.cryptodepot.org:8083/dash/broadcast/${txhex}`,
+							url: `https://`+ multiWalletApiDomain +`/dash/broadcast/${txhex}`,
 							data: $("#rawTransaction").val(),
 							error: function(data) {
 								if(data.responseText ==="There was an error. Check your console.") {
@@ -2324,8 +2416,6 @@ function rawSubmitdash(thisbtn) {
 									}
 							},
 							complete: function (data, status) {
-																	 console.log(data);
-
 									$("#rawTransactionStatus").fadeOut().fadeIn();
 									$(thisbtn).val('Submit').attr('disabled',false);
 							}
@@ -2337,7 +2427,7 @@ function rawSubmitdash(thisbtn) {
         txhex = $("#rawTransaction").val().trim();
             $.ajax({
                 type: "GET",
-                url: `https://api.cryptodepot.org:8083/syscoin/broadcast/${txhex}`,
+                url: `https://`+ multiWalletApiDomain +`/syscoin/broadcast/${txhex}`,
                 error: function(data) {
                     errcode = data.responseText;
                     var r = ' Failed to Broadcast.'; // this wants a preceding space
@@ -2369,7 +2459,7 @@ function rawSubmitdash(thisbtn) {
 	        txhex = $("#rawTransaction").val().trim();
 	            $.ajax({
 	                type: "GET",
-	                url: `https://api.cryptodepot.org:8083/viacoin/broadcast/${txhex}`,
+	                url: `https://`+ multiWalletApiDomain +`/viacoin/broadcast/${txhex}`,
 	                error: function(data) {
 	                    errcode = data.responseText;
 	                    var r = ' Failed to Broadcast.'; // this wants a preceding space
@@ -2395,7 +2485,7 @@ function rawSubmitdash(thisbtn) {
 	        txhex = $("#rawTransaction").val().trim();
 	            $.ajax({
 	                type: "GET",
-	                url: `https://cryptodepot.org:8083/deviantcoin/broadcast/${txhex}`,
+	                url: `https://`+ multiWalletApiDomain +`/deviantcoin/broadcast/${txhex}`,
 	                data: $("#rawTransaction").val(),
 	                error: function(data) {
 	                  if(data.responseText ==="There was an error. Check your console.") {
@@ -2452,10 +2542,9 @@ function rawSubmitdash(thisbtn) {
 	function rawSubmitAiasCoin(thisbtn) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		txhex = $("#rawTransaction").val().trim();
-		console.log(txhex);
 				$.ajax({
 						type: "GET",
-						url: `https://api.cryptodepot.org:8083/aiascoin/broadcast/${txhex}`,
+						url: `https://`+ multiWalletApiDomain +`/aiascoin/broadcast/${txhex}`,
 						data: $("#rawTransaction").val(),
 						error: function(data) {
 							if(data.responseText ==="There was an error. Check your console.") {
@@ -2476,8 +2565,6 @@ function rawSubmitdash(thisbtn) {
 								}
 						},
 						complete: function (data, status) {
-																 console.log(data);
-
 								$("#rawTransactionStatus").fadeOut().fadeIn();
 								$(thisbtn).val('Submit').attr('disabled',false);
 						}
@@ -2938,7 +3025,6 @@ function rawSubmitdash(thisbtn) {
 	$("#settingsBtn").click(function() {
 		var host = $("#coinjs_broadcast option:selected").val();
 			// Visual Change's
-			console.log('Visual: ' + host);
 		if(host=='pandacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/pnd.png";
 			document.getElementById("broadCastTitle").textContent = "Pandacoin";
@@ -2949,6 +3035,8 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `PND`;
+			document.getElementById("developerDonation").value = `1.0`;
+
 		} else if(host=='1x2coin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/1x2.png";
 			document.getElementById("broadCastTitle").textContent = "1X2 Coin";
@@ -2957,7 +3045,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/1x2-coin" target="_BLANK">1X2 Coin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `1x2`;
 		} else if(host=='2x2_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/2x2.png";
@@ -2967,7 +3055,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/2x2" target="_BLANK">2X2 CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `2x2`;
 		} else if(host=='2give_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/2give.png";
@@ -2977,7 +3065,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/2give" target="_BLANK">2Give CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `2GIVE`;
 		} else if(host=='404_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/404.jpg";
@@ -2987,7 +3075,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/alibabacoin" target="_BLANK">404 CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `404`;
 		} else if(host=='42coin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/42.png";
@@ -2997,7 +3085,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/42-coin" target="_BLANK">42-Coin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `42`;
 		} else if(host=='abbc_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/abbc.png";
@@ -3007,7 +3095,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/abbc" target="_BLANK">ABBC CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ABBC`;
 		} else if(host=='actinium_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/acm.png";
@@ -3017,7 +3105,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/actinium" target="_BLANK">Actinium CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ACM`;
 		} else if(host=='adeptio_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/ade.png";
@@ -3027,7 +3115,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/adeptio" target="_BLANK">Adeptio CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ADE`;
 		} else if(host=='aegeus_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/aeg.png";
@@ -3037,7 +3125,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/aegeus" target="_BLANK">Aegeus CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AEG`;
 		} else if(host=='aiascoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/aias.png";
@@ -3057,7 +3145,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = ``;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ALEX`;
 		} else if(host=='aquariuscoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/arco.png";
@@ -3077,7 +3165,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/arepacoin" target="_BLANK">Arepacoin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AREPA`;
 		} else if(host=='argentum_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/arg.png";
@@ -3087,7 +3175,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/argentum" target="_BLANK">Argentum CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ARG`;
 		} else if(host=='asiacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/ac.png";
@@ -3097,7 +3185,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/asiacoin" target="_BLANK">Asiacoin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AC`;
 		} else if(host=='audiocoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/adc.png";
@@ -3107,7 +3195,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/audiocoin" target="_BLANK">Audiocoin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ADC`;
 		} else if(host=='coinb.in') {
 			document.getElementById("coinLogo").src = "images/logos/btc.png";
@@ -3187,7 +3275,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/elite" target="_BLANK">Elite CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `1337`;
 		} else if(host=='litecoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/litecoin.png";
@@ -3217,8 +3305,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/mouse" target="_BLANK">MouseMN CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `MOUSE`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
 		} else if(host=='infiniterick_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/rick.png";
 			document.getElementById("broadCastTitle").textContent = "Infinite Ricks";
@@ -3227,7 +3316,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/infinite-ricks" target="_BLANK">Infinite Ricks CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `RICK`;
 		} else if(host=='qtum_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/qtum.png";
@@ -3257,7 +3346,7 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/utip" target="_BLANK">uTip CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `UTIP`;
 		} else if(host=='viacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/via.png";
@@ -3277,18 +3366,18 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/zeitcoin" target="_BLANK">Zeitcoin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
-			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For  Broadcasting Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ZEIT`;
 		} else {
-			document.getElementById("coinLogo").src = "images/logos/btc.png";
-			document.getElementById("broadCastTitle").textContent = "Bitcoin";
-			document.getElementById("walletTitle").textContent = "Bitcoin";
-			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="bitcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
-			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/bitcoin"  target="_BLANK">Bitcoin CoinGecko Info</a></center>`;
+			document.getElementById("coinLogo").src = "images/logos/png.png";
+			document.getElementById("broadCastTitle").textContent = "Pandacoin";
+			document.getElementById("walletTitle").textContent = "Pandacoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="pandacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/pandacoin"  target="_BLANK">Pandacoin CoinGecko Info</a></center>`;
 			document.getElementById("transwarning").innerHTML = ``;
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
-			document.getElementById("spendTicker").innerHTML = `BTC`;
+			document.getElementById("spendTicker").innerHTML = `PND`;
 		}
 
 		// log out of openwallet
@@ -3726,6 +3815,12 @@ function rawSubmitdash(thisbtn) {
     $("#coinjs_utxo").val("viacoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	else if(coinUrl == 'btc') {
+		$("#coinjs_coin").val("bitcoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("coinb.in").trigger("change");
+    $("#coinjs_utxo").val("coinb.in").trigger("change");
+    $("#settingsBtn").trigger("click");
+	}
 	if (emailUrl == null) { }
   else {
     document.getElementById("openEmail").value = emailUrl;
@@ -3744,7 +3839,7 @@ function rawSubmitdash(thisbtn) {
         // network name     "ltc"           "litecoin"      "LTC"
         // network name     "doge"          "dogecoin"      "DOGE"
 		$("#rawSubmitBtn").unbind("");
-		if(host=="chain.so_bitcoinmainnet") {
+		if(host=="coinb.in") {
 			$("#rawSubmitBtn").click(function() {
 				rawSubmitChainso(this, "BTC");
 			});

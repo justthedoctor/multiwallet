@@ -1,0 +1,31 @@
+{
+  "name": "multi-wallet-api",
+  "version": "0.0.1",
+  "description": "Multi-Wallet API for Functionality",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justthedoctor/multiwallet.git"
+  },
+  "keywords": [
+    "Multi-Wallet",
+    "Crypto-Currency",
+    "API"
+  ],
+  "author": "JustTheDoctor",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/justthedoctor/multiwallet/issues"
+  },
+  "homepage": "https://github.com/justthedoctor/multiwallet#readme",
+  "dependencies": {
+    "greenlock-express": "^4.0.3",
+    "https": "^1.0.0",
+    "pandacoin-api": "^0.1.3",
+    "request": "^2.88.2",
+    "system-sleep": "^1.3.6"
+  }
+}

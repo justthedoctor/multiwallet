@@ -103,3 +103,7 @@ dist
 
 # TernJS port file
 .tern-port
+api/.greenlockrc
+api/greenlock.d/accounts/acme-v02.api.letsencrypt.org/directory/justthedoctor.931@gmail.com.json
+api/greenlock.d/config.json
+api/greenlock.d/config.json.bak

@@ -241,6 +241,7 @@
 
 												<div id="walletSpend" class="hidden">
 													<div class="row">
+														<div id="WalletSpendWarning"></div>
 														<div class="form-inline output">
 															<div class="col-xs-8">
 																<label>Address</label>
@@ -1817,7 +1818,7 @@
 									<option value="aegeus_mainnet" rel="0x17;0x97;0x53;0x488b21e;0x488ade4;aegeus_mainnet;aegeus_mainnet">Aegeus (mainnet)</option>
 									<option value="aiascoin_mainnet" rel="0x17;0xd4;0x53;0x488b21e;0x488ade4;aiascoin_mainnet;aiascoin_mainnet">AIAScoin (mainnet)</option>
 									<option value="alexandrite_mainnet" rel="0x17;0x97;0x7d;0x488b21e;0x488ade4;alexandrite_mainnet;alexandrite_mainnet">Alexandrite (mainnet)</option>
-									<option value="aquariuscoin_mainnet" rel="0x17;0x97;0x6;0x488b21e;0x488ade4;;">AquariusCoin (mainnet)</option>
+									<option value="aquariuscoin_mainnet" rel="0x17;0x97;0x6;0x488b21e;0x488ade4;aquariuscoin_mainnet;aquariuscoin_mainnet">AquariusCoin (mainnet)</option>
 									<option value="arepacoin_mainnet" rel="0x17;0x97;0x55;0x488b21e;0x488ade4;arepacoin_mainnet;arepacoin_mainnet">Arepacoin (mainnet)</option>
 									<option value="argentum_mainnet" rel="0x17;0x97;0x05;0x488b21e;0x488ade4;argentum_mainnet;argentum_mainnet">Argentum  (mainnet)</option>
 									<option value="aricoin_mainnet" rel=";;;0x488b21e;0x488ade4;aricoin_mainnet;aricoin_mainnet">Aricoin (mainnet)</option> <!-- Add to coin.js & coinbin.js -->
@@ -1840,7 +1841,7 @@
 									<option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;litecoin_mainnet;litecoin_mainnet">Litecoin (mainnet)</option>
 									<option value="lynx_mainnet" rel="0x2d;0xad;0x32;0xee80286a;0xee8031e8;lynx_mainnet;lynx_mainnet">Lynx (mainnet)</option>
 									<option value="mousecoin_mainnet" rel="0x32;0x99;0x55;0xee80286a;0xee8031e8;mousecoin_mainnet;mousecoin_mainnet">Mousecoin (mainnet)</option>
-									<option value="piratechain_mainnet" rel="0x3c;0xbc;0x55;0x488b21e;0x488ade4;;">Pirate Chain (mainnet)</option> <!-- add coin.js & coinbin.js -->
+									<option value="piratechain_mainnet" rel="0x3c;0xbc;0x55;0x488b21e;0x488ade4;piratechain_mainnet;piratechain_mainnet">Pirate Chain (mainnet)</option> <!-- add coin.js & coinbin.js -->
 									<option value="qtum_mainnet" rel="0x3a;0x80;0x32;0xee80286a;0xee8031e8;qtum_mainnet;qtum_mainnet">Qtum (mainnet)</option>
 									<option value="syscoin_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;syscoin_mainnet;syscoin_mainnet">Syscoin (mainnet)</option>
 									<option value="utip_mainnet" rel="0x17;0x97;0x550x488b21e;0x488ade4;utipcoin_mainnet;utipcoin_mainnet">uTip (mainnet)</option>
@@ -2035,6 +2036,11 @@
 					<div id="walletSendFailTransaction" class="alert alert-info hidden">
 						<b>Raw Transaction:</b>
 						<p>Below is a copy of the transaction we tried to submit</p>
+						<textarea class="form-control" readonly></textarea>
+					</div>
+					<div id="walletSendSuccessfulTransaction" class="alert alert-info hidden">
+						<b>Raw Transaction:</b>
+						<p>Below is a copy of the transaction submited</p>
 						<textarea class="form-control" readonly></textarea>
 					</div>
 				</div>
