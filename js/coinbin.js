@@ -60,6 +60,11 @@ $(document).ready(function() {
 					$("#walletAddress").html(address);
 					// History Area
 					if(host=="pandacoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/pnd/address.dws?'+address);}
+					if(host=="komodo_mainnet") {$("#walletHistory").attr('href','https://kmdexplorer.io/address/'+address);}
+					else if(host=="htmlcoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/html/address.dws?'+address);}
+					else if(host=="dimecoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/dime/address.dws?'+address);}
+					else if(host=="peercoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/ppc/address.dws?'+address);}
+					else if(host=="mintcoin_mainnet") {$("#walletHistory").attr('href',''+address);}
 					else if(host=='1x2coin_mainnet') {$("#walletHistory").attr('href',''+address);}
 					else if(host=='2x2_mainnet') {$("#walletHistory").attr('href','http://2x2block.space/address/'+address);}
 					else if(host=='2give_mainnet') {$("#walletHistory").attr('href',''+address);}
@@ -74,6 +79,7 @@ $(document).ready(function() {
 					else if(host=="aquariuscoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/arco/address.dws?'+address);}
 					else if(host=="arepacoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/arepa/address.dws?'+address);}
 					else if(host=="argentum_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/arg/address.dws?'+address);}
+					else if(host=="aricoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/ari/address.dws?'+address);}
 					else if(host=='asiacoin_mainnet') {$("#walletHistory").attr('href',''+address);}
 					else if(host=='audiocoin_mainnet') {$("#walletHistory").attr('href',''+address);}
 					else if(host=='coinb.in') {$("#walletHistory").attr('href','https://coinb.in/addr/'+address);}
@@ -86,11 +92,15 @@ $(document).ready(function() {
 					else if(host=='elite_mainnet') {$("#walletHistory").attr('href','https://chainz.cryptoid.info/1337/address.dws?'+address);}
 					else if(host=="litecoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/ltc/address.dws?'+address);}
 					else if(host=="lynx_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/lynx/address.dws?'+address);}
+					else if(host=="mooncoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/moon/address.dws?'+address);}
 					else if(host=='mousecoin_mainnet') {$("#walletHistory").attr('href','http://explorer.mousemn.com/address/'+address);}
 					else if(host=='infiniterick_mainnet') {$("#walletHistory").attr('href','http://infiniteblocks.space/address/'+address);}
 					else if(host=="qtum_mainnet") {$("#walletHistory").attr('href','https://explorer.qtum.org/address/'+address);}
+					else if(host=="piratechain_mainnet") {$("#walletHistory").attr('href','https://explorer.pirate.black/address/'+address);}
+					else if(host=="axe_mainnet") {$("#walletHistory").attr('href','https://insight.axecore.net/address/'+address);}
+					else if(host=="auroracoin_mainnet") {$("#walletHistory").attr('href','http://insight.auroracoin.is/address/'+address);}
 					else if(host=="syscoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/sys/address.dws?'+address);}
-					else if(host=='utip_mainnet') {$("#walletHistory").attr('href',''+address);}
+					else if(host=='utip_mainnet') {$("#walletHistory").attr('href','https://chainz.cryptoid.info/utip/address.dws?'+address);}
 					else if(host=="viacoin_mainnet") {$("#walletHistory").attr('href','https://explorer.viacoin.org/address/'+address);}
 					else if(host=="zeitcoin_mainnet") {$("#walletHistory").attr('href','https://chainz.cryptoid.info/zeit/address.dws?'+address);}
 					else {$("#walletHistory").attr('href','https://coinb.in/addr/'+address);}
@@ -100,6 +110,32 @@ $(document).ready(function() {
 					// QRCode Change
 					if(host=='pandacoin_mainnet') {
 						qrcode.makeCode("pandacoin:"+address);
+					} else if(host=='komodo_mainnet') {
+						qrcode.makeCode("komodo:"+address);
+					} else if(host=='htmlcoin_mainnet') {
+						qrcode.makeCode("htmlcoin:"+address);
+					} else if(host=='qtum_mainnet') {
+						qrcode.makeCode("qtum:"+address);
+					} else if(host=='dimecoin_mainnet') {
+						qrcode.makeCode("dimecoin:"+address);
+					} else if(host=='dogecoin_mainnet') {
+						qrcode.makeCode("dogecoin:"+address);
+					} else if(host=='peercoin_mainnet') {
+						qrcode.makeCode("peercoin:"+address);
+					} else if(host=='mintcoin_mainnet') {
+						qrcode.makeCode("mintcoin:"+address);
+					} else if(host=='aricoin_mainnet') {
+						qrcode.makeCode("aricoin:"+address);
+					}	else if(host=='utip_mainnet') {
+						qrcode.makeCode("utip:"+address);
+					}	else if(host=='mooncoin_mainnet') {
+						qrcode.makeCode("mooncoin:"+address);
+					}	else if(host=='piratechain_mainnet') {
+						qrcode.makeCode("piratechain:"+address);
+					}	else if(host=='axe_mainnet') {
+						qrcode.makeCode("axe:"+address);
+					}	else if(host=='auroracoin_mainnet') {
+						qrcode.makeCode("auroracoin:"+address);
 					} else {
 						qrcode.makeCode("bitcoin:"+address);
 					}
@@ -140,8 +176,28 @@ $(document).ready(function() {
 		$("#walletQrCode").html("");
 		var qrcode = new QRCode("walletQrCode");
 		// QRCode Change
-		if(host=='pandacoin') {
+		if(host=='pandacoin_mainnet') {
 			qrcode.makeCode("pandacoin:");
+		} else if(host=='komodo_mainnet') {
+			qrcode.makeCode("komodo:");
+		} else if(host=='htmlcoin_mainnet') {
+			qrcode.makeCode("htmlcoin:");
+		} else if(host=='qtum_mainnet') {
+			qrcode.makeCode("qtum:");
+		} else if(host=='aricoin_mainnet') {
+			qrcode.makeCode("aricoin:");
+		} else if(host=='dogecoin_mainnet') {
+			qrcode.makeCode("dogecoin:");
+		} else if(host=='utip_mainnet') {
+			qrcode.makeCode("utip:");
+		} else if(host=='axe_mainnet') {
+			qrcode.makeCode("axe:");
+		} else if(host=='mooncoin_mainnet') {
+			qrcode.makeCode("mooncoin:");
+		} else if(host=='piratechain_mainnet') {
+			qrcode.makeCode("piratechain:");
+		} else if(host=='auroracoin_mainnet') {
+			qrcode.makeCode("auroracoin:");
 		} else {
 			qrcode.makeCode("bitcoin:");
 		}
@@ -230,9 +286,20 @@ $(document).ready(function() {
 		}
 
 		tx.addUnspent($("#walletAddress").html(), function(data) {
-
+			var host = $("#coinjs_utxo option:selected").val();
+			if(host=='dogecoin_mainnet') {
+				var dvalue = data.value;
+				total = (total*1);
+			} else if(host=='litecoin_mainnet') {
+				var dvalue = data.value;
+				total = (total*1);
+			} else if(host=='coinb.in') {
+				var dvalue = data.value;
+				total = (total*1);
+			} else {
 			var dvalue = (data.value/100000000).toFixed(8) * 1;
 			total = (total*1).toFixed(8) * 1;
+		}
 
 			if(dvalue>=total) {
 				var change = dvalue-total;
@@ -258,18 +325,150 @@ $(document).ready(function() {
 							$("#walletSendSuccessfulTransaction").removeClass('hidden');
 							$("#walletSendSuccessfulTransaction textarea").val(signed);
             } else {
-              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
               $("#walletSendFailTransaction").removeClass('hidden');
               $("#walletSendFailTransaction textarea").val(signed);
               thisbtn.attr('disabled',false);
           }
-				} else if(host=='dash_mainnet') {
+				} else if(host=='komodo_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://kmdexplorer.io/tx/' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='htmlcoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/html/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='dimecoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/dime/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='dogecoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://sochain.com/tx/DOGE/' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='peercoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/ppc/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='mintcoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/mint/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='syscoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/sys/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='utip_mainnet') {
+				if(data) {
+					$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/utip/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+					$("#walletSendSuccessfulTransaction").removeClass('hidden');
+					$("#walletSendSuccessfulTransaction textarea").val(signed);
+				} else {
+					$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+					$("#walletSendFailTransaction").removeClass('hidden');
+					$("#walletSendFailTransaction textarea").val(signed);
+					thisbtn.attr('disabled',false);
+			}
+		} else if(host=='mooncoin_mainnet') {
+				if(data) {
+					$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/moon/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+					$("#walletSendSuccessfulTransaction").removeClass('hidden');
+					$("#walletSendSuccessfulTransaction textarea").val(signed);
+				} else {
+					$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+					$("#walletSendFailTransaction").removeClass('hidden');
+					$("#walletSendFailTransaction textarea").val(signed);
+					thisbtn.attr('disabled',false);
+			}
+		} else if(host=='auroracoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="http://insight.auroracoin.is/tx/' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='cypherfunk_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/funk/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='aricoin_mainnet') {
+					if(data) {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/ari/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
+						$("#walletSendSuccessfulTransaction").removeClass('hidden');
+						$("#walletSendSuccessfulTransaction textarea").val(signed);
+					} else {
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+						$("#walletSendFailTransaction").removeClass('hidden');
+						$("#walletSendFailTransaction textarea").val(signed);
+						thisbtn.attr('disabled',false);
+				}
+			} else if(host=='dash_mainnet') {
 					if(data) {
 						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://chainz.cryptoid.info/dash/tx.dws?' + data +'" target="_blank">'+ data +'</a>');
 						$("#walletSendSuccessfulTransaction").removeClass('hidden');
 						$("#walletSendSuccessfulTransaction textarea").val(signed);
 					} else {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
 						$("#walletSendFailTransaction").removeClass('hidden');
 						$("#walletSendFailTransaction textarea").val(signed);
 						thisbtn.attr('disabled',false);
@@ -280,7 +479,7 @@ $(document).ready(function() {
 						$("#walletSendSuccessfulTransaction").removeClass('hidden');
 						$("#walletSendSuccessfulTransaction textarea").val(signed);
 					} else {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
 						$("#walletSendFailTransaction").removeClass('hidden');
 						$("#walletSendFailTransaction textarea").val(signed);
 						thisbtn.attr('disabled',false);
@@ -291,7 +490,7 @@ $(document).ready(function() {
 						$("#walletSendSuccessfulTransaction").removeClass('hidden');
 						$("#walletSendSuccessfulTransaction textarea").val(signed);
 					} else {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
 						$("#walletSendFailTransaction").removeClass('hidden');
 						$("#walletSendFailTransaction textarea").val(signed);
 						thisbtn.attr('disabled',false);
@@ -302,12 +501,23 @@ $(document).ready(function() {
 							$("#walletSendSuccessfulTransaction").removeClass('hidden');
 							$("#walletSendSuccessfulTransaction textarea").val(signed);
             } else {
-              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
               $("#walletSendFailTransaction").removeClass('hidden');
               $("#walletSendFailTransaction textarea").val(signed);
               thisbtn.attr('disabled',false);
           }
-				} else if(host=='coinb.in') {
+				} else if(host=='axe_mainnet') {
+	            if(data) {
+								$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://insight.axecore.net/tx/' + data +'" target="_blank">'+ data +'</a>');
+								$("#walletSendSuccessfulTransaction").removeClass('hidden');
+								$("#walletSendSuccessfulTransaction textarea").val(signed);
+	            } else {
+	              $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html("Unable to Broadcast")
+	              $("#walletSendFailTransaction").removeClass('hidden');
+	              $("#walletSendFailTransaction textarea").val(signed);
+	              thisbtn.attr('disabled',false);
+	          }
+					} else if(host=='coinb.in') {
               if($(data).find("result").text()=="1") {
                 $("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://coinb.in/tx/'+$(data).find("txid").text()+'" target="_blank">'+$(data).find("txid").text()+'</a>');
 								$("#walletSendSuccessfulTransaction").removeClass('hidden');
@@ -325,7 +535,7 @@ $(document).ready(function() {
 
 				}, signed);
 			} else {
-				$("#walletSendConfirmStatus").removeClass("hidden").addClass('alert-danger').html("You have a confirmed balance of "+dvalue+" BTC unable to send "+total+" BTC").fadeOut().fadeIn();
+				$("#walletSendConfirmStatus").removeClass("hidden").addClass('alert-danger').html("You have a confirmed balance of "+dvalue+" Coins unable to send "+total+" Coins").fadeOut().fadeIn();
 				thisbtn.attr('disabled',false);
 			}
 
@@ -423,6 +633,62 @@ $(document).ready(function() {
 						$("#walletBalance").html(v+" PND").attr('rel',v).fadeOut().fadeIn();
 					} else {
 						$("#walletBalance").html("0 PND").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='komodo_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" KMD").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 KMD").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='htmlcoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" HTML").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 HTML").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='dimecoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" DIME").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 DIME").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='peercoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" PPC").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 PPC").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='mintcoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" MINT").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 MINT").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='aricoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" ARI").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 ARI").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='utip_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" UTIP").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 UTIP").attr('rel',v).fadeOut().fadeIn();
+					}
+				} else if(host=='mooncoin_mainnet') {
+					if(data) {
+						var v = data
+						$("#walletBalance").html(v+" MOON").attr('rel',v).fadeOut().fadeIn();
+					} else {
+						$("#walletBalance").html("0 MOON").attr('rel',v).fadeOut().fadeIn();
 					}
 				} else if(host=='argentum_mainnet') {
 					if(data) {
@@ -565,6 +831,30 @@ $(document).ready(function() {
                 else {
                 $("#walletBalance").html((parsed/100000000).toFixed(8) + " QTUM").attr('rel',v).fadeOut().fadeIn();
               }
+        } else if(host=='piratechain_mainnet') {
+                var parsed = JSON.parse(data)
+                if(parsed.type==='error') {
+                  $("#walletBalance").html("0 ARRR").attr('rel',v).fadeOut().fadeIn();
+                }
+                else {
+                $("#walletBalance").html((parsed/100000000).toFixed(8) + " ARRR").attr('rel',v).fadeOut().fadeIn();
+              }
+        } else if(host=='axe_mainnet') {
+                var parsed = JSON.parse(data)
+                if(parsed.type==='error') {
+                  $("#walletBalance").html("0 AXE").attr('rel',v).fadeOut().fadeIn();
+                }
+                else {
+                $("#walletBalance").html((parsed/100000000).toFixed(8) + " AXE").attr('rel',v).fadeOut().fadeIn();
+              }
+        } else if(host=='auroracoin_mainnet') {
+                var parsed = JSON.parse(data)
+                if(parsed.type==='error') {
+                  $("#walletBalance").html("0 AX").attr('rel',v).fadeOut().fadeIn();
+                }
+                else {
+                $("#walletBalance").html((parsed/100000000).toFixed(8) + " AUR").attr('rel',v).fadeOut().fadeIn();
+              }
         } else if(host=='lynx_mainnet') {
 					if(data) {
 						var v = data
@@ -642,13 +932,6 @@ $(document).ready(function() {
 						$("#walletBalance").html("0 DEV").attr('rel',v).fadeOut().fadeIn();
 					}
 				} else if(host=='coinb.in') {
-					if($(data).find("result").text()==1) {
-						var v = $(data).find("balance").text()/100000000;
-						$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
-					} else {
-						$("#walletBalance").html("0 BTC").attr('rel',v).fadeOut().fadeIn();
-					}
-				} else {
 					if($(data).find("result").text()==1) {
 						var v = $(data).find("balance").text()/100000000;
 						$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
@@ -1255,6 +1538,16 @@ $(document).ready(function() {
 
 		if(host=='pandacoin_mainnet') {
 			listUnspentPandacoin(redeem);
+		} else if(host=='komodo_mainnet') {
+			listUnspentKomodo(redeem);
+		} else if(host=='htmlcoin_mainnet') {
+			listUnspentHtmlCoin(redeem);
+		} else if(host=='dimecoin_mainnet') {
+			listUnspentDimeCoin(redeem);
+		} else if(host=='peercoin_mainnet') {
+			listUnspentPeerCoin(redeem);
+		} else if(host=='mintcoin_mainnet') {
+			listUnspentMintCoin(redeem);
 		} else if(host=='1x2coin_mainnet') {
 			listUnspent1x2(redeem);
 		} else if(host=='2x2_mainnet') {
@@ -1279,10 +1572,14 @@ $(document).ready(function() {
 			listUnspentAlexandrite(redeem);
 		} else if(host=='aquariuscoin_mainnet') {
 			listUnspentAquariusCoin(redeem);
+		} else if(host=='auroracoin_mainnet') {
+			listUnspentAuroraCoin(redeem);
 		} else if(host=='arepacoin_mainnet') {
 			listUnspentArepaCoin(redeem);
 		} else if(host=='argentum_mainnet') {
 			listUnspentArgentum(redeem);
+		} if(host=='aricoin_mainnet') {
+			listUnspentAricoin(redeem);
 		} else if(host=='asiacoin_mainnet') {
 			listUnspentAsiacoin(redeem);
 		} else if(host=='audiocoin_mainnet') {
@@ -1305,6 +1602,8 @@ $(document).ready(function() {
 			listUnspentElite(redeem);
 		} else if(host=='litecoin_mainnet') {
 			listUnspentChainso(redeem, "LTC");
+		} else if(host=='axe_mainnet') {
+			listUnspentAxe(redeem);
 		} else if(host=='lynx_mainnet') {
 			listUnspentLynx(redeem);
 		} else if(host=='mousecoin_mainnet') {
@@ -1313,6 +1612,8 @@ $(document).ready(function() {
 			listUnspentInfiniteRick(redeem);
 		} else if(host=='qtum_mainnet') {
 			listUnspentqtum(redeem);
+		} else if(host=='piratechain_mainnet') {
+			listUnspentPirateChain(redeem);
 		} else if(host=='syscoin_mainnet') {
 			listUnspentsyscoin(redeem);
 		} else if(host=='utip_mainnet') {
@@ -1321,6 +1622,8 @@ $(document).ready(function() {
 			listUnspentviacoin(redeem);
     } else if(host=='zeitcoin_mainnet') {
 			listUnspentZeitCoin(redeem);
+		}	else if(host=='mooncoin_mainnet') {
+			listUnspentMoonCoin(redeem);
 		}	else {
 			listUnspentDefault(redeem);
 		}
@@ -1438,6 +1741,10 @@ $(document).ready(function() {
 		}
 	}
 
+	function listUnspentKomodo(redeem) {
+		
+	}
+
 	/* retrieve unspent data from cryptoid for pandacoin */
 	function listUnspentPandacoin(redeem) {
 		$.ajax ({
@@ -1465,6 +1772,91 @@ $(document).ready(function() {
 				totalInputAmount();
 			}
 		});
+	}
+	function listUnspentHtmlCoin(redeem) {
+		$.ajax ({
+			type: "GET",
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/html/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/html/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										var confirms = item.confirmations;
+										var script = item.script;
+										var addr = item.addr;
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
+	}
+	/* retrieve unspent data from cryptoid for dimecoin */
+	function listUnspentPandacoin(redeem) {
+		$.ajax ({
+			type: "GET",
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/dime/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/pnd/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										var confirms = item.confirmations;
+										var script = item.script;
+										var addr = item.addr;
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
+	}
+	function listUnspentPeerCoin(redeem) {
+		$.ajax ({
+			type: "GET",
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/ppc/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/ppc/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										var confirms = item.confirmations;
+										var script = item.script;
+										var addr = item.addr;
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
+	}
+	function listUnspentMintCoin(redeem) {
+
 	}
 	/* retrieve unspent data from 1x2 coin block explorer */
 	function listUnspent1x2(redeem) {
@@ -1626,9 +2018,36 @@ $(document).ready(function() {
 	}
 
 	function listUnspentArgentum(redeem) {
-
+		$.ajax ({
+			type: "GET",
+			url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/ari/"+ redeem.addr,
+			dataType: "json",
+			error: function() {
+				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+			},
+			success: function(data) {
+									$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/arepa/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+								data.unspent_outputs.forEach(function(item, i) {
+									if (i > 100) return;
+										var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+										var tx_ouput_n = item.tx_ouput_n;
+										var value = item.value /100000000;
+										var confirms = item.confirmations;
+										var script = item.script;
+										var addr = item.addr;
+										addOutput(tx_hash, tx_ouput_n, script, value);
+										});
+								},
+			complete: function(data, status) {
+				$("#redeemFromBtn").html("Load").attr('disabled',false);
+				totalInputAmount();
+			}
+		});
 	}
 
+	function listUnspentAricoin(redeem) {
+
+	}
 	function listUnspentAsiacoin(redeem) {
 
 	}
@@ -1638,7 +2057,6 @@ $(document).ready(function() {
 	}
 		/* Bitcoin function to retreive unspent outputs*/
 	function listUnspentDefault(redeem) {
-		console.log('default');
 		var tx = coinjs.transaction($("#coinjs_utxo option:selected").val());
 		tx.listUnspent(redeem.addr, function(data) {
 			if(redeem.addr) {
@@ -1825,7 +2243,7 @@ $(document).ready(function() {
 	function listUnspentChainso(redeem, network) {
 		$.ajax ({
 			type: "GET",
-			url: "https://chain.so/api/v2/get_tx_unspent/"+network+"/"+redeem.addr, // fix me
+			url: "https://api.cryptodepot.org/chainso/listunspent/"+network+"/"+redeem.addr, // fix me
 			dataType: "json",
 			error: function(data) {
 				$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
@@ -1921,6 +2339,84 @@ $(document).ready(function() {
 
 	}
 
+	function listUnspentAuroraCoin(redeem) {
+		$.ajax ({
+      type: "GET",
+      url: "https://"+ multiWalletApiDomain +"/auroracoin/listunspent/"+redeem.addr+"",
+      dataType: "json",
+      error: function(data) {
+        $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
+      },
+      success: function(data) {
+        if(data && data.length) {
+          $("#redeemFromAddress").removeClass('hidden').html(
+            '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="http://insight.auroracoin.is//address/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+            data.slice(0, 100).forEach(function (o) {
+              var script = redeem.isMultisig ? $("#redeemFrom").val() : o.scriptPubKey;
+              addOutput(o.txid, o.vout, script, o.amount);
+            })
+        } else {
+          $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+        }
+      },
+      complete: function(data, status) {
+        $("#redeemFromBtn").html("Load").attr('disabled',false);
+        totalInputAmount();
+      }
+    });
+	}
+	function listUnspentAxe(redeem) {
+		$.ajax ({
+      type: "GET",
+      url: "https://"+ multiWalletApiDomain +"/axecore/listunspent/"+redeem.addr+"",
+      dataType: "json",
+      error: function(data) {
+        $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
+      },
+      success: function(data) {
+        if(data && data.length) {
+          $("#redeemFromAddress").removeClass('hidden').html(
+            '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://insight.axecore.net/tx/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+            data.slice(0, 100).forEach(function (o) {
+              var script = redeem.isMultisig ? $("#redeemFrom").val() : o.scriptPubKey;
+              addOutput(o.txid, o.vout, script, o.amount);
+            })
+        } else {
+          $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+        }
+      },
+      complete: function(data, status) {
+        $("#redeemFromBtn").html("Load").attr('disabled',false);
+        totalInputAmount();
+      }
+    });
+	}
+	function listUnspentPirateChain(redeem) {
+		$.ajax ({
+      type: "GET",
+      url: "https://"+ multiWalletApiDomain +"/piratechain/listunspent/"+redeem.addr+"",
+      dataType: "json",
+      error: function(data) {
+        $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
+      },
+      success: function(data) {
+        if(data && data.length) {
+          $("#redeemFromAddress").removeClass('hidden').html(
+            '<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://explorer.pirate.black/address/'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+            data.slice(0, 100).forEach(function (o) {
+              var script = redeem.isMultisig ? $("#redeemFrom").val() : o.scriptPubKey;
+              addOutput(o.txid, o.vout, script, o.amount);
+            })
+        } else {
+          $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+        }
+      },
+      complete: function(data, status) {
+        $("#redeemFromBtn").html("Load").attr('disabled',false);
+        totalInputAmount();
+      }
+    });
+	}
 	/* retrieve unspent data from qtum block explorer */
 	function listUnspentqtum(redeem) {
     $.ajax ({
@@ -2062,6 +2558,34 @@ function listUnspentZeitCoin(redeem) {
 	});
 }
 
+function listUnspentMoonCoin(redeem) {
+	$.ajax ({
+		type: "GET",
+		url: "https://"+ multiWalletApiDomain +"/chainz/listunspent/moon/"+ redeem.addr,
+		dataType: "json",
+		error: function() {
+			$("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs! pnd test function error');
+		},
+		success: function(data) {
+								$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="https://chainz.cryptoid.info/zeit/address.dws?'+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+							data.unspent_outputs.forEach(function(item, i) {
+								if (i > 100) return;
+									var tx_hash = ((""+item.tx_hash).match(/.{1,2}/g).reverse()).join("")+'';
+									var tx_ouput_n = item.tx_ouput_n;
+									var value = item.value /100000000;
+									var confirms = item.confirmations;
+									var script = item.script;
+									var addr = item.addr;
+									addOutput(tx_hash, tx_ouput_n, script, value);
+									});
+							},
+		complete: function(data, status) {
+			$("#redeemFromBtn").html("Load").attr('disabled',false);
+			totalInputAmount();
+		}
+	});
+}
+
 	/* math to calculate the inputs and outputs */
 
 	function totalInputAmount() {
@@ -2113,11 +2637,6 @@ function listUnspentZeitCoin(redeem) {
 			$(".glyphcollapse",$(this).parent()).removeClass('glyphicon-collapse-up').addClass('glyphicon-collapse-down');
 			$(".optionsAdvanced",$(this).parent()).addClass("hidden");
 		}
-	});
-
-	/* broadcast a transaction */
-	$("#rawSubmitBtn").click(function() {
-		rawSubmitDefault(this);
 	});
 
 	// broadcast transaction via coinbin (default)
@@ -2210,6 +2729,36 @@ function listUnspentZeitCoin(redeem) {
 	// broadcast transaction via Cypherfunk Network (default)
 	function rawSubmitCypherFunk(thisbtn) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/cypherfunk/broadcast/${txhex}`,
+						data: $("#rawTransaction").val(),
+						error: function(data) {
+							if(data.responseText ==="There was an error. Check your console.") {
+							errcode = data.responseText;
+							var r = ' Failed to Broadcast.'; // this wants a preceding space
+							$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						} else {
+							var txid = data.responseText;
+								$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: ${txid} <br> <a href="https://chainz.cryptoid.info/Cypherfunk/tx.dws?${txid}" target="_BLANK"> View on Block Explorer </a>`);
+						}
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data;  // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: ${txid} <br> <a href="https://chainz.cryptoid.info/funk/tx.dws?${txid}" target="_BLANK"> View on Block Explorer </a>`);
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+		/*
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
 			url: "https://chainz.cryptoid.info/funk/api.dws?q=pushtx", // fix me Api Created
@@ -2232,7 +2781,7 @@ function listUnspentZeitCoin(redeem) {
 				$("#rawTransactionStatus").fadeOut().fadeIn();
 				$(thisbtn).val('Submit').attr('disabled',false);
 			}
-		});
+		}); */
 		}
 
 	// broadcast transaction via Blocknet blockchain
@@ -2271,6 +2820,32 @@ function listUnspentZeitCoin(redeem) {
 	// broadcast transaction via chain.so (mainnet)
 	function rawSubmitChainso(thisbtn, network) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/chainso/broadcast/${network}/${txhex}`,
+						error: function(data) {
+							if(data) {
+									var txid = data; // is this right?
+									$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + txid.responseText + '<br> <a href="https://chain.so/tx/'+network+'/' + txid.responseText + '" target="_blank">View on Blockchain Explorer</a>');
+							} else {
+									$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+							}
+					},
+						success: function(data) {
+								if(data) {
+										var txid = data; // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + txid.responseText + '<br> <a href="https://chain.so/tx/'+network+'/' + txid.responseText + '" target="_blank">View on Blockchain Explorer</a>');
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+		/* $(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
 			url: "https://chain.so/api/v2/send_tx/"+network+"/", // Fix me
@@ -2294,10 +2869,13 @@ function listUnspentZeitCoin(redeem) {
 				$("#rawTransactionStatus").fadeOut().fadeIn();
 				$(thisbtn).val('Submit').attr('disabled',false);
 			}
-		});
+		}); */
 	}
 
 	// broadcast transaction via Pandacoin blockchain
+	function rawSubmitKomodo(thisbtn) {
+
+	}
 	function rawSubmitpandacoin(thisbtn) {
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		txhex = $("#rawTransaction").val().trim();
@@ -2322,11 +2900,195 @@ function listUnspentZeitCoin(redeem) {
 						}
 				});
 	}
+	function rawSubmitHtmlCoin(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/htmlcoin/sendrawtransaction?hex=${txhex}`,
+						error: function(data) {
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data; // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: ' + txid + '</a><br> <a href="https://chainz.cryptoid.info/html/tx.dws?'+ txid +'" target="_BLANK">View on Explorer</a>');
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawSubmitDimeCoin(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/dimecoin/sendrawtransaction?hex=${txhex}`,
+						error: function(data) {
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data; // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: ' + txid + '</a><br> <a href="https://chainz.cryptoid.info/pnd/tx.dws?'+ txid +'" target="_BLANK">View on Explorer</a>');
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	// broadcast transaction via Pandacoin blockchain
+	function rawSubmitDogeCoin(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/dogecoin/broadcast/${txhex}`,
+						error: function(data) {
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data; // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: ' + txid + '</a><br> <a href="https://chainz.cryptoid.info/pnd/tx.dws?'+ txid +'" target="_BLANK">View on Explorer</a>');
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawSubmitPeerCoin(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/peercoin/sendrawtransaction?hex=${txhex}`,
+						error: function(data) {
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data; // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' Txid: ' + txid + '</a><br> <a href="https://chainz.cryptoid.info/ppc/tx.dws?'+ txid +'" target="_BLANK">View on Explorer</a>');
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawSubmitMintCoin(thisbtn) {
+
+	}
 	//broadcast transaction via infinitericks Blockchain
 	function rawSubmitInfiniteRick(thisbtn) {
 
 	}
+	function rawSubmitAricoin(thisbtn) {
+
+	}
 	function rawSubmitMouseMN(thisbtn) {
+
+	}
+	function rawSubmitAuroraCoin(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/auroracoin/broadcast/${txhex}`,
+						error: function(data) {
+								errcode = data.responseText;
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data.txid;  // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: <a href="http://insight.auroracoin.is/tx/${txid}"> ${txid} </a>`);
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawsubmitAxe(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/axecore/broadcast/${txhex}`,
+						error: function(data) {
+								errcode = data.responseText;
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data.txid;  // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: <a href="https://insight.axecore.net/tx/${txid}"> ${txid} </a>`);
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawsubmitPirateChain(thisbtn) {
+		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
+		txhex = $("#rawTransaction").val().trim();
+				$.ajax({
+						type: "GET",
+						url: `https://`+ multiWalletApiDomain +`/piratechain/broadcast/${txhex}`,
+						error: function(data) {
+								errcode = data.responseText;
+								var r = ' Failed to Broadcast.'; // this wants a preceding space
+								$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(r + " " + errcode).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+						},
+						success: function(data) {
+								if(data) {
+										var txid = data.txid;  // is this right?
+										$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(` Txid: <a href="https://explorer.pirate.black/tx/${txid}"> ${txid} </a>`);
+								} else {
+										$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected error, please try again').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+								}
+						},
+						complete: function (data, status) {
+								$("#rawTransactionStatus").fadeOut().fadeIn();
+								$(thisbtn).val('Submit').attr('disabled',false);
+						}
+				});
+	}
+	function rawsubmitMoonCoin(thisbtn) {
+
+	}
+	function rawsubmituTip(thisbtn) {
 
 	}
 	//broadcast transaction via qtum Blockchain
@@ -2962,8 +3724,30 @@ function rawSubmitdash(thisbtn) {
 		} else {
 			var qrcode = new QRCode("qrcode");
 			// QRCode Change
-			if(host=='pandacoin') {
+			if(host=='pandacoin_mainnet') {
 				qrstr = "pandacoin:"+$('.address',thisbtn).val();
+			} else if(host=='komodo_mainnet') {
+				qrstr = "pandacoin:"+$('.address',thisbtn).val();
+			} else if(host=='htmlcoin_mainnet') {
+				qrstr = "htmlcoin:"+$('.address',thisbtn).val();
+			} else if(host=='qtum_mainnet') {
+				qrstr = "qtum:"+$('.address',thisbtn).val();
+			} else if(host=='dimecoin_mainnet') {
+				qrstr = "dimecoin:"+$('.address',thisbtn).val();
+			} else if(host=='aricoin_mainnet') {
+				qrstr = "aricoin:"+$('.address',thisbtn).val();
+			} else if(host=='dogecoin_mainnet') {
+				qrstr = "dogecoin:"+$('.address',thisbtn).val();
+			} else if(host=='utip_mainnet') {
+				qrstr = "utip:"+$('.address',thisbtn).val();
+			} else if(host=='mooncoin_mainnet') {
+				qrstr = "mooncoin:"+$('.address',thisbtn).val();
+			} else if(host=='axe_mainnet') {
+				qrstr = "axe:"+$('.address',thisbtn).val();
+			} else if(host=='auroracoin_mainnet') {
+				qrstr = "auroracoin:"+$('.address',thisbtn).val();
+			} else if(host=='piratechain_mainnet') {
+				qrstr = "piratechain:"+$('.address',thisbtn).val();
 			} else {
 				qrstr = "bitcoin:"+$('.address',thisbtn).val();
 			}
@@ -3024,7 +3808,7 @@ function rawSubmitdash(thisbtn) {
 
 	$("#settingsBtn").click(function() {
 		var host = $("#coinjs_broadcast option:selected").val();
-			// Visual Change's
+			// Visual Changes
 		if(host=='pandacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/pnd.png";
 			document.getElementById("broadCastTitle").textContent = "Pandacoin";
@@ -3035,8 +3819,61 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `PND`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
 			document.getElementById("developerDonation").value = `1.0`;
-
+			document.title = 'Pandacoin - Multi Wallet';
+		} else if(host=='komodo_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/kmd.png";
+			document.getElementById("broadCastTitle").textContent = "Komodo";
+			document.getElementById("walletTitle").textContent = "Komodo";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="komodo" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/komodo" target="_BLANK">Komodo CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
+			document.getElementById("spendTicker").innerHTML = `KMD`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Komodo - Multi Wallet';
+		} else if(host=='htmlcoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/html.png";
+			document.getElementById("broadCastTitle").textContent = "HTMLCoin";
+			document.getElementById("walletTitle").textContent = "HTMLCoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="htmlcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/htmlcoin" target="_BLANK">HTMLCoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
+			document.getElementById("spendTicker").innerHTML = `HTML`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'HTMLCoin - Multi Wallet';
+		} else if(host=='dimecoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/dime.png";
+			document.getElementById("broadCastTitle").textContent = "Dimecoin";
+			document.getElementById("walletTitle").textContent = "Dimecoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="dimecoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/dimecoin" target="_BLANK">Dimecoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
+			document.getElementById("spendTicker").innerHTML = `DIME`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Dimecoin - Multi Wallet';
+		} else if(host=='peercoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/ppc.png";
+			document.getElementById("broadCastTitle").textContent = "Peercoin";
+			document.getElementById("walletTitle").textContent = "Peercoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="peercoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/peercoin" target="_BLANK">Peercoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = ``;
+			document.getElementById("signwarning").innerHTML = ``;
+			document.getElementById("broadcastwarning").innerHTML = ``;
+			document.getElementById("spendTicker").innerHTML = `PPC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Peercoin - Multi Wallet';
 		} else if(host=='1x2coin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/1x2.png";
 			document.getElementById("broadCastTitle").textContent = "1X2 Coin";
@@ -3047,6 +3884,22 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `1x2`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = '1X2 Coin - Multi Wallet';
+		} else if(host=='mintcoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/mint.png";
+			document.getElementById("broadCastTitle").textContent = "Mintcoin";
+			document.getElementById("walletTitle").textContent = "Mintcoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="mintcoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/mintcoin" target="_BLANK">Mintcoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `MINT`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Spending Transactions</h2></center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Mintcoin - Multi Wallet';
 		} else if(host=='2x2_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/2x2.png";
 			document.getElementById("broadCastTitle").textContent = "2X2";
@@ -3057,6 +3910,22 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `2x2`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = '2X2 - Multi Wallet';
+		} else if(host=='mooncoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/moon.png";
+			document.getElementById("broadCastTitle").textContent = "Mooncoin";
+			document.getElementById("walletTitle").textContent = "Mooncoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="mooncoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/mooncoin" target="_BLANK">Moincoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `MOON`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Mooncoin - Multi Wallet';
 		} else if(host=='2give_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/2give.png";
 			document.getElementById("broadCastTitle").textContent = "2Give";
@@ -3067,6 +3936,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `2GIVE`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = '2Give - Multi Wallet';
 		} else if(host=='404_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/404.jpg";
 			document.getElementById("broadCastTitle").textContent = "404";
@@ -3077,6 +3949,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `404`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = '404 - Multi Wallet';
 		} else if(host=='42coin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/42.png";
 			document.getElementById("broadCastTitle").textContent = "42-Coin";
@@ -3087,6 +3962,35 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `42`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = '42-Coin - Multi Wallet';
+		} else if(host=='axe_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/axe.png";
+			document.getElementById("broadCastTitle").textContent = "Axe";
+			document.getElementById("walletTitle").textContent = "Axe";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="axe" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/axe" target="_BLANK">Axe CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `AXE`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Axe - Multi Wallet';
+		} else if(host=='piratechain_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/arrr.png";
+			document.getElementById("broadCastTitle").textContent = "Pirate Chain";
+			document.getElementById("walletTitle").textContent = "Pirate Chain";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="pirate-chain" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/pirate-chain" target="_BLANK">Pirate Chain CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `ARRR`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Pirate Chain - Multi Wallet';
 		} else if(host=='abbc_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/abbc.png";
 			document.getElementById("broadCastTitle").textContent = "ABBC";
@@ -3097,6 +4001,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ABBC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'ABBC - Multi Wallet';
 		} else if(host=='actinium_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/acm.png";
 			document.getElementById("broadCastTitle").textContent = "Actinium";
@@ -3107,6 +4014,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ACM`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Actinium - Multi Wallet';
 		} else if(host=='adeptio_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/ade.png";
 			document.getElementById("broadCastTitle").textContent = "Adeptio";
@@ -3117,6 +4027,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ADE`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Adeptio - Multi Wallet';
 		} else if(host=='aegeus_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/aeg.png";
 			document.getElementById("broadCastTitle").textContent = "Aegeus";
@@ -3127,6 +4040,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AEG`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Aegeus - Multi Wallet';
 		} else if(host=='aiascoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/aias.png";
 			document.getElementById("broadCastTitle").textContent = "AIAScoin";
@@ -3137,6 +4053,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `AIAS`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'AIASCoin - Multi Wallet';
 		} else if(host=='alexandrite_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/alex.png";
 			document.getElementById("broadCastTitle").textContent = "Alexandrite";
@@ -3147,6 +4066,35 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ALEX`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Alexandrite - Multi Wallet';
+		} else if(host=='aricoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/ari.png";
+			document.getElementById("broadCastTitle").textContent = "Aricoin";
+			document.getElementById("walletTitle").textContent = "Aricoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="aricoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/aricoin" target="_BLANK">Aricoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `ARI`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Aricoin - Multi Wallet';
+		} else if(host=='auroracoin_mainnet') {
+			document.getElementById("coinLogo").src = "images/logos/aur.png";
+			document.getElementById("broadCastTitle").textContent = "Auroracoin";
+			document.getElementById("walletTitle").textContent = "Auroracoin";
+			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="auroracoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
+			document.getElementById("coingeckoinfo").innerHTML = `<center><a href="https://www.coingecko.com/en/coins/auroracoin" target="_BLANK">Aricoin CoinGecko Info</a></center>`;
+			document.getElementById("transwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Creating Transactions</h2></center>`;
+			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
+			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
+			document.getElementById("spendTicker").innerHTML = `AUR`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Auroracoin - Multi Wallet';
 		} else if(host=='aquariuscoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/arco.png";
 			document.getElementById("broadCastTitle").textContent = "AquariusCoin";
@@ -3157,6 +4105,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ARCO`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'AquariusCoin - Multi Wallet';
 		} else if(host=='arepacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/arepa.png";
 			document.getElementById("broadCastTitle").textContent = "Arepacoin";
@@ -3167,6 +4118,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AREPA`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Arepacoin - Multi Wallet';
 		} else if(host=='argentum_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/arg.png";
 			document.getElementById("broadCastTitle").textContent = "Argentum";
@@ -3177,6 +4131,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Tested for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ARG`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Argentum - Multi Wallet';
 		} else if(host=='asiacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/ac.png";
 			document.getElementById("broadCastTitle").textContent = "Asiacoin";
@@ -3187,6 +4144,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `AC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Asiacoin - Multi Wallet';
 		} else if(host=='audiocoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/adc.png";
 			document.getElementById("broadCastTitle").textContent = "Audiocoin";
@@ -3197,6 +4157,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ADC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Audiocoin - Multi Wallet';
 		} else if(host=='coinb.in') {
 			document.getElementById("coinLogo").src = "images/logos/btc.png";
 			document.getElementById("broadCastTitle").textContent = "Bitcoin";
@@ -3207,6 +4170,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `BTC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Bitcoin - Multi Wallet';
 		} else if(host=='blocknet_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/block.png";
 			document.getElementById("broadCastTitle").textContent = "Blocknet";
@@ -3217,6 +4183,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `BLOCK`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Blocknet - Multi Wallet';
 		} else if(host=='cypherfunk_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/funk.png";
 			document.getElementById("broadCastTitle").textContent = "The-Cypherfunks";
@@ -3227,6 +4196,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `FUNK`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Cypherfunk - Multi Wallet';
 		} else if(host=='dash_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/dash.png";
 			document.getElementById("broadCastTitle").textContent = "Dash";
@@ -3237,6 +4209,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `DASH`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'DASH - Multi Wallet';
 		} else if(host=='deviantcoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/dev.png";
 			document.getElementById("broadCastTitle").textContent = "DeviantCoin";
@@ -3247,6 +4222,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `DEV`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'DeviantCoin - Multi Wallet';
 		} else if(host=='digibyte_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/dgb.png";
 			document.getElementById("broadCastTitle").textContent = "DigiByte";
@@ -3257,6 +4235,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `DGB`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'DigiByte - Multi Wallet';
 		} else if(host=='dogecoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/dogecoin.png";
 			document.getElementById("broadCastTitle").textContent = "Dogecoin";
@@ -3267,6 +4248,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `DOGE`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Dogecoin - Multi Wallet';
 		} else if(host=='elite_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/1337.png";
 			document.getElementById("broadCastTitle").textContent = "Elite Coin";
@@ -3277,6 +4261,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `1337`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Elite Coin - Multi Wallet';
 		} else if(host=='litecoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/litecoin.png";
 			document.getElementById("broadCastTitle").textContent = "Litecoin";
@@ -3287,6 +4274,8 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `LTC`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
 		} else if(host=='lynx_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/lynx.png";
 			document.getElementById("broadCastTitle").textContent = "Lynx";
@@ -3297,6 +4286,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `LYNX`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Lynx - Multi Wallet';
 		} else if(host=='mousecoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/mouse.png";
 			document.getElementById("broadCastTitle").textContent = "MouseMN";
@@ -3308,6 +4300,8 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `MOUSE`;
 			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'MouseMN - Multi Wallet';
 		} else if(host=='infiniterick_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/rick.png";
 			document.getElementById("broadCastTitle").textContent = "Infinite Ricks";
@@ -3318,6 +4312,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `RICK`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Infinite Ricks - Multi Wallet';
 		} else if(host=='qtum_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/qtum.png";
 			document.getElementById("broadCastTitle").textContent = "Qtum";
@@ -3328,6 +4325,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `QTUM`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Qtum - Multi Wallet';
 		} else if(host=='syscoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/sys.png";
 			document.getElementById("broadCastTitle").textContent = "Syscoin";
@@ -3338,6 +4338,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `SYS`;
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Syscoin - Multi Wallet';
 		} else if(host=='utip_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/utip.png";
 			document.getElementById("broadCastTitle").textContent = "uTip";
@@ -3348,6 +4351,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `UTIP`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'uTip - Multi Wallet';
 		} else if(host=='viacoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/via.png";
 			document.getElementById("broadCastTitle").textContent = "Viacoin";
@@ -3358,6 +4364,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `VIA`;
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Viacoin - Multi Wallet';
 		} else if(host=='zeitcoin_mainnet') {
 			document.getElementById("coinLogo").src = "images/logos/zeit.png";
 			document.getElementById("broadCastTitle").textContent = "Zeitcoin";
@@ -3368,8 +4377,11 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = `<center><h2>This Coin Has Not Yet Been Programmed for Signing Transactions</h2></center>`;
 			document.getElementById("broadcastwarning").innerHTML = `<center><h2>This Coin has Not Yet Been Programmed For Broadcasting Transactions</h2></center>`;
 			document.getElementById("spendTicker").innerHTML = `ZEIT`;
-		} else {
-			document.getElementById("coinLogo").src = "images/logos/png.png";
+			document.getElementById("WalletSpendWarning").innerHTML = `<center>This Coin has Not Yet Been Programmed For Spend</center>`;
+			document.getElementById("developerDonation").value = `1.0`;
+			document.title = 'Zeitcoin - Multi Wallet';
+		} /* else {
+			document.getElementById("coinLogo").src = "images/logos/pnd.png";
 			document.getElementById("broadCastTitle").textContent = "Pandacoin";
 			document.getElementById("walletTitle").textContent = "Pandacoin";
 			document.getElementById("market-ticker").innerHTML = `<coingecko-coin-market-ticker-list-widget  coin-id="pandacoin" currency="usd" locale="en"></coingecko-coin-market-ticker-list-widget>`;
@@ -3378,7 +4390,9 @@ function rawSubmitdash(thisbtn) {
 			document.getElementById("signwarning").innerHTML = ``;
 			document.getElementById("broadcastwarning").innerHTML = ``;
 			document.getElementById("spendTicker").innerHTML = `PND`;
-		}
+			document.getElementById("WalletSpendWarning").innerHTML = ``;
+			document.getElementById("developerDonation").value = `1.0`;
+		} */
 
 		// log out of openwallet
 		$("#walletLogout").click();
@@ -3462,10 +4476,60 @@ function rawSubmitdash(thisbtn) {
       $("#coinjs_broadcast").val("pandacoin_mainnet").trigger("change");
       $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
     }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "kmd")) {
+      $("#coinjs_coin").val("komodo_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("komodo_mainnet").trigger("change");
+      $("#coinjs_utxo").val("komodo_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "html")) {
+      $("#coinjs_coin").val("htmlcoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("htmlcoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("htmlcoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "dime")) {
+      $("#coinjs_coin").val("dimecoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("dimecoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("dimecoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "ppc")) {
+      $("#coinjs_coin").val("peercoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("peercoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("peercoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "mint")) {
+      $("#coinjs_coin").val("mintcoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("mintcoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("mintcoin_mainnet").trigger("change");
+    }
 		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "1x2")) {
       $("#coinjs_coin").val("1x2coin_mainnet").trigger("change");
       $("#coinjs_broadcast").val("1x2coin_mainnet").trigger("change");
       $("#coinjs_utxo").val("1x2coin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "utip")) {
+      $("#coinjs_coin").val("utip_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("utip_mainnet").trigger("change");
+      $("#coinjs_utxo").val("utip_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "moon")) {
+      $("#coinjs_coin").val("mooncoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("mooncoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("mooncoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "arrr")) {
+      $("#coinjs_coin").val("piratechain_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("piratechain_mainnet").trigger("change");
+      $("#coinjs_utxo").val("piratechain_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "axe")) {
+      $("#coinjs_coin").val("axe_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("axe_mainnet").trigger("change");
+      $("#coinjs_utxo").val("axe_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "aur")) {
+      $("#coinjs_coin").val("auroracoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("auroracoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("auroracoin_mainnet").trigger("change");
     }
 		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "arg")) {
       $("#coinjs_coin").val("argentum_mainnet").trigger("change");
@@ -3537,6 +4601,11 @@ function rawSubmitdash(thisbtn) {
       $("#coinjs_coin").val("arepacoin_mainnet").trigger("change");
       $("#coinjs_broadcast").val("arepacoin_mainnet").trigger("change");
       $("#coinjs_utxo").val("arepacoin_mainnet").trigger("change");
+    }
+		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "ari")) {
+      $("#coinjs_coin").val("aricoin_mainnet").trigger("change");
+      $("#coinjs_broadcast").val("aricoin_mainnet").trigger("change");
+      $("#coinjs_utxo").val("aricoin_mainnet").trigger("change");
     }
 		else if(($("#allcoinsFormIDHere input[type='radio']:checked").val() == "adc")) {
       $("#coinjs_coin").val("audocoin_mainnet").trigger("change");
@@ -3641,16 +4710,52 @@ function rawSubmitdash(thisbtn) {
     $("#coinjs_utxo").val("deviantcoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	else if(coinUrl == 'utip') {
+    $("#coinjs_coin").val("utip_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("utip_mainnet").trigger("change");
+    $("#coinjs_utxo").val("utip_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'moon') {
+    $("#coinjs_coin").val("mooncoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("mooncoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("mooncoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'axe') {
+    $("#coinjs_coin").val("axe_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("axe_mainnet").trigger("change");
+    $("#coinjs_utxo").val("axe_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'arrr') {
+    $("#coinjs_coin").val("piratechain_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("piratechain_mainnet").trigger("change");
+    $("#coinjs_utxo").val("piratechain_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
 	else if(coinUrl == 'arepa') {
     $("#coinjs_coin").val("arepacoin_mainnet").trigger("change");
     $("#coinjs_broadcast").val("arepacoin_mainnet").trigger("change");
     $("#coinjs_utxo").val("arepacoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	else if(coinUrl == 'aur') {
+    $("#coinjs_coin").val("auroracoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("auroracoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("auroracoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
 	else if(coinUrl == 'arg') {
     $("#coinjs_coin").val("argentum_mainnet").trigger("change");
     $("#coinjs_broadcast").val("argentum_mainnet").trigger("change");
     $("#coinjs_utxo").val("argentum_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'ari') {
+    $("#coinjs_coin").val("aricoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("aricoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("aricoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
 	else if(coinUrl == 'zeit') {
@@ -3767,6 +4872,36 @@ function rawSubmitdash(thisbtn) {
     $("#coinjs_utxo").val("pandacoin_mainnet").trigger("change");
     $("#settingsBtn").trigger("click");
   }
+	else if(coinUrl == 'kmd') {
+    $("#coinjs_coin").val("komodo_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("komodo_mainnet").trigger("change");
+    $("#coinjs_utxo").val("komodo_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'html') {
+    $("#coinjs_coin").val("htmlcoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("htmlcoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("htmlcoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'dime') {
+    $("#coinjs_coin").val("dimecoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("dimecoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("dimecoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'ppc') {
+    $("#coinjs_coin").val("peercoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("peercoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("peercoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
+	else if(coinUrl == 'mint') {
+    $("#coinjs_coin").val("mintcoin_mainnet").trigger("change");
+    $("#coinjs_broadcast").val("mintcoin_mainnet").trigger("change");
+    $("#coinjs_utxo").val("mintcoin_mainnet").trigger("change");
+    $("#settingsBtn").trigger("click");
+  }
 	else if(coinUrl == 'mouse') {
     $("#coinjs_coin").val("mousecoin_mainnet").trigger("change");
     $("#coinjs_broadcast").val("mousecoin_mainnet").trigger("change");
@@ -3845,11 +4980,11 @@ function rawSubmitdash(thisbtn) {
 			});
 		} else if(host=="litecoin_mainnet") {
 			$("#rawSubmitBtn").click(function() {
-				rawSubmitchainso(this, "LTC");
+				rawSubmitChainso(this, "LTC");
 			});
 		} else if(host=="dogecoin_mainnet") {
 			$("#rawSubmitBtn").click(function() {
-				rawSubmitchainso(this, "DOGE");
+				rawSubmitChainso(this, "DOGE");
 			});
 		} else if(host=="deviantcoin_mainnet") {
 			$("#rawSubmitBtn").click(function() {
@@ -3862,6 +4997,30 @@ function rawSubmitdash(thisbtn) {
 		} else if(host=="pandacoin_mainnet") {
 			$("#rawSubmitBtn").click(function() {
 				rawSubmitpandacoin(this);
+			});
+		} else if(host=="komodo_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitKomodo(this);
+			});
+		} else if(host=="htmlcoin_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitHtmlCoin(this);
+			});
+		} else if(host=="dimecoin_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitDimeCoin(this);
+			});
+		} else if(host=="peercoin_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitPeerCoin(this);
+			});
+		} else if(host=="mintcoin_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitMintCoin(this);
+			});
+		} else if(host=="aricoin_mainnet") {
+			$("#rawSubmitBtn").click(function() {
+				rawSubmitAricoin(this);
 			});
 		} else if(host=="mousecoin_mainnet") {
 			$("#rawSubmitBtn").click(function() {
@@ -3955,6 +5114,10 @@ function rawSubmitdash(thisbtn) {
 			$("#rawSubmitBtn").click(function() {
         rawSubmitAquariusCoin(this);
       });
+		} else if(host=='auroracoin_mainnet') {
+			$("#rawSubmitBtn").click(function() {
+        rawSubmitAuroraCoin(this);
+      });
 		} else if(host=='arepacoin_mainnet') {
 			$("#rawSubmitBtn").click(function() {
         rawSubmitArepaCoin(this);
@@ -3966,6 +5129,22 @@ function rawSubmitdash(thisbtn) {
 		} else if(host=='argentum_mainnet') {
 			$("#rawSubmitBtn").click(function() {
         rawsubmitArgentum(this);
+      });
+		} else if(host=='axe_mainnet') {
+			$("#rawSubmitBtn").click(function() {
+        rawsubmitAxe(this);
+      });
+		} else if(host=='piratechain_mainnet') {
+			$("#rawSubmitBtn").click(function() {
+        rawsubmitPirateChain(this);
+      });
+		} else if(host=='mooncoin_mainnet') {
+			$("#rawSubmitBtn").click(function() {
+        rawsubmitMoonCoin(this);
+      });
+		} else if(host=='utip_mainnet') {
+			$("#rawSubmitBtn").click(function() {
+        rawsubmituTip(this);
       });
 		} else {
 			$("#rawSubmitBtn").click(function() {

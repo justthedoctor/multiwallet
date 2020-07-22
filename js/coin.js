@@ -25,16 +25,38 @@ $(document).ready(function() {
 	/* other vars */
 	if(host=='pandacoin_mainnet') {
 		coinjs.developer = 'PAFt6XomhAJe2QGQcrRfvnkarkCUQ9De7T'; //pandacoin Donation
+	} else if(host=='dogecoin_mainnet') {
+		coinjs.developer = 'PAFt6XomhAJe2QGQcrRfvnkarkCUQ9De7T'; //pandacoin Donation
+	} else if(host=='litecoin_mainnet') {
+		coinjs.developer = 'LLtfCmikiu4WJNHoSv6SXur5TDPsRf2azD'; //pandacoin Donation
 	} else if(host=='aiascoin_mainnet') {
 		coinjs.developer = "AHSab4GYyPUbrXodqRmUQn3QibxHiGFTFC"; //AIAScoin Donation
-	} else if(host=='digibyte_mainnet') {
+	} else if(host=='mooncoin_mainnet') {
+		coinjs.developer = "2EgWttJnmnD5Vs1uM376iGbg8WoRTS5gYS"; //Mooncoin Donation
+	}	else if(host=='digibyte_mainnet') {
 		coinjs.developer = "D6ooUpMZweijaZnF1N6hoewv88kteqJ2Py"; // Digibyte Donation
+	} else if(host=='utip_mainnet') {
+		coinjs.developer = "AHSab4GYyPUbrXodqRmUQn3QibxHiGFTFC"; // uTip Donation
+	} else if(host=='mintcoin_mainnet') {
+		coinjs.developer = "MYuUA6ccrST8kfi4XB6PzHfSLjAhdLVX3x"; // Mintcoin Donation
+	} else if(host=='peercoin_mainnet') {
+		coinjs.developer = "PAFt6XomhAJe2QGQcrRfvnkarkCUQ9De7T"; // Peercoin Donation
 	} else if(host=='blocknet_mainnet') {
 		coinjs.developer = "BVTPYPAR6vsEJqDtugmRs9rmc7j7negyFF"; // Blocknet Donation
 	} else if(host=='lynx_mainnet') {
 		coinjs.developer = "K8srFSptbMfsr4sYNf6V5Y2iZhd3J9KJw5"; // Lynx Donation
 	} else if(host=='dash_mainnet') {
 		coinjs.developer = "XcMYmp4pbx33CWCE8fRN7RU75LcHL3aHY7"; // Lynx Donation
+	} else if(host='aricoin_mainnet') {
+		coinjs.developer = "5TPLmkh6TDv63L8bYPmebGmyAYryBAesm3"; // Aricoin Donation
+	} else if(host='auroracoin_mainnet') {
+		coinjs.developer = "AHSab4GYyPUbrXodqRmUQn3QibxHiGFTFC"; // Auroracoin Donation
+	} else if(host='piratechain') {
+		coinjs.developer = "RAwu25JDF4d27Zxqjx6GMR7X1GVBxm77aK"; // Pirate Chain Donation
+	} else if(host='axe_mainnet') {
+		coinjs.developer = "PAFt6XomhAJe2QGQcrRfvnkarkCUQ9De7T"; // AXE Donation
+	} else if(host='syscoin_mainnet') {
+		coinjs.developer = "SNxhyQC5Nc1eZsP6pD6DonvstnG292mHDH"; // Syscoin Donation
 	} else if(host=='coinb.in') {
 		coinjs.developer = '12fhwZQveEpT3ZbeGn79FtnKF12bPWn2Js'; //bitcoin Donation
 	}
@@ -343,8 +365,22 @@ $(document).ready(function() {
 		//Balance Area
 				if(host=='pandacoin_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/pnd/'+ address, callback, "GET");
+				} else if(host=='komodo_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/komodo/balance/'+ address, callback, "GET");
+				} else if(host=='dimecoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/dime/'+ address, callback, "GET");
+				} else if(host=='htmlcoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/html/'+ address, callback, "GET");
+				} else if(host=='litecoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/ltc/'+ address, callback, "GET");
+				} else if(host=='peercoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/ppc/'+ address, callback, "GET");
 				} else if(host=='aquariuscoin_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/arco/'+ address, callback, "GET");
+				} else if(host=='mintcoin_mainnet') {
+					coinjs.ajax(''+ address, callback, "GET"); // Need Change
+				} else if(host=='mooncoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/moon/'+ address, callback, "GET");
 				} else if(host=='zeitcoin_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/zeit/'+ address, callback, "GET");
 				} else if(host=='arepacoin_mainnet') {
@@ -377,6 +413,12 @@ $(document).ready(function() {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/1337/'+ address, callback, "GET");
 				} else if(host=='qtum_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/qtum/balance/'+ address, callback, "GET");
+				} else if(host=='piratechain_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/piratechain/balance/'+ address, callback, "GET");
+				} else if(host=='axe_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/axecore/balance/'+ address, callback, "GET");
+				} else if(host=='auroracoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/auroracoin/balance/'+ address, callback, "GET");
 				} else if(host=='digibyte_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/dgb/'+ address, callback, "GET");
 				}	else if(host=='dash_mainnet') {
@@ -391,12 +433,16 @@ $(document).ready(function() {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/viacoin/balance/'+ address, callback, "GET");
 				} else if(host=='cypherfunk_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/funk/'+ address, callback, "GET");
+				} else if(host=='aricoin_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/ari/'+ address, callback, "GET");
+				} else if(host=='utip_mainnet') {
+					coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/balance/utip/'+ address, callback, "GET");
 				} else if(host=='deviantcoin_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/coinexplorer/balance/dev/'+ address, callback, "GET");
 				} else if(host=='alexandrite_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/coinexplorer/balance/alex/'+ address, callback, "GET");
 				} else if(host=='dogecoin_mainnet'){
-					coinjs.ajax('http://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
+					coinjs.ajax('https://dogechain.info/chain/Dogecoin/q/addressbalance/'+ address, callback, "GET");
 				}	else if(host=='infiniterick_mainnet') {
 					coinjs.ajax('https://'+ multiWalletApiDomain +'/ricks/balance/'+ address, callback, "GET");
 				} else if(host=='mousecoin_mainnet'){
@@ -1148,6 +1194,30 @@ $(document).ready(function() {
 			// Spend List Unspent
 			if(host=='pandacoin_mainnet') {
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/pnd/'+address, callback, "GET");
+			} else if(host=='komodo_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/komodo/listunspent/'+address, callback, "GET");
+			} else if(host=='htmlcoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/html/'+address, callback, "GET");
+			} else if(host=='dimecoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/dime/'+address, callback, "GET");
+			} else if(host=='dogecoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainso/listunspent/DOGE/'+address, callback, "GET");
+			} else if(host=='litecoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainso/listunspent/LTC/'+address, callback, "GET");
+			} else if(host=='peercoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/ppc/'+address, callback, "GET");
+			} else if(host=='auroracoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/auroracoin/listunspent/'+address, callback, "GET");
+			} else if(host=='mintcoin_mainnet') {
+				coinjs.ajax(''+address, callback, "GET"); // Need Change
+			} else if(host=='utip_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/sys/'+address, callback, "GET");
+			} else if(host=='piratechain_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/piratechain/listunspent/'+address, callback, "GET");
+			} else if(host=='axe_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/axecore/listunspent/'+address, callback, "GET");
+			} else if(host=='aricoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/ari/'+address, callback, "GET");
 			} else if(host=='aiascoin_mainnet') {
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/aias/'+address, callback, "GET");
 			} else if(host=='lynx_mainnet') {
@@ -1158,6 +1228,12 @@ $(document).ready(function() {
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/block/'+address, callback, "GET");
 			} else if(host=='digibyte_mainnet') {
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/dgb/'+address, callback, "GET");
+			} else if(host=='mooncoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/moon/'+address, callback, "GET");
+			} else if(host=='cypherfunk_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/funk/'+address, callback, "GET");
+			} else if(host=='syscoin_mainnet') {
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainz/listunspent/sys/'+address, callback, "GET");
 			} else {
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
 			}
@@ -1206,6 +1282,607 @@ $(document).ready(function() {
 				return callback(x);
 				});
 
+			} else if(host=='komodo_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='htmlcoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='dimecoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='dogecoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.data.txs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.txid;
+					var n = u.output_no;
+					var scr = u.script_hex;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='litecoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.data.txs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.txid;
+					var n = u.output_no;
+					var scr = u.script_hex;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='peercoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='mintcoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='syscoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='mooncoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='utip_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='cypherfunk_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='auroracoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.txid;
+					var n = u.vout;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.amount*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='piratechain_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.txid;
+					var n = u.vout;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.amount*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='axe_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.txid;
+					var n = u.vout;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.amount*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
+			} else if(host=='aricoin_mainnet') {
+				var self = this;
+			this.listUnspent(address, function(data){
+				var s = coinjs.script();
+                var value = 0;
+				var total = 0;
+				var x = {};
+
+				var jsonDoc = JSON.parse(data);
+				var unspent = jsonDoc.unspent_outputs;
+
+				for(i=0;i<unspent.length;i++){
+					var u = unspent[i];
+          var txhash = u.tx_hash;
+					var n = u.tx_ouput_n;
+					var scr = u.script;
+
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother.
+						It is not standard and removed during the signing procedure. */
+
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
+					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value*1;
+					total++;
+				}
+
+				x.unspent = unspent;
+				x.value = value;
+				x.total = total;
+				return callback(x);
+				});
+
 			} else if(host=='digibyte_mainnet') {
 				var self = this;
 			this.listUnspent(address, function(data){
@@ -1406,7 +2083,7 @@ $(document).ready(function() {
 				return callback(x);
 				});
 
-			} else {
+			} else if(host=='coinb.in') {
 			var self = this;
 			this.listUnspent(address, function(data){
 				var s = coinjs.script();
@@ -1470,7 +2147,37 @@ $(document).ready(function() {
 		r.broadcast = function(callback, txhex){
 			if(host=='pandacoin_mainnet') {
 				var tx = txhex || this.serialize();
-				coinjs.ajax('https://'+ multiWalletApiDomain +'/pnd/broadcast/'+tx, callback, "GET");
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/pandacoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='komodo_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/komodo/broadcast/'+tx, callback, "GET");
+			} else if(host=='dimecoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET"); // Needs Broadcast
+			} else if(host=='htmlcoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET"); // Needs Broadcast
+			} else if(host=='dogecoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainso/broadcast/DOGE/'+tx, callback, "GET");
+			} else if(host=='litecoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/chainso/broadcast/LTC/'+tx, callback, "GET");
+			} else if(host=='peercoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/peercoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='syscoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/syscoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='mintcoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET");
+			} else if(host=='cypherfunk_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/cypherfunk/broadcast/'+tx, callback, "GET");
+			} else if(host=='aricoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET"); // Needs Broadcast
 			} else if(host=='blocknet_mainnet') {
 				var tx = txhex || this.serialize();
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/blocknet/broadcast/'+tx, callback, "GET");
@@ -1480,13 +2187,28 @@ $(document).ready(function() {
 			} else if(host=='dash_mainnet') {
 				var tx = txhex || this.serialize();
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/dash/broadcast/'+tx, callback, "GET");
+			} else if(host=='mooncoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET"); // Need Broadcast
+			} else if(host=='utip_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax(''+tx, callback, "GET"); // Need Broadcast
 			} else if(host=='aiascoin_mainnet') {
 				var tx = txhex || this.serialize();
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/aiascoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='auroracoin_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/auroracoin/broadcast/'+tx, callback, "GET");
+			} else if(host=='piratechain_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/piratechain/broadcast/'+tx, callback, "GET");
+			} else if(host=='axe_mainnet') {
+				var tx = txhex || this.serialize();
+				coinjs.ajax('https://'+ multiWalletApiDomain +'/axecore/broadcast/'+tx, callback, "GET");
 			} else if(host=='digibyte_mainnet') {
 				var tx = txhex || this.serialize();
 				coinjs.ajax('https://'+ multiWalletApiDomain +'/digibyte/broadcast/'+tx, callback, "GET");
-			} else {
+			} else if(host=='coinb.in'){
 				var tx = txhex || this.serialize();
 				coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction&rawtx='+tx+'&r='+Math.random(), callback, "GET");
 			}

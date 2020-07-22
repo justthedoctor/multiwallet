@@ -7,7 +7,7 @@ const pandacoinApi = require('pandacoin-api');
 const deviantcoinApi = require('deviantcoin-api');
 const lynxApi = require('lynx-api');
 const blocknetApi = require('blocknet-api');
-
+const cypherfunkApi = require('cypherfunk-api');
 var app = express();
 
 app.use((req, res, next) => {
@@ -27,6 +27,13 @@ var pandacoin = {
   host: 'server1.cryptodepot.org', // RPC Address
   port: 10001, // RPC port
   user: 'pandacoinuser', // RPC Username
+  pass: '' // RPC Password
+};
+
+var cypherfunk = {
+  host: 'cryptodepot.org', // RPC Address
+  port: 20001, // RPC port
+  user: 'Cypherfunkrpc', // RPC Username
   pass: '' // RPC Password
 };
 
@@ -54,6 +61,10 @@ var blocknet = {
 pandacoinApi.setWalletDetails(pandacoin);
 pandacoinApi.setAccess('only', ['getinfo', 'sendrawtransaction']);
 app.use('/c/pandacoin', pandacoinApi.app);
+
+cypherfunkApi.setWalletDetails(cypherfunk);
+cypherfunkApi.setAccess('only', ['getinfo', 'sendrawtransaction']);
+app.use('/c/cypherfunk', cypherfunkApi.app);
 
 deviantcoinApi.setWalletDetails(deviantcoin);
 deviantcoinApi.setAccess('only', ['getinfo', 'sendrawtransaction']);
@@ -214,6 +225,111 @@ app.get('/chainz/balance/:coinname/:address', (req, res) => {
     });
   });
 
+// Auroracoin Listunspent, Balance & Broadcast API
+  app.get('/auroracoin/balance/:address', (req, res) => {
+      request(
+        { url: 'http://insight.auroracoin.is/api/addr/'+ req.params.address +'/balance'},
+        (error, response, body) => {
+          if (error || response.statusCode !== 200) {
+            return res.status(500).json({ type: 'error', message: error });
+          }
+          res.send(JSON.stringify(JSON.parse(body), null, 2));
+
+        }
+      )
+    });
+
+  app.get('/auroracoin/listunspent/:address', (req, res) => {
+    request(
+      { url: 'http://insight.auroracoin.is/api/addr/'+ req.params.address +'/utxo'},
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: error });
+        }
+        res.send(JSON.stringify(JSON.parse(body), null, 2));
+      }
+    )
+  });
+
+  app.get('/aurora/broadcast/:txhex', (req, res) => {
+    request.post({
+      url: 'http://insight.auroracoin.is/api/tx/send',
+      body: {rawtx: req.params.txhex},
+      json: true
+    }, function(error, response, body){
+      res.send(body);
+    });
+  });
+
+// Axe Listunspent, Balance & Broadcast API
+  app.get('/axecore/balance/:address', (req, res) => {
+      request(
+        { url: 'https://insight.axecore.net/insight-api/addr/'+ req.params.address +'/balance'},
+        (error, response, body) => {
+          if (error || response.statusCode !== 200) {
+            return res.status(500).json({ type: 'error', message: error });
+          }
+          res.send(JSON.stringify(JSON.parse(body), null, 2));
+        }
+      )
+    });
+
+  app.get('/axecore/listunspent/:address', (req, res) => {
+    request(
+      { url: 'https://insight.axecore.net/insight-api/addr/'+ req.params.address +'/utxo'},
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: error });
+        }
+        res.send(JSON.stringify(JSON.parse(body), null, 2));
+      }
+    )
+  });
+
+  app.get('/axecore/broadcast/:txhex', (req, res) => {
+    request.post({
+      url: 'https://insight.axecore.net/insight-api/tx/send',
+      body: {rawtx: req.params.txhex},
+      json: true
+    }, function(error, response, body){
+      res.send(body);
+    });
+  });
+// Pirate Chain Listunspent, Balance & Broadcast API
+  app.get('/piratechain/balance/:address', (req, res) => {
+      request(
+        { url: 'https://explorer.pirate.black/insight-api-komodo/addr/'+ req.params.address +'/balance'},
+        (error, response, body) => {
+          if (error || response.statusCode !== 200) {
+            return res.status(500).json({ type: 'error', message: error });
+          }
+          res.send(JSON.stringify(JSON.parse(body), null, 2));
+        }
+      )
+    });
+
+  app.get('/piratechain/listunspent/:address', (req, res) => {
+    request(
+      { url: 'https://explorer.pirate.black/insight-api-komodo/addr/'+ req.params.address +'/utxo'},
+      (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          return res.status(500).json({ type: 'error', message: error });
+        }
+        res.send(JSON.stringify(JSON.parse(body), null, 2));
+      }
+    )
+  });
+
+  app.get('/piratechain/broadcast/:txhex', (req, res) => {
+    request.post({
+      url: 'https://explorer.pirate.black/insight-api-komodo/tx/send',
+      body: {rawtx: req.params.txhex},
+      json: true
+    }, function(error, response, body){
+      res.send(body);
+    });
+  });
+
 // Blocknet Broadcast API
   app.get('/blocknet/broadcast/:txhex', (req, res) => {
         request.get({
@@ -225,7 +341,7 @@ app.get('/chainz/balance/:coinname/:address', (req, res) => {
       });
 
 // Pandacoin Broadcast API
-  app.get('/pnd/broadcast/:txhex', (req, res) => {
+  app.get('/pandacoin/broadcast/:txhex', (req, res) => {
       request.get({
           url: `https://api.cryptodepot.org/c/pandacoin/sendrawtransaction?hex=${req.params.txhex}`,
           json: true
@@ -277,16 +393,86 @@ app.get('/digibyte/broadcast/:txhex', (req, res) => {
   });
 });
 
-// Cypherfunk Broadcast
-app.get('/cypherfunk/broadcast/:txhex', (req, res) => {
-  request.post({
-    url: 'https://chainz.cryptoid.info/funk/api.dws?q=pushtx',
-    body: req.params.txhex,
+// Pandacoin Broadcast API
+  app.get('/cypherfunk/broadcast/:txhex', (req, res) => {
+      request.get({
+          url: `https://api.cryptodepot.org/c/cypherfunk/sendrawtransaction?hex=${req.params.txhex}`,
+          json: true
+          }, function(error, response, body){
+            console.log(body);
+            res.send(body);
+          });
+      });
+
+// chainso Listunspent &  Broadcast
+app.get('/chainso/listunspent/:network/:address', (req, res) => {
+  request.get({
+    url: 'https://sochain.com/api/v2/get_tx_unspent/'+req.params.network+'/'+req.params.address,
     json: true
   }, function(error, response, body){
     res.send(body);
   });
 });
+
+app.get('/chainso/broadcast/:network/:txhex', (req, res) => {
+    request.post({
+    url: 'https://sochain.com/api/v2/send_tx/'+req.params.network+'',
+    body: {"tx_hex":req.params.txhex},
+    json: true
+  }, function(error, response, body){
+    if(body.status=="fail") {
+      res.send(body.data.tx_hex);
+    } else {
+      res.send(body.data.txid);
+    }
+  });
+});
+
+// Komodo Listunspent, Balance & Broadcast
+app.get('/komodo/balance/:address', (req, res) => {
+  request(
+    { url: 'https://kmdexplorer.io/insight-api-komodo/addr/'+ req.params.address +'/balance'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+      }
+  )
+});
+
+app.get('/komodo/listunspent/:address', (req, res) => {
+  request(
+    { url: 'https://kmdexplorer.io/insight-api-komodo/addr/'+ req.params.address +'/utxo'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+      }
+  )
+});
+
+app.get('/komodo/broadcast/:txhex', (req, res) => {
+  request.post({
+    url: 'https://kmdexplorer.io/insight-api-komodo/tx/send',
+    body: {rawtx: req.params.txhex},
+    json: true
+  }, function(error, response, body){
+    res.send(body);
+    });
+});
+
+// peercoin broadCast
+app.get('/peercoin/broadcast/:txhex', (req, res) => {
+      request.get({
+        url: `https://blockbook.peercoin.net/api/v2/sendtx/${req.params.txhex}`,
+        json: true
+      }, function(error, response, body){
+        console.log(body);
+        res.send(body);
+        });
+    });
 
 //  Status Indication
   app.get('/status', (req, res) => {
