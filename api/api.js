@@ -415,6 +415,7 @@ app.get('/chainso/listunspent/:network/:address', (req, res) => {
 });
 
 app.get('/chainso/broadcast/:network/:txhex', (req, res) => {
+    console.log(req.params.txhex);
     request.post({
     url: 'https://sochain.com/api/v2/send_tx/'+req.params.network+'',
     body: {"tx_hex":req.params.txhex},
@@ -463,6 +464,38 @@ app.get('/komodo/broadcast/:txhex', (req, res) => {
     });
 });
 
+// Reddcoin Listunspent, Balance and broadCast
+app.get('/reddcoin/balance/:address', (req, res) => {
+  request(
+    { url: 'https://live.reddcoin.com/api/addr/'+ req.params.address +'/balance'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+    })
+});
+app.get('/reddcoin/listunspent/:address', (req, res) => {
+  request(
+    { url: 'https://live.reddcoin.com/api/addr/'+ req.params.address +'/utxo'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+    })
+});
+app.get('/reddcoin/broadcast/:txhex', (req, res) => {
+  request.post({
+    url: 'https://live.reddcoin.com/api/tx/send',
+    body: {rawtx: req.params.txhex},
+    json: true
+  }, function(error, response, body){
+    res.send(body);
+
+  });
+});
+
 // peercoin broadCast
 app.get('/peercoin/broadcast/:txhex', (req, res) => {
       request.get({
@@ -473,6 +506,38 @@ app.get('/peercoin/broadcast/:txhex', (req, res) => {
         res.send(body);
         });
     });
+
+//zCoin Listunspent Balance and Broadcast
+app.get('/zcoin/balance/:address', (req, res) => {
+  request(
+    { url: 'https://explorer.zcoin.io/api/addr/'+ req.params.address +'/balance'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+    })
+});
+app.get('/zcoin/listunspent/:address', (req, res) => {
+  request(
+    { url: 'https://explorer.zcoin.io/api/addr/'+ req.params.address +'/utxo'},
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: error });
+      }
+      res.send(JSON.stringify(JSON.parse(body), null, 2));
+})
+});
+
+app.get('/zcoin/broadcast/:txhex', (req, res) => {
+  request.post({
+    url: 'https://explorer.zcoin.io/api/tx/send',
+    body: {rawtx: req.params.txhex},
+    json: true
+  }, function(error, response, body){
+    res.send(body);
+  });
+});
 
 //  Status Indication
   app.get('/status', (req, res) => {
